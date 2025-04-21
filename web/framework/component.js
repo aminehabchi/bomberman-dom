@@ -16,13 +16,13 @@ export class Component {
     }
 
     // Base render method
-    render() {
+    getVDom() {
         return createVElement("div", {}, ["Component"]);
     }
 }
 
 export class NotFoundComponent extends Component {
-    render() {
+    getVDom() {
         return createVElement("h1", {}, ["404 - Not Found"]);
     }
 }

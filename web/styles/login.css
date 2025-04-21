@@ -22,7 +22,7 @@
     color: #333;
 }
 
-.nicknameInput {
+#nicknameInput {
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;
     border: 1px solid #ccc;
@@ -33,12 +33,12 @@
     transition: border 0.2s;
 }
 
-.nicknameInput:focus {
+#nicknameInput:focus {
     border-color: #3a7bd5;
     outline: none;
 }
 
-button {
+.btnNickname {
     padding: 0.6rem 1.2rem;
     font-size: 1rem;
     background: #3a7bd5;
@@ -49,7 +49,7 @@ button {
     transition: background 0.3s;
 }
 
-button:hover {
+.btnNickname:hover {
     background: #2e5da5;
 }
 

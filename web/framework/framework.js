@@ -1,11 +1,12 @@
 import { updateDOM } from "./helpers.js";
 import { NotFoundComponent } from "./component.js";
-import { render } from "./helpers.js";
+import { VDomToReelDom } from "./helpers.js";
 
 export class Framework {
   constructor() {
     this.routes = {};
     this.oldVTree = null; // Store the old Virtual DOM
+    this.App = document.getElementById("app");
     this.state = {}; // Global state object
   }
 
@@ -15,67 +16,48 @@ export class Framework {
 
   // State management methods
   setState(newState) {
-    this.state = { ...this.state, ...newState };
-    this.renderCurrentRoute();
+    this._state = { ...this._state, ...newState };
+    this.start();
   }
 
-  getState() {
-    return this.state;
+  getState(name) {
+    return this._state[name];
   }
+
   // Render the current route
-  renderCurrentRoute() {
-    const path = window.location.pathname;
+  renderthisPath(path) {
+    let newVTree;
 
-    // First check if we have a direct path match
     if (this.routes[path]) {
+      // First check if we have a direct path match
       const ComponentClass = this.routes[path];
       const component = new ComponentClass(this); // Pass framework instance to component
-      const newVTree = component.render(); // Get Virtual DOM
-
-      const appContainer = document.querySelector("#app");
-
-      if (this.oldVTree) {
-        updateDOM(appContainer.firstChild, this.oldVTree, newVTree);
-      } else {
-        appContainer.appendChild(render(newVTree)); // First render
-      }
-
-      this.oldVTree = newVTree; // Update old Virtual DOM
-    }
-    // If no matches, use the not found component
-    else {
+      newVTree = component.getVDom(); // Get Virtual DOM
+    } else {
       const ComponentClass = NotFoundComponent;
       const component = new ComponentClass(this);
-      const newVTree = component.render();
-
-      const appContainer = document.querySelector("#app");
-
-      if (this.oldVTree) {
-        updateDOM(appContainer.firstChild, this.oldVTree, newVTree);
-      } else {
-        appContainer.appendChild(render(newVTree));
-      }
-
-      this.oldVTree = newVTree;
+      newVTree = component.render();
     }
+
+    if (this.oldVTree) {
+      updateDOM(this.App.firstChild, this.oldVTree, newVTree);
+    } else {
+      this.App.appendChild(VDomToReelDom(newVTree)); // First render
+    }
+
+    this.oldVTree = newVTree;
+  }
+
+  navigateTo(newPath) {
+    // Update the browser's history with the new path without reloading the page
+    window.history.pushState({}, "", newPath);
+
+    // Call your custom render method to handle the content change
+    this.renderthisPath(newPath);
   }
 
   start() {
-    const navigateTo = () => {
-
-      this.renderCurrentRoute();
-    };
-
-    window.addEventListener("hashchange", navigateTo);
-    navigateTo(); // Load initial route
+    const path = window.location.pathname;
+    this.renderthisPath(path);
   }
 }
-
-
-
-
-
-
-
-
-
