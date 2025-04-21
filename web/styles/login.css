@@ -1,0 +1,62 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.popup {
+    background: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    animation: popupIn 0.5s ease-out forwards;
+    opacity: 0;
+    transform: scale(0.9);
+}
+
+.popup .title {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.nicknameInput {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 1rem;
+    transition: border 0.2s;
+}
+
+.nicknameInput:focus {
+    border-color: #3a7bd5;
+    outline: none;
+}
+
+button {
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    background: #3a7bd5;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #2e5da5;
+}
+
+/* Animation */
+@keyframes popupIn {
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
