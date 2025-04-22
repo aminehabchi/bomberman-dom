@@ -12,6 +12,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "socket.io": "^4.8.1",
     "uuid": "^11.1.0"
   }
 }
