@@ -15,13 +15,13 @@ export class Framework {
   }
 
   // State management methods
-  setState(newState) {
-    this._state = { ...this._state, ...newState };
+  setState(name, value) {
+    this.state[name] = value;
     this.start();
   }
 
   getState(name) {
-    return this._state[name];
+    return this.state[name];
   }
 
   // Render the current route

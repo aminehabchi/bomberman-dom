@@ -58,9 +58,10 @@ export function createVElement(tag, props = {}, children = []) {
 }
 
 export function VDomToReelDom(vnode) {
-  if (typeof vnode === "string" || typeof vnode === "number") {
-    return document.createTextNode(vnode);
+  if (typeof vnode != "object") {
+    return document.createTextNode(String(vnode));
   }
+
   if (vnode.tag === "") {
     return document.createTextNode("");
   }
@@ -75,7 +76,6 @@ export function VDomToReelDom(vnode) {
       element.setAttribute(prop, vnode.props[prop]);
     }
   }
-  console.log(vnode);
 
   vnode.children.forEach((child) => element.appendChild(VDomToReelDom(child)));
   return element;

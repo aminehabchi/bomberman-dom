@@ -8,8 +8,8 @@ app.route("/", SelectNickname);
 app.route("/game", Game);
 app.route("/chat", Chat);
 
-app.setState({
-  nickname: "",
-});
+app.setState("nickname", "a");
+app.setState("messages", []);
+app.setState("socket", undefined);
 
 app.start();

@@ -18,19 +18,34 @@ function Message(type, content, sender) {
   ]);
 }
 
-function MessagePart() {
-  return createVElement("div", { class: "messagesBox" }, [
-    Message("me", "helloo", "amine"),
-    Message("other", "hellodso", "amine1"),
-  ]);
+function MessagePart(msgs) {
+  let Allmessages = [];
+
+  msgs?.forEach((msg) => {
+    Allmessages.push(Message("me", msg.content, msg.sender));
+  });
+
+  return createVElement("div", { class: "messagesBox" }, Allmessages);
 }
 
-function InputPart() {
+function InputPart(socket) {
+  function SendMessages(message) {
+    if (!message || message == "") {
+      return;
+    }
+    socket.emit("message", { content: message, sender: "amine" });
+  }
+
   return createVElement("div", { class: "inputBox" }, [
     createVElement(
       "input",
       {
         id: "messageInput",
+        onkeyup: (e) => {
+          if (e.key == "Enter") {
+            SendMessages(e.target.value);
+          }
+        },
         placeholder: "send Message...",
       },
       []
@@ -40,11 +55,39 @@ function InputPart() {
 }
 
 export class Chat extends Component {
+  startSocket(RoomUuid) {
+    const socket = io();
+
+    socket.on("connect", () => {
+      console.log("Connected with ID:", socket.id);
+    });
+
+    socket.on("message", (msg) => {
+      console.log("Received from server:", msg);
+
+      let messages = this.framework.getState("messages");
+      messages.push(msg);
+      
+      this.framework.setState("messages", messages);
+    });
+
+    socket.on("disconnect", () => {
+      console.log("Disconnected from server");
+    });
+
+    return socket;
+  }
+
   getVDom() {
+    let socket = this.framework.getState("socket");
+    if (!socket) {
+      this.framework.setState("socket", this.startSocket());
+    }
+
     return createVElement("div", { class: "box" }, [
       HeaderChat("amine", 2, 17),
-      MessagePart(),
-      InputPart(),
+      MessagePart(this.framework.getState("messages")),
+      InputPart(socket),
     ]);
   }
 }

@@ -1,28 +1,29 @@
 import { createVElement } from "./helpers.js";
 
 export class Component {
-    constructor(framework) {
-        this.framework = framework;
-    }
+  constructor(framework) {
+    this.framework = framework;
+    this._state = {};
+  }
 
-    // Helper to get state
-    getState() {
-        return this.framework.getState();
-    }
+  // State management methods
+  setState(name, value) {
+    this._state = { ...this._state, ...{ name: value } };
+    this.start();
+  }
 
-    // Helper to update state
-    setState(newState) {
-        this.framework.setState(newState);
-    }
+  getState(name) {
+    return this._state[name];
+  }
 
-    // Base render method
-    getVDom() {
-        return createVElement("div", {}, ["Component"]);
-    }
+  // Base render method
+  getVDom() {
+    return createVElement("div", {}, ["Component"]);
+  }
 }
 
 export class NotFoundComponent extends Component {
-    getVDom() {
-        return createVElement("h1", {}, ["404 - Not Found"]);
-    }
+  getVDom() {
+    return createVElement("h1", {}, ["404 - Not Found"]);
+  }
 }
