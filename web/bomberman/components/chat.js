@@ -2,92 +2,91 @@ import { Component } from "../../framework/component.js";
 import { createVElement } from "../../framework/helpers.js";
 import { getCurrentTime } from "../utils/helpers.js";
 
-function HeaderChat(nickname, PlayerNbr, timer) {
-  return createVElement("div", { class: "headerchat" }, [
-    createVElement("span", { class: "nickname" }, [nickname]),
-    createVElement("span", { class: "PlayerNbr" }, [PlayerNbr]),
-    createVElement("span", { class: "timer" }, [timer]),
-  ]);
-}
+function HeaderChat(players) {
+  let PlayersVDom = [];
 
-function Message(type, content, sender) {
-  return createVElement("div", { class: type }, [
-    createVElement("span", { class: "name" }, [sender]),
-    createVElement("span", { class: "time" }, [getCurrentTime()]),
-    createVElement("span", { class: "content" }, [content]),
-  ]);
-}
-
-function MessagePart(msgs) {
-  let Allmessages = [];
-
-  msgs?.forEach((msg) => {
-    Allmessages.push(Message("me", msg.content, msg.sender));
+  players?.forEach((p, i) => {
+    const name = (i + 1).toString() + "-" + p.Nickname;
+    PlayersVDom.push(createVElement("span", {}, [name]));
   });
-
-  return createVElement("div", { class: "messagesBox" }, Allmessages);
+  return createVElement("div", { class: "topBar" }, PlayersVDom);
 }
 
-function InputPart(socket) {
-  function SendMessages(message) {
-    if (!message || message == "") {
+function Message(nickname, contnet, time) {
+  return createVElement("div", { class: "message" }, [
+    createVElement("span", { class: "nickname" }, [nickname]),
+    createVElement("span", { class: "text" }, [contnet]),
+    createVElement("span", { class: "time" }, [time]),
+  ]);
+}
+
+function MessagePart(messages) {
+  let AllMessages = [];
+  messages?.forEach((msg) => {
+    AllMessages.push(
+      Message(msg.sender || "none", msg.content || "none", getCurrentTime())
+    );
+  });
+  return createVElement(
+    "div",
+    { ref: "messagesBox", class: "messagesBox" },
+    AllMessages
+  );
+}
+
+function InputPart(framework) {
+  let input = framework.getRef("inputMessages");
+
+  function SendMessage(message) {
+    if (message == "" || message.length > 50) {
       return;
     }
-    socket.emit("message", { content: message, sender: "amine" });
+
+    let socket = framework.getState("socket");
+
+    let msg = {
+      sender: framework.getState("nickname"),
+      content: message,
+    };
+
+    socket.emit("send-message", {
+      room: framework.getState("room"),
+      message: msg,
+    });
   }
 
-  return createVElement("div", { class: "inputBox" }, [
-    createVElement(
-      "input",
-      {
-        id: "messageInput",
-        onkeyup: (e) => {
-          if (e.key == "Enter") {
-            SendMessages(e.target.value);
-          }
-        },
-        placeholder: "send Message...",
+  return createVElement("div", { class: "inputBar" }, [
+    createVElement("input", {
+      ref: "inputMessages",
+      placeholder: "Type a message...",
+      id: "chatInput",
+      onkeyup: (e) => {
+        if (e.key == "Enter") {
+          SendMessage(e.target.value);
+          e.target.value = "";
+        }
       },
-      []
+    }),
+    createVElement(
+      "button",
+      {
+        id: "sendBtn",
+        onclick: () => {
+          SendMessage(input.value);
+          input.value = "";
+        },
+      },
+      ["Send 💬"]
     ),
-    createVElement("button", {}, ["send"]),
   ]);
 }
 
 export class Chat extends Component {
-  startSocket(RoomUuid) {
-    const socket = io();
-
-    socket.on("connect", () => {
-      console.log("Connected with ID:", socket.id);
-    });
-
-    socket.on("message", (msg) => {
-      console.log("Received from server:", msg);
-
-      let messages = this.framework.getState("messages");
-      messages.push(msg);
-      
-      this.framework.setState("messages", messages);
-    });
-
-    socket.on("disconnect", () => {
-      console.log("Disconnected from server");
-    });
-
-    return socket;
-  }
-
   getVDom() {
-    let socket = this.framework.getState("socket");
-    if (!socket) {
-      this.framework.setState("socket", this.startSocket());
-    }
-
-    return createVElement("div", { class: "box" }, [
-      HeaderChat("amine", 2, 17),
+    return createVElement("div", { class: "chatContainer" }, [
+      HeaderChat(this.framework.getState("players")),
       MessagePart(this.framework.getState("messages")),
-      InputPart(socket),
+      InputPart(this.framework),
     ]);
   }
 }

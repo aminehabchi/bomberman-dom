@@ -2,14 +2,22 @@ import { Framework } from "../framework/framework.js";
 import { Chat } from "./components/chat.js";
 import { SelectNickname } from "./components/selectNickname.js";
 import { Game } from "./components/game.js";
-const app = new Framework();
+import { Start } from "./components/start.js";
+import { checkIfLogin } from "./utils/playerStatus.js";
+
+export const app = new Framework({
+  room: "",
+  messages: [],
+  players: undefined,
+});
 
 app.route("/", SelectNickname);
 app.route("/game", Game);
 app.route("/chat", Chat);
+app.route("/start", Start);
 
-app.setState("nickname", "a");
-app.setState("messages", []);
-app.setState("socket", undefined);
+
+
+await checkIfLogin(app);
 
 app.start();

@@ -1,3 +1,4 @@
+import { app } from "../bomberman/main.js";
 export function diff(oldVTree, newVTree) {
   if (!oldVTree) {
     return (parent) => {
@@ -68,7 +69,13 @@ export function VDomToReelDom(vnode) {
   const element = document.createElement(vnode.tag);
 
   for (const prop in vnode.props) {
-    if (prop.startsWith("on") && typeof vnode.props[prop] === "function") {
+    if (prop === "ref") {
+      
+      app.setRef(vnode.props[prop], element);
+    } else if (
+      prop.startsWith("on") &&
+      typeof vnode.props[prop] === "function"
+    ) {
       // ✅ Attach event listeners correctly
       element[prop.toLowerCase()] = vnode.props[prop];
     } else {
@@ -77,7 +84,7 @@ export function VDomToReelDom(vnode) {
     }
   }
 
-  vnode.children.forEach((child) => element.appendChild(VDomToReelDom(child)));
+  vnode.children?.forEach((child) => element.appendChild(VDomToReelDom(child)));
   return element;
 }
 

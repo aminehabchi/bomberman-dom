@@ -1,20 +1,38 @@
 import { Component } from "../../framework/component.js";
 import { createVElement } from "../../framework/helpers.js";
+import { startWebSocket } from "../socket/startSocket.js";
 
 export class SelectNickname extends Component {
   setNickname = async (nickname) => {
-    if (typeof nickname != "string" || nickname == "" || nickname.length > 50) {
+    if (
+      typeof nickname !== "string" ||
+      nickname.trim() === "" ||
+      nickname.length > 50
+    ) {
+      this.showError("Invalid nickname. Please use 1–50 characters.");
       return;
     }
 
-    let res = await fetch(`http://localhost:3000/login?nickname=${nickname}`);
+    try {
+      const res = await fetch(
+        `http://localhost:3000/login?nickname=${nickname}`
+      );
 
-    if (res.status == 200) {
-      let data = await res.json();
-      localStorage.setItem("uuid", data.uuid);
-      this.framework.navigateTo("/chat");
-    } else {
-      /***** set error ****/
+      if (res.ok) {
+        const data = await res.json();
+
+        localStorage.setItem("uuid", data.uuid);
+
+        this.framework.setState("nickname", nickname);
+
+        this.framework.navigateTo("/start");
+      } else {
+        // const errorMsg = await res.text();
+        // this.showError(`Login failed: ${errorMsg || "Server error."}`);
+      }
+    } catch (err) {
+      // this.showError("Could not connect to server. Please try again later.");
+      console.log(err);
     }
   };
 

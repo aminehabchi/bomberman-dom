@@ -1,0 +1,137 @@
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background: linear-gradient(to top, #7ec850 50%, #87ceeb 50%);
+  font-family: 'Press Start 2P', cursive;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.startbox {
+  background: rgba(255, 255, 255, 0.8);
+  border: 4px solid #4caf50;
+  border-radius: 16px;
+  padding: 30px;
+  width: 300px;
+  text-align: center;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+}
+
+.header .title {
+  font-size: 24px;
+  color: #2e7d32;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.joinRBtn,
+.createBtn,
+.joinBtn {
+  background-color: #4caf50;
+  color: white;
+  padding: 12px 0;
+  margin: 10px 0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 14px;
+}
+
+.joinRBtn:hover,
+.createBtn:hover,
+.joinBtn:hover {
+  background-color: #388e3c;
+}
+
+.container2 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to top, #7ec850 50%, #87ceeb 50%);
+  font-family: 'Press Start 2P', cursive;
+  z-index: 999;
+  /* optional if you want to make sure it's on top */
+}
+
+.popup2 {
+  background: rgba(255, 255, 255, 0.9);
+  border: 4px solid #4caf50;
+  border-radius: 16px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+  max-width: 400px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.title2 {
+  font-size: 16px;
+  color: #2e7d32;
+  margin-bottom: 20px;
+}
+
+.popup2 input {
+  width: 70%;
+  padding: 10px;
+  font-size: 12px;
+  font-family: 'Press Start 2P', cursive;
+  border-radius: 8px;
+  border: 2px solid #4caf50;
+  background-color: #f0fff0;
+  text-align: center;
+}
+
+.popup2 .joinBtn {
+  background-color: #4caf50;
+  color: white;
+  padding: 12px;
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.popup2 .joinBtn:hover {
+  background-color: #388e3c;
+}
+
+button {
+  font-family: 'Press Start 2P', cursive;
+  text-align: center;
+}
+
+.x {
+  align-self: flex-end;
+  cursor: pointer;
+}
+
+.inpt {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.paste{
+  font-size: 10px;
+  cursor: pointer;
+  font-weight: 1000;
+}
+.paste:hover{
+  color: #4caf50;
+}

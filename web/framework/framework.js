@@ -3,15 +3,25 @@ import { NotFoundComponent } from "./component.js";
 import { VDomToReelDom } from "./helpers.js";
 
 export class Framework {
-  constructor() {
+  constructor(state) {
     this.routes = {};
     this.oldVTree = null; // Store the old Virtual DOM
     this.App = document.getElementById("app");
-    this.state = {}; // Global state object
+    this.state = state || {}; // Global state object
+    this.Refs = {};
   }
 
   route(path, component) {
     this.routes[path] = component;
+  }
+
+  //ref
+  setRef(name, value) {
+    this.Refs[name] = value;
+  }
+
+  getRef(name) {
+    return this.Refs[name];
   }
 
   // State management methods
@@ -36,7 +46,7 @@ export class Framework {
     } else {
       const ComponentClass = NotFoundComponent;
       const component = new ComponentClass(this);
-      newVTree = component.render();
+      newVTree = component.getVDom();
     }
 
     if (this.oldVTree) {
