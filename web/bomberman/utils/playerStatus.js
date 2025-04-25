@@ -22,7 +22,7 @@ export async function playerStatus(res, app) {
     console.log(data);
 
     app.setState("nickname", data.player.Nickname);
-    app.setState("room", data.player.JoinedRoom);
+    app.setState("room", data.room);
     if (data.room) {
       app.setState("players", data.room.Players);
     }

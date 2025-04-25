@@ -8,7 +8,7 @@ export function startWebSocket(app, roomUuid) {
   app.setState("socket", socket);
 
   const room = roomUuid;
-  app.setState("room", room);
+  // app.setState("room", room);
   // Join a room
   socket.emit("join-room", room);
 

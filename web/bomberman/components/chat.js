@@ -1,5 +1,6 @@
 import { Component } from "../../framework/component.js";
 import { createVElement } from "../../framework/helpers.js";
+import { copy } from "../utils/copyPast.js";
 import { getCurrentTime } from "../utils/helpers.js";
 
 function HeaderChat(players) {
@@ -81,9 +82,28 @@ function InputPart(framework) {
   ]);
 }
 
+function Header(room) {
+  console.log(room);
+
+  let copyBtn = createVElement("", {  }, [])
+  if (room.IsCreated) {
+    copyBtn = createVElement("button", {
+      class: "copybtn",
+      onclick: () => {
+        copy(room.Uuid)
+      }
+    }, ["Copy Hash"])
+  }
+  return createVElement("div", {class: "roomHeader"}, [
+    createVElement("span", { class: "timer" }, ["00:19"]),
+    copyBtn,
+  ])
+}
+
 export class Chat extends Component {
   getVDom() {
     return createVElement("div", { class: "chatContainer" }, [
+      Header(this.framework.getState("room")),
       HeaderChat(this.framework.getState("players")),
       MessagePart(this.framework.getState("messages")),
       InputPart(this.framework),

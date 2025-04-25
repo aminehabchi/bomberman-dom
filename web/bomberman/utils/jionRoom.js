@@ -29,9 +29,11 @@ export async function StartGetRoom(framework, type, roomUuid) {
 
       return;
     }
-    console.log(data,framework);
+    console.log(data, framework);
 
     startWebSocket(framework, data.room.Uuid);
+
+    framework.setState("room", data.room)
 
     framework.setState("players", data.room.Players);
 
