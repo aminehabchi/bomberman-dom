@@ -28,10 +28,12 @@ function CreateJoinRoom(res, player) {
 
 function JoinRoom(res, player, roomUuid) {
   let room = Rooms[roomUuid];
-  room.Players.push(player);
-  player.JoinedRoom = room.Uuid;
+
+
 
   if (room.Players.length < 4) {
+    room.Players.push(player);
+    player.JoinedRoom = room.Uuid;
     res.statusCode = 200;
     res.setHeader("Content-Type", "application/json");
     res.end(JSON.stringify({ room: room }));

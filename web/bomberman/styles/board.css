@@ -1,0 +1,36 @@
+.grid {
+    display: grid;
+    grid-template-columns: repeat(17, 30px);
+
+    grid-template-rows: repeat(15, 30px);
+    gap: 2px;
+
+    /* Optional spacing between squares */
+    background-image: url("../assets/grass.png");
+    background-size: cover;
+
+    position: relative;
+}
+
+.tile {
+    width: 30px;
+    height: 30px;
+}
+
+.wall {
+    background-image: url("../assets/hard-wall.png");
+    background-size: cover;
+}
+
+.player {
+    background-image: url("../assets/player/right_robot.png");
+    background-size: cover;
+    width: 30px;
+    height: 30px;
+    position: relative;
+}
+
+.wall2 {
+    background-image: url("../assets/wall2.png");
+    background-size: cover;
+}

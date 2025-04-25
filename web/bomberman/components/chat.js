@@ -84,7 +84,8 @@ function InputPart(framework) {
   ]);
 }
 
-function Header(room) {
+function Header(framework) {
+  let room = framework.getState("room")
   console.log(room);
 
   let copyBtn = createVElement("span", { class: "room" }, ["general room"])
@@ -99,13 +100,18 @@ function Header(room) {
   return createVElement("div", { class: "roomHeader" }, [
     createVElement("span", { class: "timer" }, ["00:19"]),
     copyBtn,
+    createVElement("span", {
+      onclick: () => {
+        framework.navigateTo("/game")
+      }
+    }, ["Game"])
   ])
 }
 
 export class Chat extends Component {
   getVDom() {
     return createVElement("div", { class: "chatContainer" }, [
-      Header(this.framework.getState("room")),
+      Header(this.framework),
       HeaderChat(this.framework.getState("players")),
       MessagePart(this.framework.getState("messages")),
       InputPart(this.framework),

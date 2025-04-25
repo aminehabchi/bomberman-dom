@@ -19,16 +19,17 @@ export async function playerStatus(res, app) {
     history.pushState(null, "", "/");
   } else {
     const data = await res.json();
-    console.log(data);
+
 
     app.setState("nickname", data.player.Nickname);
-    app.setState("room", data.room);
-    app.setState("roomUuid", data.room.Uuid);
+
     if (data.room) {
       app.setState("players", data.room.Players);
     }
 
     if (data.player.JoinedRoom != "") {
+      app.setState("room", data.room);
+      app.setState("roomUuid", data.room.Uuid);
       startWebSocket(app, data.room.Uuid);
       history.pushState(null, "", "/chat");
     } else {
@@ -38,7 +39,6 @@ export async function playerStatus(res, app) {
 }
 
 export async function checkIfLogin(app) {
-  const path = window.location.pathname;
 
   const uuid = localStorage.getItem("uuid");
 
@@ -50,6 +50,7 @@ export async function checkIfLogin(app) {
 
   try {
     // Correct the query string format
+    console.log("---->", uuid);
     const res = await fetch(`http://localhost:3000/checker?uuid=${uuid}`);
 
     await playerStatus(res, app);

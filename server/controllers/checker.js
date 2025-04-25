@@ -8,6 +8,8 @@ function checkerHandler(req, res) {
   const player = getPlayer(uuid);
 
   if (player) {
+    console.log("aaaaaaaaaaaaaaaaaaaaaaaaa");
+    
     res.statusCode = 200;
     res.setHeader("Content-Type", "application/json");
     res.end(JSON.stringify({ player: player, room: Rooms[player.JoinedRoom] }));

@@ -1,0 +1,233 @@
+/* Cyberpunk-Style Variables */
+:root {
+  --primary-color: #7b2cbf;
+  --secondary-color: #00b4d8;
+  --accent-color: #6fff87;
+  --dark-color: #0d1b2a;
+  --light-color: #e0e1dd;
+  --font-family: 'Press Start 2P', monospace;
+  --pixel-size: 4px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #0b0c16;
+  font-family: var(--font-family);
+  color: var(--light-color);
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    repeating-linear-gradient(to right, rgba(123, 44, 191, 0.1) 0px, rgba(123, 44, 191, 0.1) 1px, transparent 1px, transparent 20px),
+    repeating-linear-gradient(to bottom, rgba(123, 44, 191, 0.1) 0px, rgba(123, 44, 191, 0.1) 1px, transparent 1px, transparent 20px);
+  background-size: cover, 20px 20px, 20px 20px;
+}
+
+/* Start Box Container */
+.startbox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid var(--secondary-color);
+  background-color: rgba(13, 27, 42, 0.9);
+  box-shadow: 0 0 30px rgba(123, 44, 191, 0.4);
+  position: relative;
+  animation: glow 3s infinite alternate;
+}
+
+/* Header */
+.header {
+  width: 100%;
+  padding: 20px 0;
+  text-align: center;
+  margin-bottom: 30px;
+  border-bottom: 3px solid var(--secondary-color);
+}
+
+.title {
+  font-size: 2rem;
+  color: var(--primary-color);
+  text-shadow: 0 0 10px rgba(123, 44, 191, 0.7), 0 0 20px rgba(123, 44, 191, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+/* Buttons */
+.joinRBtn, .createBtn, .joinBtn {
+  width: 80%;
+  padding: 15px;
+  margin: 10px 0;
+  background-color: rgba(0, 180, 216, 0.2);
+  color: var(--light-color);
+  border: 2px solid var(--secondary-color);
+  text-align: center;
+  font-family: var(--font-family);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-shadow: 0 0 5px rgba(0, 180, 216, 0.5);
+  box-shadow: 0 0 10px rgba(0, 180, 216, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.joinRBtn:hover, .createBtn:hover, .joinBtn:hover {
+  background-color: rgba(0, 180, 216, 0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 0 20px rgba(0, 180, 216, 0.6);
+}
+
+.joinRBtn:active, .createBtn:active, .joinBtn:active {
+  transform: translateY(1px);
+  box-shadow: 0 0 5px rgba(0, 180, 216, 0.8);
+}
+
+/* Join Room Popup */
+.container2 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 100;
+  backdrop-filter: blur(5px);
+}
+
+.popup2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  max-width: 500px;
+  padding: 30px;
+  background-color: var(--dark-color);
+  border: 3px solid var(--secondary-color);
+  box-shadow: 0 0 30px rgba(0, 180, 216, 0.5);
+  position: relative;
+  animation: popIn 0.3s ease-out;
+}
+
+.x {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 1.2rem;
+  color: var(--secondary-color);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.x:hover {
+  color: var(--accent-color);
+  text-shadow: 0 0 10px var(--accent-color);
+}
+
+.title2 {
+  font-size: 1.3rem;
+  text-align: center;
+  margin-bottom: 25px;
+  color: var(--secondary-color);
+  text-shadow: 0 0 8px rgba(123, 44, 191, 0.6);
+}
+
+.inpt {
+  display: flex;
+  margin-bottom: 20px;
+  position: relative;
+  width: 90%;
+}
+
+.inpt input {
+  flex: 1;
+  padding: 12px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 2px solid var(--secondary-color);
+  color: var(--light-color);
+  font-family: monospace;
+  font-size: 1rem;
+}
+
+.inpt input:focus {
+  outline: none;
+  box-shadow: 0 0 10px rgba(0, 180, 216, 0.5) inset;
+  border-color: var(--accent-color);
+}
+
+.paste {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 5px 10px;
+  background-color: rgba(0, 180, 216, 0.3);
+  color: var(--light-color);
+  font-size: 0.7rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.paste:hover {
+  background-color: rgba(0, 180, 216, 0.6);
+  color: var(--accent-color);
+}
+
+/* Animations */
+@keyframes glow {
+  0% { box-shadow: 0 0 20px rgba(123, 44, 191, 0.4); }
+  100% { box-shadow: 0 0 40px rgba(123, 44, 191, 0.8), 0 0 60px rgba(0, 180, 216, 0.3); }
+}
+
+@keyframes popIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Button effect */
+.joinRBtn::before, .createBtn::before, .joinBtn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 180, 216, 0.2),
+    transparent
+  );
+  transition: left 0.7s;
+}
+
+.joinRBtn:hover::before, .createBtn:hover::before, .joinBtn:hover::before {
+  left: 100%;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .startbox {
+    margin: 20px auto;
+    width: 90%;
+  }
+  
+  .title {
+    font-size: 1.5rem;
+  }
+  
+  .joinRBtn, .createBtn, .joinBtn {
+    width: 90%;
+    padding: 12px;
+    font-size: 0.8rem;
+  }
+  
+  .title2 {
+    font-size: 1rem;
+  }
+}
