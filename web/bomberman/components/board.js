@@ -6,7 +6,7 @@ import { createVElement } from "../../framework/helpers.js"
  * 11 => player 1
  * 
  */
-let boardTile = [
+export let boardTile = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,],
     [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,],
     [0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0,],
@@ -26,7 +26,9 @@ let boardTile = [
 
 function Player() {
     return createVElement("div", {
+        id: "player1",
         class: "player",
+        ref: "player1"
     }, [])
 }
 
@@ -79,6 +81,7 @@ export function board() {
             } else if (boardTile[i][j] == 2) {
                 tiles.push(createVElement('div', { class: "tile wall2" }, []))
             } else if (boardTile[i][j] == 11) {
+                tiles.push(createVElement('div', { class: "tile" }, []))
                 tiles.push(Player())
             } else {
                 tiles.push(createVElement('div', { class: "tile" }, []))
