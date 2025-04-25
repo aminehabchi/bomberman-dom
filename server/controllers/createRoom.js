@@ -15,6 +15,7 @@ function JoinRRoom(res, player) {
 function CreateJoinRoom(res, player) {
   //prepare room
   let room = CreateRoom();
+  room.IsCreated = true
   room.Players.push(player);
   Rooms[room.Uuid] = room;
   player.JoinedRoom = room.Uuid;
