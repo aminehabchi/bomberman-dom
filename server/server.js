@@ -2,6 +2,8 @@ import http from "http";
 import routing from "./routes/Routes.js";
 import { Server } from "socket.io";
 
+import { Players } from "./moduls/player.js";
+
 const PORT = 3000;
 
 const server = http.createServer((req, res) => {
@@ -10,20 +12,26 @@ const server = http.createServer((req, res) => {
 
 const io = new Server(server);
 
-// Listen for client connections
 io.on("connection", (socket) => {
-  console.log("A user connected: ", socket.id);
+  console.log(`User connected: ${socket.id}`);
 
-  // Handle messages from the client
-  socket.on("message", (msg) => {
-    console.log("Message from client:", msg);
+  // Join a room
+  socket.on("join-room", (room) => {
+    console.log(room);
 
-    socket.broadcast.emit("message", msg);
+    socket.join(room);
   });
 
-  // Handle disconnections
-  socket.on("disconnect", () => {
-    console.log("A user disconnected");
+  // Listen for message and broadcast to the room
+  socket.on("send-message", ({ room, message }) => {
+    //send message to All
+    io.to(room).emit("message", message);
+  });
+
+  // listen for new players
+  socket.on("notify", ({ room, message }) => {
+    //notify all except self
+    socket.to(room).emit("notify", { newPlayer: Players[message["uuid"]] });
   });
 });
 

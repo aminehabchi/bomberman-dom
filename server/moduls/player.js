@@ -1,12 +1,32 @@
+import { generateUUID } from "../service/uuid.js";
+export let Players = {};
+
 export class Player {
-  constructor(nickname, uuid, nbr, joienedRoom, x, y) {
+  constructor(nickname, uuid, x, y) {
     this.Nickname = nickname;
     this.Uuid = uuid;
-    this.Nbr = nbr; // nbr of player in room 1-4
-    this.JoienedRoom = joienedRoom;
     this.Score = 0;
     this.JoinedAt = new Date();
+    this.JoinedRoom = "";
     this.x = x;
     this.y = y;
   }
+}
+
+export function createPlayer(nickname) {
+  const uuid = generateUUID();
+  let newPlayer = new Player(nickname, uuid, 0, 0);
+  Players[uuid] = newPlayer;
+  return uuid;
+}
+
+export function getPlayer(uuid) {
+  return Players[uuid] || undefined;
+}
+
+export function getNickname(uuid) {
+  if (uuid in Players) {
+    return Players[uuid].Nickname;
+  }
+  return undefined;
 }
