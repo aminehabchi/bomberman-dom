@@ -23,12 +23,13 @@ export async function playerStatus(res, app) {
 
     app.setState("nickname", data.player.Nickname);
     app.setState("room", data.room);
+    app.setState("roomUuid", data.room.Uuid);
     if (data.room) {
       app.setState("players", data.room.Players);
     }
 
     if (data.player.JoinedRoom != "") {
-      startWebSocket(app, data.player.JoinedRoom);
+      startWebSocket(app, data.room.Uuid);
       history.pushState(null, "", "/chat");
     } else {
       history.pushState(null, "", "/start");

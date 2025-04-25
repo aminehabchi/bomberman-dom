@@ -50,8 +50,10 @@ function InputPart(framework) {
       content: message,
     };
 
+
     socket.emit("send-message", {
-      room: framework.getState("room"),
+
+      room: framework.getState("roomUuid"),
       message: msg,
     });
   }
@@ -85,7 +87,7 @@ function InputPart(framework) {
 function Header(room) {
   console.log(room);
 
-  let copyBtn = createVElement("", {  }, [])
+  let copyBtn = createVElement("", {}, [])
   if (room.IsCreated) {
     copyBtn = createVElement("button", {
       class: "copybtn",
@@ -94,7 +96,7 @@ function Header(room) {
       }
     }, ["Copy Hash"])
   }
-  return createVElement("div", {class: "roomHeader"}, [
+  return createVElement("div", { class: "roomHeader" }, [
     createVElement("span", { class: "timer" }, ["00:19"]),
     copyBtn,
   ])

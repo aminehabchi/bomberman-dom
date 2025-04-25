@@ -34,7 +34,7 @@ export async function StartGetRoom(framework, type, roomUuid) {
     startWebSocket(framework, data.room.Uuid);
 
     framework.setState("room", data.room)
-
+    framework.setState("roomUuid", data.room.Uuid);
     framework.setState("players", data.room.Players);
 
     let socket = framework.getState("socket");
