@@ -1,141 +1,291 @@
-body {
-  margin: 0;
-  padding: 0;
-  background: linear-gradient(to top, #7ec850 50%, #87ceeb 50%);
-  font-family: 'Press Start 2P', cursive;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+
+
+/* Pixelated border effect */
+.pixel-border {
+  border-style: solid;
+  border-width: var(--pixel-size);
+  border-image: url('data:image/svg+xml;utf8,<svg width="4" height="4" viewBox="0 0 4 4" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h4v4H0V0z" fill="%237b2cbf"/></svg>') 1 stretch;
+  image-rendering: pixelated;
 }
 
+/* Main Chat Container */
 .chatContainer {
-  background: rgba(255, 255, 255, 0.9);
-  border: 4px solid #4caf50;
-  border-radius: 16px;
-  width: 600px;
-  height: 80vh;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  height: 100vh;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: var(--dark-color);
+  box-shadow: 0 0 20px rgba(123, 44, 191, 0.3);
+  position: relative;
   overflow: hidden;
+  border: 1px solid var(--secondary-color);
 }
 
-/* Section 1: Top bar left-aligned */
-.topBar {
-  background: #c8f7c5;
-  padding: 10px 20px;
-  border-bottom: 2px solid #4caf50;
+/* Room Header */
+.roomHeader {
   display: flex;
-  gap: 15px;
-}
-
-.players {
-  display: flex;
-  gap: 15px;
+  justify-content: space-between;
   align-items: center;
+  padding: 15px;
+  background-color: rgba(11, 12, 22, 0.9);
+  border-bottom: 4px solid var(--secondary-color);
+  backdrop-filter: blur(10px);
+}
+
+.timer {
+  font-size: 1.2rem;
+  color: var(--accent-color);
+  text-shadow: 0 0 8px rgba(111, 255, 135, 0.7);
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 5px 10px;
+  border-radius: 2px;
+  position: relative;
+  animation: pulse 2s infinite;
+}
+
+.copybtn {
+  font-family: var(--font-family);
+  background-color: var(--secondary-color);
+  color: #0d1b2a;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  border-radius: 2px;
+  box-shadow: 0 0 10px rgba(0, 180, 216, 0.5);
+  transition: all 0.2s ease;
+}
+
+.copybtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 15px rgba(0, 180, 216, 0.8);
+}
+
+.copybtn:active {
+  transform: translateY(1px);
+  box-shadow: 0 0 5px rgba(0, 180, 216, 0.8);
+}
+
+/* Top Bar - Player List */
+.topBar {
+  background-color: rgba(11, 12, 22, 0.9);
+  padding: 10px;
+  display: flex;
   flex-wrap: wrap;
+  gap: 10px;
+  max-height: 150px;
+  /* overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-color) var(--dark-color); */
+  border-bottom: 3px solid var(--secondary-color);
 }
 
-.players span {
-  font-size: 10px;
-  color: #2e7d32;
+.topBar span {
+  background-color: rgba(0, 180, 216, 0.2);
+  color: var(--light-color);
+  padding: 5px 10px;
+  border-radius: 2px;
+  font-size: 0.75rem;
+  display: inline-block;
+  margin: 2px;
+  width: 95%;
+  box-shadow: 0 0 5px rgba(0, 180, 216, 0.5);
+  position: relative;
+  border-left: 2px solid var(--secondary-color);
 }
 
+/* .topBar span::before {
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background-color: var(--accent-color);
+  border-radius: 50%;
+  left: -3px;
+  top: 50%;
+  transform: translateY(-50%);
+  box-shadow: 0 0 8px var(--accent-color);
+} */
 
-/* Section 2: Messages */
+/* Messages Box */
 .messagesBox {
-  flex: 1;
-  padding: 20px;
+  padding: 15px;
   overflow-y: auto;
-  background: #f0fff0;
+  height: 100%;
+  background-color: rgba(13, 27, 42, 0.7);
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+                    url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="%230d1b2a"/><rect x="1" y="1" width="38" height="38" fill="%23091521" rx="2" ry="2"/></svg>');
+  background-size: 40px 40px;
 }
 
 .message {
-  background: #e0f2f1;
-  padding: 10px;
-  border-radius: 10px;
-  border: 2px solid #4caf50;
+  padding: 12px;
+  margin-bottom: 10px;
+  background-color: rgba(13, 27, 42, 0.8);
+  border-left: 3px solid var(--secondary-color);
+  word-wrap: break-word;
+  animation: slideIn 0.3s ease;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .nickname {
   font-weight: bold;
-  color: #2e7d32;
-  font-size: 10px;
-  display: block;
+  color: var(--primary-color);
+  margin-right: 10px;
+  display: inline-block;
+  text-shadow: 0 0 5px rgba(123, 44, 191, 0.5);
 }
 
 .text {
-  font-size: 12px;
-  margin: 5px 0;
-  display: block;
+  color: var(--light-color);
 }
 
 .time {
-  font-size: 10px;
-  color: #777;
-  text-align: right;
-  display: block;
+  font-size: 0.7rem;
+  color: #8d99ae;
+  float: right;
 }
 
-/* Section 3: Input */
+/* Input Bar */
 .inputBar {
   display: flex;
-  border-top: 2px solid #4caf50;
   padding: 10px;
-  background: #c8f7c5;
+  background-color: rgba(11, 12, 22, 0.95);
+  border-top: 3px solid var(--secondary-color);
 }
 
 #chatInput {
   flex: 1;
   padding: 10px;
-  font-size: 12px;
-  font-family: 'Press Start 2P', cursive;
-  border-radius: 8px;
-  border: 2px solid #4caf50;
-  background: #ffffff;
-  margin-right: 10px;
+  border: 2px solid var(--secondary-color);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: var(--light-color);
+  font-family: var(--font-family);
+  font-size: 0.9rem;
+  border-radius: 2px;
+  box-shadow: 0 0 8px rgba(0, 180, 216, 0.2) inset;
+}
+
+#chatInput:focus {
+  outline: none;
+  box-shadow: 0 0 12px rgba(0, 180, 216, 0.4) inset;
+  border-color: var(--accent-color);
 }
 
 #sendBtn {
-  padding: 10px 16px;
-  background-color: #4caf50;
-  color: white;
+  font-family: var(--font-family);
+  background-color: var(--secondary-color);
+  color: var(--light-color);
   border: none;
-  border-radius: 8px;
-  font-size: 12px;
+  padding: 10px 15px;
+  margin-left: 10px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  box-shadow: 0 0 10px rgba(0, 180, 216, 0.2);
+  transition: all 0.2s ease;
+  border-radius: 2px;
 }
 
 #sendBtn:hover {
-  background-color: #388e3c;
+  background-color: rgba(0, 180, 216, 0.6);
+  box-shadow: 0 0 15px rgba(0, 180, 216, 0.6);
 }
 
-.copybtn {
-  padding: 10px 16px;
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 12px;
-  cursor: pointer;
-  transition: background-color 0.3s
+#sendBtn:active {
+  transform: translateY(2px);
+  box-shadow: 0 0 5px rgba(123, 44, 191, 0.8);
 }
 
-.roomHeader {
-  padding: 10px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 2px solid #4caf50;
+/* Responsive Adjustments */
+@media (min-width: 768px) {
+  .chatContainer {
+    grid-template-columns: 250px 1fr;
+    grid-template-rows: auto 1fr auto;
+  }
+  
+  .roomHeader {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+  
+  .topBar {
+    grid-column: 1;
+    grid-row: 2;
+    flex-direction: column;
+    max-height: none;
+    border-right: 3px solid var(--secondary-color);
+    border-bottom: none;
+  }
+  
+  .messagesBox {
+    grid-column: 2;
+    grid-row: 2;
+  }
+  
+  .inputBar {
+    grid-column: 1 / -1;
+    grid-row: 3;
+  }
 }
 
-.timer {
-  font-size: 12px;
-  color: #2e7d32;
+/* Animations */
+@keyframes pulse {
+  0% { opacity: 1; text-shadow: 0 0 5px rgba(111, 255, 135, 0.5); }
+  50% { opacity: 0.9; text-shadow: 0 0 15px rgba(111, 255, 135, 0.8); }
+  100% { opacity: 1; text-shadow: 0 0 5px rgba(111, 255, 135, 0.5); }
+}
+
+@keyframes slideIn {
+  from { transform: translateY(10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(13, 27, 42, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary-color);
+}
+
+/* Player Count Display - Added to top bar */
+.topBar::before {
+  content: attr(data-player-count) " Players";
+  display: block;
+  margin-top: 10px;
+  padding: 8px 10px;
+  background-color: rgba(0, 180, 216, 0.2);
+  color: var(--accent-color);
+  font-size: 0.8rem;
+  text-align: center;
+  width: 88%;
+  box-shadow: 0 0 10px rgba(0, 180, 216, 0.3);
+  border: 1px solid var(--secondary-color);
+  text-shadow: 0 0 5px rgba(111, 255, 135, 0.5);
+}
+
+/* Add the custom font */
+@font-face {
+  font-family: 'Press Start 2P';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/pressstart2p/v14/e3t4euO8T-267oIAQAu6jDQyK3nVivNm4I81.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }

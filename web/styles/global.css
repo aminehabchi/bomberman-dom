@@ -1,10 +1,37 @@
-body {
+/* Modern Retro Gaming Chat CSS */
+:root {
+    --primary-color: #7b2cbf; /* Purple */
+    --secondary-color: #00b4d8; /* Cyan */
+    --accent-color: #6fff87; /* Neon Green */
+    --dark-color: #0d1b2a; /* Deep Navy */
+    --light-color: #e9ecef; /* Off-white */
+    --border-color: #7b2cbf;
+    --pixel-size: 2px;
+    --font-family: 'Press Start 2P', 'Courier New', monospace;
+  }
+  
+  /* Global Styles */
+  * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #3a7bd5, #00d2ff);
+  }
+  
+  body {
+    font-family: var(--font-family);
+    background-color: #0b0c10;
+    color: var(--light-color);
+    line-height: 1.6;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+                      url('data:image/svg+xml;utf8,<svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="24" height="24" fill="%23120826"/><rect x="24" y="24" width="24" height="24" fill="%23120826"/></svg>');
+    background-size: 48px 48px;
+  }
+
+  /* #app {
     height: 100vh;
+    width: 100vw;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
-}
+    align-content: center;
+  } */

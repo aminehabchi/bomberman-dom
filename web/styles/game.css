@@ -7,19 +7,6 @@
     height: 40px;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-image: url(../grass.png);
-    background-position: center;
-    background-size: cover;
-}
-
 .map {
     position: relative;
     width: 600px;  /* Taille de la grille, ajustez selon la taille de votre jeu */

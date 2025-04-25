@@ -87,7 +87,7 @@ function InputPart(framework) {
 function Header(room) {
   console.log(room);
 
-  let copyBtn = createVElement("", {}, [])
+  let copyBtn = createVElement("span", { class: "room" }, ["general room"])
   if (room.IsCreated) {
     copyBtn = createVElement("button", {
       class: "copybtn",

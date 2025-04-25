@@ -1,13 +1,4 @@
-body {
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    background: linear-gradient(to top, #7ec850 50%, #87ceeb 50%);
-    font-family: 'Press Start 2P', cursive;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+
 
 .container {
     display: flex;
