@@ -1,5 +1,6 @@
 import { getPlayer } from "../moduls/player.js";
 import { Rooms } from "../moduls/room.js";
+
 function checkerHandler(req, res) {
   const fullUrl = new URL(req.url, `http://${req.headers.host}`);
   const params = fullUrl.searchParams;
@@ -8,8 +9,6 @@ function checkerHandler(req, res) {
   const player = getPlayer(uuid);
 
   if (player) {
-    console.log("aaaaaaaaaaaaaaaaaaaaaaaaa");
-    
     res.statusCode = 200;
     res.setHeader("Content-Type", "application/json");
     res.end(JSON.stringify({ player: player, room: Rooms[player.JoinedRoom] }));

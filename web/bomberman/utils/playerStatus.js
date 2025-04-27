@@ -1,4 +1,11 @@
-import { startWebSocket } from "../socket/startSocket.js";
+export let INFO = {
+  roomUuid: undefined,
+  room: undefined,
+  nickname: undefined,
+  Players: undefined,
+  socket: undefined,
+};
+
 /*
 ---player status when page load
   
@@ -19,18 +26,19 @@ export async function playerStatus(res, app) {
     history.pushState(null, "", "/");
   } else {
     const data = await res.json();
+    console.log(data.room);
 
-
-    app.setState("nickname", data.player.Nickname);
+    INFO.nickname = data.player.Nickname;
 
     if (data.room) {
-      app.setState("players", data.room.Players);
+      INFO.room = data.room;
+      INFO.roomUuid = data.room.Uuid;
+      INFO.Players = data.room.Players;
+
+      app.setState("Players", data.room.Players);
     }
 
     if (data.player.JoinedRoom != "") {
-      app.setState("room", data.room);
-      app.setState("roomUuid", data.room.Uuid);
-      startWebSocket(app, data.room.Uuid);
       history.pushState(null, "", "/chat");
     } else {
       history.pushState(null, "", "/start");
@@ -39,7 +47,6 @@ export async function playerStatus(res, app) {
 }
 
 export async function checkIfLogin(app) {
-
   const uuid = localStorage.getItem("uuid");
 
   // Make sure we have a UUID stored
@@ -49,8 +56,6 @@ export async function checkIfLogin(app) {
   }
 
   try {
-    // Correct the query string format
-    console.log("---->", uuid);
     const res = await fetch(`http://localhost:3000/checker?uuid=${uuid}`);
 
     await playerStatus(res, app);
@@ -58,5 +63,45 @@ export async function checkIfLogin(app) {
     console.error("Error checking login:", err);
     // Optionally, redirect or show an error page
     history.pushState(null, "", "/");
+  }
+}
+
+/*
+
+    there is 3 type if jioning room
+                                  
+                                    type
+
+    => random room             =>   RR
+
+    => create your own room    =>   CR
+
+    => join a created room     =>   JR
+
+
+*/
+
+export async function StartGetRoom(framework, type, RoomUuid) {
+  const uuid = localStorage.getItem("uuid");
+
+  let res = await fetch(
+    `http://localhost:3000/createroom?uuid=${uuid}&type=${type}&room=${RoomUuid}`
+  );
+
+  if (res.status == 200) {
+    let data = await res.json();
+    if (data.error) {
+      console.log("error->", data.error);
+      return;
+    }
+
+    INFO.room = data.room;
+    INFO.roomUuid = data.room.Uuid;
+    INFO.Players = data.room.Players;
+    framework.setState("Players", data.room.Players);
+
+    framework.navigateTo("/chat");
+  } else {
+    framework.navigateTo("/");
   }
 }

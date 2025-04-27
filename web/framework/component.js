@@ -6,10 +6,16 @@ export class Component {
     this._state = {};
   }
 
+  // this function runs after first run
+  Mounting() {}
+
+  //this function runs when path change
+  UnMounting() {}
+
   // State management methods
   setState(name, value) {
     this._state = { ...this._state, ...{ name: value } };
-    this.start();
+    this.framework.start();
   }
 
   getState(name) {

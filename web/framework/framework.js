@@ -9,6 +9,8 @@ export class Framework {
     this.App = document.getElementById("app");
     this.state = state || {}; // Global state object
     this.Refs = {};
+
+    this.Lastpath = undefined;
   }
 
   route(path, component) {
@@ -17,16 +19,23 @@ export class Framework {
 
   //ref
   setRef(name, value) {
+    console.log(name, " set Ref", this.Refs);
+
     this.Refs[name] = value;
   }
 
   getRef(name) {
+    console.log(name, " get Ref", this.Refs);
     return this.Refs[name];
   }
 
   // State management methods
   setState(name, value) {
+    
     this.state[name] = value;
+
+    console.log(name,value, " set state", window.location.pathname);
+
     this.start();
   }
 
@@ -37,16 +46,24 @@ export class Framework {
   // Render the current route
   renderthisPath(path) {
     let newVTree;
+    let component;
 
     if (this.routes[path]) {
-      // First check if we have a direct path match
       const ComponentClass = this.routes[path];
-      const component = new ComponentClass(this); // Pass framework instance to component
-      newVTree = component.getVDom(); // Get Virtual DOM
+      component = new ComponentClass(this);
+      newVTree = component.getVDom();
     } else {
       const ComponentClass = NotFoundComponent;
-      const component = new ComponentClass(this);
+      component = new ComponentClass(this);
       newVTree = component.getVDom();
+    }
+
+    if (this.Lastpath && this.Lastpath !== path) {
+      if (this.routes[this.Lastpath]) {
+        const lastComponentClass = this.routes[this.Lastpath];
+        let lastComponent = new lastComponentClass(this);
+        lastComponent.UnMounting();
+      }
     }
 
     if (this.oldVTree) {
@@ -55,19 +72,27 @@ export class Framework {
       this.App.appendChild(VDomToReelDom(newVTree)); // First render
     }
 
+    if (this.Lastpath !== path) {
+      this.Lastpath = path;
+      component.Mounting();
+    }
+
+    this.Lastpath = path;
+
     this.oldVTree = newVTree;
   }
 
   navigateTo(newPath) {
     // Update the browser's history with the new path without reloading the page
     window.history.pushState({}, "", newPath);
-
+    console.log("navagate to ", newPath);
     // Call your custom render method to handle the content change
     this.renderthisPath(newPath);
   }
 
   start() {
     const path = window.location.pathname;
+
     this.renderthisPath(path);
   }
 }

@@ -2,6 +2,8 @@ import { Component } from "../../framework/component.js";
 import { createVElement } from "../../framework/helpers.js";
 import { copy } from "../utils/copyPast.js";
 import { getCurrentTime } from "../utils/helpers.js";
+import { startWebSocket } from "../socket/startSocket.js";
+import { INFO } from "../utils/playerStatus.js";
 
 function HeaderChat(players) {
   let PlayersVDom = [];
@@ -43,17 +45,15 @@ function InputPart(framework) {
       return;
     }
 
-    let socket = framework.getState("socket");
+    let socket = INFO.socket;
 
     let msg = {
-      sender: framework.getState("nickname"),
+      sender: INFO.nickname,
       content: message,
     };
 
-
     socket.emit("send-message", {
-
-      room: framework.getState("roomUuid"),
+      room: INFO.roomUuid,
       message: msg,
     });
   }
@@ -85,34 +85,42 @@ function InputPart(framework) {
 }
 
 function Header(framework) {
-  let room = framework.getState("room")
-  console.log(room);
-
-  let copyBtn = createVElement("span", { class: "room" }, ["general room"])
-  if (room.IsCreated) {
-    copyBtn = createVElement("button", {
-      class: "copybtn",
-      onclick: () => {
-        copy(room.Uuid)
-      }
-    }, ["Copy Hash"])
+  let copyBtn = createVElement("span", { class: "room" }, ["general room"]);
+  if (INFO.room.IsCreated) {
+    copyBtn = createVElement(
+      "button",
+      {
+        class: "copybtn",
+        onclick: () => {
+          copy(INFO.room.Uuid);
+        },
+      },
+      ["Copy Hash"]
+    );
   }
   return createVElement("div", { class: "roomHeader" }, [
     createVElement("span", { class: "timer" }, ["00:19"]),
     copyBtn,
-    createVElement("span", {
-      onclick: () => {
-        framework.navigateTo("/game")
-      }
-    }, ["Game"])
-  ])
+    createVElement(
+      "span",
+      {
+        onclick: () => {
+          framework.navigateTo("/game");
+        },
+      },
+      ["Game"]
+    ),
+  ]);
 }
 
 export class Chat extends Component {
+  Mounting() {
+    startWebSocket(this.framework, INFO.roomUuid);
+  }
   getVDom() {
     return createVElement("div", { class: "chatContainer" }, [
       Header(this.framework),
-      HeaderChat(this.framework.getState("players")),
+      HeaderChat(this.framework.getState("Players")),
       MessagePart(this.framework.getState("messages")),
       InputPart(this.framework),
     ]);

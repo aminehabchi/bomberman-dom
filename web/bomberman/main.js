@@ -6,7 +6,6 @@ import { Start } from "./components/start.js";
 import { checkIfLogin } from "./utils/playerStatus.js";
 
 export const app = new Framework({
-  room: "",
   messages: [],
   players: undefined,
 });
@@ -16,8 +15,7 @@ app.route("/game", Game);
 app.route("/chat", Chat);
 app.route("/start", Start);
 
-
-
 await checkIfLogin(app);
 
+console.log("app.start() ");
 app.start();

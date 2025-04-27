@@ -11,7 +11,7 @@ const server = http.createServer((req, res) => {
 });
 
 const io = new Server(server);
-
+import { isValidMove } from "./movement/playerMoving.js";
 io.on("connection", (socket) => {
   console.log(`User connected: ${socket.id}`);
 
@@ -24,8 +24,8 @@ io.on("connection", (socket) => {
   // Listen for message and broadcast to the room
   socket.on("send-message", ({ room, message }) => {
     //send message to All
-    console.log("message",message);
-    
+    console.log("message", message);
+
     io.to(room).emit("message", message);
   });
 
@@ -33,6 +33,13 @@ io.on("connection", (socket) => {
   socket.on("notify", ({ room, message }) => {
     //notify all except self
     socket.to(room).emit("notify", { newPlayer: Players[message["uuid"]] });
+  });
+
+  // listen for palyers moving
+  socket.on("moving", ({ room, moveInfo }) => {
+    moveInfo = isValidMove(room, moveInfo);
+    //notify all
+    io.to(room).emit("moving", moveInfo);
   });
 });
 

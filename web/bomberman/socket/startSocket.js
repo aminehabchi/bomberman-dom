@@ -1,16 +1,22 @@
+import { updateInput22 } from "../gameLoop/playerMovement.js";
+import { INFO } from "../utils/playerStatus.js";
+
 export function startWebSocket(app, roomUuid) {
+  console.log("start websocket");
+
   const socket = io("http://localhost:3000", {
     reconnection: true, // default is true
     reconnectionAttempts: 5, // 🔁 max number of tries
     reconnectionDelay: 1000, // 🕐 wait 1 second before retry
     reconnectionDelayMax: 5000, // ⏳ max delay between tries
   }); // Adjust port if needed
-  app.setState("socket", socket);
 
-  const room = roomUuid;
-  app.setState("room", room);
+  INFO.socket = socket;
   // Join a room
-  socket.emit("join-room", room);
+  socket.emit("join-room", roomUuid);
+
+  const uuid = localStorage.getItem("uuid");
+  socket.emit("notify", { room: roomUuid, message: { uuid: uuid } });
 
   socket.on("message", (msg) => {
     let messages = app.getState("messages");
@@ -25,8 +31,14 @@ export function startWebSocket(app, roomUuid) {
   });
 
   socket.on("notify", (msg) => {
-    let players = app.getState("players");
+    let players = app.getState("Players");
     players.push(msg["newPlayer"]);
-    app.setState("players", players);
+    app.setState("Players", players);
+  });
+
+  socket.on("moving", (moveInfo) => {
+    console.log(moveInfo);
+
+    updateInput22(moveInfo);
   });
 }

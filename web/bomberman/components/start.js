@@ -1,7 +1,7 @@
 import { Component } from "../../framework/component.js";
 import { createVElement } from "../../framework/helpers.js";
-import { StartGetRoom } from "../utils/jionRoom.js";
-import { copy, paste } from "../utils/copyPast.js";
+import { StartGetRoom } from "../utils/playerStatus.js";
+import { paste } from "../utils/copyPast.js";
 
 function Header() {
   return createVElement("div", { class: "header" }, [

@@ -1,7 +1,8 @@
 import { generateUUID } from "../service/uuid.js";
+import { prepereBaord } from "../movement/board.js";
 
 export class Room {
-  constructor(uuid) {
+  constructor(uuid, Map) {
     this.Uuid = uuid;
     // index  => player
     this.Players = [];
@@ -10,6 +11,13 @@ export class Room {
     this.CreatedAt = new Date();
     this.IsStart = false;
     this.IsCreated = false;
+    this.map = Map;
+    this.playerPosition = [
+      { x: 1, y: 1 }, // player 1
+      { x: 15, y: 1 }, // player 2
+      { x: 1, y: 13 }, // player 3
+      { x: 15, y: 13 }, // player 4
+    ];
   }
 }
 
@@ -20,7 +28,7 @@ export var AvailableRoom;
 export function CreateRoom() {
   const uuid = generateUUID();
 
-  return new Room(uuid);
+  return new Room(uuid, prepereBaord(4));
 }
 
 function PrepereRoom() {

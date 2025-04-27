@@ -70,7 +70,6 @@ export function VDomToReelDom(vnode) {
 
   for (const prop in vnode.props) {
     if (prop === "ref") {
-      
       app.setRef(vnode.props[prop], element);
     } else if (
       prop.startsWith("on") &&
@@ -84,7 +83,7 @@ export function VDomToReelDom(vnode) {
     }
   }
 
-  vnode.children?.forEach((child) => element.appendChild(VDomToReelDom(child)));
+  vnode?.children?.forEach((child) => element.appendChild(VDomToReelDom(child)));
   return element;
 }
 

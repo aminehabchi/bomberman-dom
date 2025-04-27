@@ -1,6 +1,6 @@
 import { Component } from "../../framework/component.js";
 import { createVElement } from "../../framework/helpers.js";
-import { startWebSocket } from "../socket/startSocket.js";
+import { INFO } from "../utils/playerStatus.js";
 
 export class SelectNickname extends Component {
   setNickname = async (nickname) => {
@@ -23,7 +23,7 @@ export class SelectNickname extends Component {
 
         localStorage.setItem("uuid", data.uuid);
 
-        this.framework.setState("nickname", nickname);
+        INFO.nickname = nickname;
 
         this.framework.navigateTo("/start");
       } else {
@@ -31,7 +31,6 @@ export class SelectNickname extends Component {
         // this.showError(`Login failed: ${errorMsg || "Server error."}`);
       }
     } catch (err) {
-      // this.showError("Could not connect to server. Please try again later.");
       console.log(err);
     }
   };
