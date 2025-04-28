@@ -1,6 +1,7 @@
 import { createVElement } from "../../framework/helpers.js";
 import { INFO } from "../utils/playerStatus.js";
 function Player() {
+  
   return createVElement(
     "div",
     {

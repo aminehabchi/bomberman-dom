@@ -3,72 +3,27 @@ import { INFO } from "../utils/playerStatus.js";
 let x = 30,
   y = 30;
 const tileSize = 30;
-let targetX = x;
-let targetY = y;
-const speed = 5; // pixels per frame for smooth animation
 
-let moving = false;
-let direction = null;
+const speed = 1; // pixels per frame for smooth animation
 
 let keys = { r: false, l: false, t: false, b: false };
-
-function updateInput(keys) {
-  if (moving) return;
-
-  if (keys.r) {
-    targetX = x + tileSize;
-    direction = "r";
-    moving = true;
-  } else if (keys.l) {
-    targetX = x - tileSize;
-    direction = "l";
-    moving = true;
-  } else if (keys.t) {
-    targetY = y - tileSize;
-    direction = "t";
-    moving = true;
-  } else if (keys.b) {
-    targetY = y + tileSize;
-    direction = "b";
-    moving = true;
-  }
-}
 
 function updatePosition(player1) {
   player1.style.transform = `translate(${x}px, ${y}px)`;
 }
 
 export function updateInput22(moveInfo) {
-  keys = moveInfo.keys;
-}
+  keys = moveInfo.keys;}
 
 function animateMove() {
-  if (!moving) return;
-
-  if (direction === "r") {
+  if (keys.r) {
     x += speed;
-    if (x >= targetX) {
-      x = targetX;
-      moving = false;
-    }
-  } else if (direction === "l") {
+  } else if (keys.l) {
     x -= speed;
-    if (x <= targetX) {
-      x = targetX;
-      moving = false;
-    }
-  } else if (direction === "t") {
+  } else if (keys.t) {
     y -= speed;
-    if (y <= targetY) {
-      y = targetY;
-      moving = false;
-    }
-  } else if (direction === "b") {
+  } else if (keys.b) {
     y += speed;
-    if (y >= targetY) {
-      y = targetY;
-      moving = false;
-    }
   }
 }
 
@@ -76,63 +31,80 @@ function deepCloneObject(obj) {
   return JSON.parse(JSON.stringify(obj));
 }
 
-addEventListener("keydown", (e) => {
-  let socket = INFO.socket;
-  if (
-    e.key === "ArrowRight" ||
-    e.key === "ArrowLeft" ||
-    e.key === "ArrowUp" ||
-    e.key === "ArrowDown"
-  ) {
-    let newKeys = deepCloneObject(keys);
-    if (e.key === "ArrowRight") {
-      newKeys.r = true;
-    }
-    if (e.key === "ArrowLeft") {
-      newKeys.l = true;
-    }
-    if (e.key === "ArrowUp") {
-      newKeys.t = true;
-    }
-    if (e.key === "ArrowDown") {
-      newKeys.b = true;
-    }
-    console.log(newKeys);
 
-    socket.emit("moving", {
-      room: INFO.roomUuid,
-      moveInfo: { keys: newKeys, playerNbr: 1 },
-    });
-  }
+
+let rr = 0;
+let moveInterval = null; // Store the interval ID
+
+const keyMap = {
+  ArrowRight: "r",
+  ArrowLeft: "l",
+  ArrowUp: "t",
+  ArrowDown: "b",
+};
+
+addEventListener("keydown", (e) => {
+  if (!keyMap[e.key]) return; // Only react to arrows
+
+  if (moveInterval) return; // Already moving, don't start a new interval
+  
+  console.log("start move", rr++, e.key);
+
+  let newKeys = { r: false, l: false, t: false, b: false };
+  newKeys[keyMap[e.key]] = true;
+
+  moveInterval = setInterval(() => {
+    sendToServer(newKeys, { x: x, y: y }, INFO.roomUuid);
+  }, 30); // Send every 30ms for smooth movement
 });
 
 addEventListener("keyup", (e) => {
-  let socket = INFO.socket;
-  if (
-    e.key === "ArrowRight" ||
-    e.key === "ArrowLeft" ||
-    e.key === "ArrowUp" ||
-    e.key === "ArrowDown"
-  ) {
-    let newKeys = deepCloneObject(keys);
-    if (e.key === "ArrowRight") {
-      newKeys.r = false;
-    }
-    if (e.key === "ArrowLeft") {
-      newKeys.l = false;
-    }
-    if (e.key === "ArrowUp") {
-      newKeys.t = false;
-    }
-    if (e.key === "ArrowDown") {
-      newKeys.b = false;
-    }
-    socket.emit("moving", {
-      room: INFO.roomUuid,
-      moveInfo: { keys: newKeys, playerNbr: 1 },
-    });
+  if (!keyMap[e.key]) return;
+
+  console.log("stop move", rr++, e.key);
+
+  if (moveInterval) {
+    clearInterval(moveInterval);
+    moveInterval = null;
+    // Also send a stop signal to the server
+    sendToServer(
+      { r: false, l: false, t: false, b: false },
+      { x: x, y: y },
+      INFO.roomUuid
+    );
   }
 });
+
+// addEventListener("keyup", (e) => {
+//   if (keyMap[e.key]) {
+//     let newKeys = { r: false, l: false, t: false, b: false };
+//     sendToServer(newKeys, { x: x, y: y }, INFO.roomUuid);
+//   }
+//   IsReturn = false;
+// });
+
+// export function debounceClick(callback, delay = 1000) {
+//   let canClick = true;
+
+//   return function (...args) {
+//     if (!canClick) return;
+
+//     canClick = false;
+//     callback.apply(this, args);
+
+//     setTimeout(() => {
+//       canClick = true;
+//     }, delay);
+//   };
+// }
+
+function sendToServer(newKeys, position, roomUuid) {
+  let socket = INFO.socket;
+  socket.emit("moving", {
+    room: INFO.roomUuid,
+    moveInfo: { keys: newKeys, playerNbr: 1, position: position },
+  });
+}
 
 let id;
 export function StartGameLoop(framework) {
@@ -142,7 +114,6 @@ export function StartGameLoop(framework) {
   x = 30 * INFO.room.playerPosition[0].x;
   y = 30 * INFO.room.playerPosition[0].y;
   function gameLoop() {
-    updateInput();
     animateMove();
     updatePosition(player1);
     id = requestAnimationFrame(gameLoop);

@@ -1,76 +1,114 @@
 import { Rooms } from "../moduls/room.js";
+const speed = 1;
 
-/**
- *
- * @param {string} roomUuid - room hash
- */
-
-// const keys = { r: false, l: false, t: false, b: false };
+function getDecimalPart(num) {
+  return num - Math.floor(num);
+}
 
 export function isValidMove(roomUuid, moveInfo) {
   let currentRoom = Rooms[roomUuid];
-
   if (!currentRoom) return false;
 
   let board = currentRoom.map;
-
   let keys = moveInfo.keys;
   let playerNbr = moveInfo.playerNbr;
 
-  // console.log(board[1], currentRoom.playerPosition[playerNbr - 1]);
+  let currentX = currentRoom.playerPosition[playerNbr - 1].x;
+  let currentY = currentRoom.playerPosition[playerNbr - 1].y;
 
-  // current position of player
-  let x = currentRoom.playerPosition[playerNbr - 1].x;
-  let y = currentRoom.playerPosition[playerNbr - 1].y;
+  let currentleft = moveInfo.position.x / 30;
+  let currentrigth = (moveInfo.position.x + 20) / 30;
+  let currentup = moveInfo.position.x / 30;
+  let currentdow = (moveInfo.position.x + 20) / 30;
 
-  // check right
-  if (keys.r == true) {
-    if (board[y][x + 1] == 1) {
-      currentRoom.playerPosition[playerNbr - 1].x++;
-      currentRoom.map[y][x] = 1;
-      currentRoom.map[y][x + 1] = 11;
-    } else {
-      keys.r = false;
-    }
-  }
-
-  // check left
-  if (keys.l == true) {
-    if (board[y][x - 1] == 1) {
-      currentRoom.playerPosition[playerNbr - 1].x--;
-      currentRoom.map[y][x] = 1;
-      currentRoom.map[y][x - 1] = 11;
-    } else {
-      keys.l = false;
-    }
-  }
-
-  // check top
-  if (keys.t == true) {
-    if (board[y - 1][x] == 1) {
-      currentRoom.playerPosition[playerNbr - 1].y--;
-      currentRoom.map[y][x] = 1;
-      currentRoom.map[y - 1][x] = 11;
-    } else {
-      keys.t = false;
-    }
-  }
-
-  // check bottom
-  if (keys.b == true) {
-    if (board[y + 1][x] == 1) {
-      currentRoom.playerPosition[playerNbr - 1].y++;
-      currentRoom.map[y][x] = 1;
-      currentRoom.map[y + 1][x] = 11;
-    } else {
-      keys.b = false;
-    }
-  }
+  /*******/
   console.log(
-    keys,
-    currentRoom.map[y],
-    currentRoom.playerPosition[playerNbr - 1]
+    "l ",
+    currentleft.toFixed(2),
+    "  r ",
+    currentrigth.toFixed(2),
+    "  u ",
+    currentup.toFixed(2),
+    "  d ",
+    currentdow.toFixed(2),
+    "  x ",
+    currentX,
+    "  y ",
+    currentY
   );
+
+  // Move Right
+  if (keys.r) {
+    //-10 is diff oneSquare - playerSize
+    let newTileX = (moveInfo.position.x - 10 + speed) / 30;
+    //    console.log("r", newTileX, moveInfo.position.x);
+
+    if (newTileX > currentX) {
+      if (board[currentY][currentX + 1] === 1) {
+        board[currentY][currentX] = 1;
+        board[currentY][currentX + 1] = 11;
+        currentRoom.playerPosition[playerNbr - 1].x = currentX + 1;
+      } else {
+        keys.r = false;
+      }
+    }
+  }
+
+  // Move Left
+  if (keys.l) {
+    let newTileX = (moveInfo.position.x - speed) / 30;
+    //console.log("r", newTileX, moveInfo.position.x);
+
+    if (newTileX < currentX) {
+      if (board[currentY][currentX - 1] === 1) {
+        board[currentY][currentX] = 1;
+        board[currentY][currentX - 1] = 11;
+        currentRoom.playerPosition[playerNbr - 1].x = currentX - 1;
+      } else {
+        keys.l = false;
+      }
+    }
+  }
+
+  // Move Up (Top)
+  if (keys.t) {
+    let newTileY = Math.floor((moveInfo.position.y - speed) / 30);
+
+    // let xleft = (moveInfo.position.x - speed) / 30;
+    // let xRigth = (moveInfo.position.x - 10 + speed) / 30;
+
+    // console.log("top ", xleft.toFixed(2), xRigth.toFixed(2), newTileY);
+
+    if (newTileY < currentY) {
+      if (board[currentY - 1][currentX] === 1) {
+        board[currentY][currentX] = 1;
+        board[currentY - 1][currentX] = 11;
+        currentRoom.playerPosition[playerNbr - 1].y = currentY - 1;
+      } else {
+        keys.t = false;
+      }
+    }
+  }
+
+  // Move Down (Bottom)
+  if (keys.b) {
+    let newTileY = Math.ceil((moveInfo.position.y - 10 + speed) / 30);
+
+    // let xleft = (moveInfo.position.x - speed) / 30;
+    // let xRigth = (moveInfo.position.x - 10 + speed) / 30;
+
+    // console.log("down top ", xleft.toFixed(2), xRigth.toFixed(2), newTileY);
+
+    if (newTileY > currentY) {
+      if (board[currentY + 1][currentX] === 1) {
+        board[currentY][currentX] = 1;
+        board[currentY + 1][currentX] = 11;
+        currentRoom.playerPosition[playerNbr - 1].y = currentY + 1;
+      } else {
+        keys.b = false;
+      }
+    }
+  }
 
   return moveInfo;
 }
