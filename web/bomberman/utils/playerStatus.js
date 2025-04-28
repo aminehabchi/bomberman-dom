@@ -3,6 +3,7 @@ export let INFO = {
   room: undefined,
   nickname: undefined,
   Players: undefined,
+  playerNbr: -1,
   socket: undefined,
 };
 
@@ -34,6 +35,9 @@ export async function playerStatus(res, app) {
       INFO.room = data.room;
       INFO.roomUuid = data.room.Uuid;
       INFO.Players = data.room.Players;
+      INFO.playerNbr = data.nbr
+      console.log("-->", INFO.playerNbr);
+
 
       app.setState("Players", data.room.Players);
     }
@@ -98,6 +102,9 @@ export async function StartGetRoom(framework, type, RoomUuid) {
     INFO.room = data.room;
     INFO.roomUuid = data.room.Uuid;
     INFO.Players = data.room.Players;
+    INFO.playerNbr = data.nbr
+    console.log("-->", INFO.playerNbr);
+
     framework.setState("Players", data.room.Players);
 
     framework.navigateTo("/chat");

@@ -1,73 +1,39 @@
 import { INFO } from "../utils/playerStatus.js";
 
-let x = 30,
-  y = 30;
 const tileSize = 30;
 
-const speed = 1; // pixels per frame for smooth animation
+let playerPosition = [
+  { x: 1 * tileSize, y: 1 * tileSize }, // player 1
+  { x: 15 * tileSize, y: 1 * tileSize }, // player 2
+  { x: 1 * tileSize, y: 13 * tileSize }, // player 3
+  { x: 15 * tileSize, y: 13 * tileSize }, // player 4
+];
+
+
 
 let keys = { r: false, l: false, t: false, b: false };
 
-function updatePosition(player1) {
-  player1.style.transform = `translate(${x}px, ${y}px)`;
+function updatePosition(player1, player2, player3, player4) {
+  player1.style.transform = `translate(${playerPosition[0].x}px, ${playerPosition[0].y}px)`;
+  player2.style.transform = `translate(${playerPosition[1].x}px, ${playerPosition[1].y}px)`;
+  player3.style.transform = `translate(${playerPosition[2].x}px, ${playerPosition[2].y}px)`;
+  player4.style.transform = `translate(${playerPosition[3].x}px, ${playerPosition[3].y}px)`;
 }
 
-let serverX = 30
-let serverY = 30
+
 
 export function updateInput22(moveInfo) {
   keys = moveInfo.keys;
 
   if (keys.r == true || keys.l == true || keys.t == true || keys.b == true) {
-    serverX = moveInfo.position.x
-    serverY = moveInfo.position.y
+    playerPosition[moveInfo.playerNbr - 1].x = moveInfo.position.x
+    playerPosition[moveInfo.playerNbr - 1].y = moveInfo.position.y
   }
-
 }
 
 
 
-function animateMove() {
-  if (serverX > x) {
-    x += speed;
-    if (serverX < x) {
-      x = serverX
-    }
-  } else if (serverX < x) {
-    x -= speed;
-    if (serverX > x) {
-      x = serverX
-    }
-  } else if (serverY > y) {
-    y += speed;
-    if (serverY < y) {
-      y = serverY
-    }
-  } else if (serverY < y) {
-    y -= speed;
-    if (serverY > y) {
-      y = serverY
-    }
-  }
 
-  // if (keys.r) {
-  //   x += speed;
-  // } else if (keys.l) {
-  //   x -= speed;
-  // } else if (keys.t) {
-  //   y -= speed;
-  // } else if (keys.b) {
-  //   y += speed;
-  // }
-}
-
-function deepCloneObject(obj) {
-  return JSON.parse(JSON.stringify(obj));
-}
-
-
-
-let rr = 0;
 let moveInterval = null; // Store the interval ID
 
 const keyMap = {
@@ -82,28 +48,28 @@ addEventListener("keydown", (e) => {
 
   if (moveInterval) return; // Already moving, don't start a new interval
 
-  console.log("start move", rr++, e.key);
 
   let newKeys = { r: false, l: false, t: false, b: false };
   newKeys[keyMap[e.key]] = true;
 
   moveInterval = setInterval(() => {
-    sendToServer(newKeys, { x: x, y: y }, INFO.roomUuid);
+    sendToServer(newKeys, { x: playerPosition[INFO.playerNbr - 1].x, y: playerPosition[INFO.playerNbr - 1].y }, INFO.roomUuid);
   }, 30); // Send every 30ms for smooth movement
 });
 
 addEventListener("keyup", (e) => {
   if (!keyMap[e.key]) return;
 
-  console.log("stop move", rr++, e.key);
-
   if (moveInterval) {
     clearInterval(moveInterval);
     moveInterval = null;
     // Also send a stop signal to the server
+
+
+
     sendToServer(
       { r: false, l: false, t: false, b: false },
-      { x: x, y: y },
+      { x: playerPosition[INFO.playerNbr - 1].x, y: playerPosition[INFO.playerNbr - 1].y },
       INFO.roomUuid
     );
   }
@@ -112,11 +78,11 @@ addEventListener("keyup", (e) => {
 
 
 
-function sendToServer(newKeys, position, roomUuid) {
+function sendToServer(newKeys, position) {
   let socket = INFO.socket;
   socket.emit("moving", {
     room: INFO.roomUuid,
-    moveInfo: { keys: newKeys, playerNbr: 1, position: position },
+    moveInfo: { keys: newKeys, playerNbr: INFO.playerNbr, position: position },
   });
 }
 
@@ -124,18 +90,13 @@ let id;
 export function StartGameLoop(framework) {
   StopGameLoop();
   const player1 = framework.getRef("player1");
-
-  x = 30 * INFO.room.playerPosition[0].x;
-  y = 30 * INFO.room.playerPosition[0].y;
-
-
-  console.log(x, y);
-
+  const player2 = framework.getRef("player2");
+  const player3 = framework.getRef("player3");
+  const player4 = framework.getRef("player4");
 
 
   function gameLoop() {
-    animateMove();
-    updatePosition(player1);
+    updatePosition(player1, player2, player3, player4);
     id = requestAnimationFrame(gameLoop);
   }
 

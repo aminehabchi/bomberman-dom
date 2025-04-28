@@ -42,6 +42,7 @@ export function AddPlayerToRoom(player) {
   PrepereRoom();
   player.JoinedRoom = AvailableRoom.Uuid;
   AvailableRoom.Players.push(player);
+  player.Nbr = AvailableRoom.Players.length
 
   return AvailableRoom;
 }

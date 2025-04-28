@@ -22,18 +22,34 @@
     background-size: cover;
 }
 
+.wall2 {
+    background-image: url("../assets/wall2.png");
+    background-size: cover;
+}
+
 .player {
     background-image: url("../assets/player/right_robot.png");
     background-size: cover;
-    background-color: red;
+
     width: 20px;
     height: 20px;
-   
+
     transform: translate(30px, 30px);
     position: absolute;
 }
 
-.wall2 {
-    background-image: url("../assets/wall2.png");
-    background-size: cover;
+#player1 {
+    background-color: red;
+}
+
+#player2 {
+    background-color: blue;
+}
+
+#player3 {
+    background-color: yellow;
+}
+
+#player4 {
+    background-color: black;
 }

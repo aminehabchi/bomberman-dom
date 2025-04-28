@@ -1,11 +1,12 @@
 import { Rooms } from "../moduls/room.js";
-const speed = 1;
+
 
 export function isValidMove(roomUuid, moveInfo) {
   let currentRoom = Rooms[roomUuid];
   if (!currentRoom) return false;
 
   let board = currentRoom.map;
+
   let keys = moveInfo.keys;
   let playerNbr = moveInfo.playerNbr;
 
@@ -19,20 +20,21 @@ export function isValidMove(roomUuid, moveInfo) {
   let currentdow = (moveInfo.position.y + 20) / 30;
 
   /*******/
-  console.log(
-    "l ",
-    currentleft.toFixed(2),
-    "  r ",
-    currentrigth.toFixed(2),
-    "  u ",
-    currentup.toFixed(2),
-    "  d ",
-    currentdow.toFixed(2),
-    "  x ",
-    X,
-    "  y ",
-    Y
-  );
+  // console.log(
+  //   "l ",
+  //   currentleft.toFixed(2),
+  //   "  r ",
+  //   currentrigth.toFixed(2),
+  //   "  u ",
+  //   currentup.toFixed(2),
+  //   "  d ",
+  //   currentdow.toFixed(2),
+  //   "  x ",
+  //   X,
+  //   "  y ",
+  //   Y
+  // );
+  /*********/
 
   // Move Right
   if (keys.r) {
@@ -42,7 +44,7 @@ export function isValidMove(roomUuid, moveInfo) {
       if (currentrigth >= X + 0.95) {
         if (board[Y][X + 1] === 1) {
           board[Y][X] = 1;
-          board[Y][X + 1] = 11;
+          board[Y][X + 1] = playerNbr * 11;
           currentRoom.playerPosition[playerNbr - 1].x = X + 1;
         } else {
           keys.r = false;
@@ -65,7 +67,7 @@ export function isValidMove(roomUuid, moveInfo) {
       if (currentleft <= X + 0.05) {
         if (board[Y][X - 1] === 1) {
           board[Y][X] = 1;
-          board[Y][X - 1] = 11;
+          board[Y][X - 1] = playerNbr * 11;
           currentRoom.playerPosition[playerNbr - 1].x = X - 1;
         } else {
           keys.l = false;
@@ -86,7 +88,7 @@ export function isValidMove(roomUuid, moveInfo) {
       if (currentup <= Y + 0.05) {
         if (board[Y - 1][X] === 1) {
           board[Y][X] = 1;
-          board[Y - 1][X] = 11;
+          board[Y - 1][X] = playerNbr * 11;
           currentRoom.playerPosition[playerNbr - 1].y = Y - 1;
         } else {
           keys.t = false;
@@ -107,7 +109,7 @@ export function isValidMove(roomUuid, moveInfo) {
       if (currentdow >= Y + 0.95) {
         if (board[Y + 1][X] === 1) {
           board[Y][X] = 1;
-          board[Y + 1][X] = 11;
+          board[Y + 1][X] = playerNbr * 11;
           currentRoom.playerPosition[playerNbr - 1].y = Y + 1;
         } else {
           keys.b = false;
@@ -123,13 +125,13 @@ export function isValidMove(roomUuid, moveInfo) {
 
 
   if (keys.r == true) {
-    moveInfo.position.x++
+    moveInfo.position.x += currentRoom.Players[playerNbr - 1].Speed
   } else if (keys.l == true) {
-    moveInfo.position.x--
+    moveInfo.position.x -= currentRoom.Players[playerNbr - 1].Speed
   } else if (keys.t == true) {
-    moveInfo.position.y--
+    moveInfo.position.y -= currentRoom.Players[playerNbr - 1].Speed
   } else if (keys.b == true) {
-    moveInfo.position.y++
+    moveInfo.position.y += currentRoom.Players[playerNbr - 1].Speed
   }
   return moveInfo;
 }

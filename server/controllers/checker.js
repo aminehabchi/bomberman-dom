@@ -11,7 +11,7 @@ function checkerHandler(req, res) {
   if (player) {
     res.statusCode = 200;
     res.setHeader("Content-Type", "application/json");
-    res.end(JSON.stringify({ player: player, room: Rooms[player.JoinedRoom] }));
+    res.end(JSON.stringify({ player: player, nbr: player.Nbr, room: Rooms[player.JoinedRoom] }));
   } else {
     res.statusCode = 400;
     res.setHeader("Content-Type", "application/json");

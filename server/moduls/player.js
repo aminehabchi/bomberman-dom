@@ -8,8 +8,10 @@ export class Player {
     this.Score = 0;
     this.JoinedAt = new Date();
     this.JoinedRoom = "";
+    this.Nbr = -1
     this.x = x;
     this.y = y;
+    this.Speed = 1
   }
 }
 

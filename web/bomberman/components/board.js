@@ -1,13 +1,12 @@
 import { createVElement } from "../../framework/helpers.js";
 import { INFO } from "../utils/playerStatus.js";
-function Player() {
-  
+function Player(nbr) {
   return createVElement(
     "div",
     {
-      id: "player1",
+      id: "player" + nbr.toString(),
       class: "player",
-      ref: "player1",
+      ref: "player" + nbr.toString(),
     },
     []
   );
@@ -15,6 +14,9 @@ function Player() {
 
 export function board() {
   let boardTile = INFO.room.map;
+
+  console.log(boardTile);
+
   if (!boardTile) return createVElement("", {}, []);
 
   let tiles = [];
@@ -25,9 +27,12 @@ export function board() {
         tiles.push(createVElement("div", { class: "wall tile" }, []));
       } else if (boardTile[i][j] == 2) {
         tiles.push(createVElement("div", { class: "tile wall2" }, []));
-      } else if (boardTile[i][j] == 11) {
+      } else if (boardTile[i][j] == 11 ||
+        boardTile[i][j] == 22 ||
+        boardTile[i][j] == 33 ||
+        boardTile[i][j] == 44) {
         tiles.push(createVElement("div", { class: "tile" }, []));
-        tiles.push(Player());
+        tiles.push(Player(boardTile[i][j] / 11));
       } else {
         tiles.push(createVElement("div", { class: "tile" }, []));
       }

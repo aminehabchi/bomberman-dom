@@ -37,8 +37,6 @@ export function startWebSocket(app, roomUuid) {
   });
 
   socket.on("moving", (moveInfo) => {
-    console.log(moveInfo);
-
     updateInput22(moveInfo);
   });
 }
