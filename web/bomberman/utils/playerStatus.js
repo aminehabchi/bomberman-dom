@@ -56,7 +56,7 @@ export async function checkIfLogin(app) {
   }
 
   try {
-    const res = await fetch(`http://localhost:3000/checker?uuid=${uuid}`);
+    const res = await fetch(`/checker?uuid=${uuid}`);
 
     await playerStatus(res, app);
   } catch (err) {
@@ -85,7 +85,7 @@ export async function StartGetRoom(framework, type, RoomUuid) {
   const uuid = localStorage.getItem("uuid");
 
   let res = await fetch(
-    `http://localhost:3000/createroom?uuid=${uuid}&type=${type}&room=${RoomUuid}`
+    `/createroom?uuid=${uuid}&type=${type}&room=${RoomUuid}`
   );
 
   if (res.status == 200) {

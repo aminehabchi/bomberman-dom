@@ -15,7 +15,7 @@ export class SelectNickname extends Component {
 
     try {
       const res = await fetch(
-        `http://localhost:3000/login?nickname=${nickname}`
+        `/login?nickname=${nickname}`
       );
 
       if (res.ok) {

@@ -12,19 +12,53 @@ function updatePosition(player1) {
   player1.style.transform = `translate(${x}px, ${y}px)`;
 }
 
+let serverX = 30
+let serverY = 30
+
 export function updateInput22(moveInfo) {
-  keys = moveInfo.keys;}
+  keys = moveInfo.keys;
+
+  if (keys.r == true || keys.l == true || keys.t == true || keys.b == true) {
+    serverX = moveInfo.position.x
+    serverY = moveInfo.position.y
+  }
+
+}
+
+
 
 function animateMove() {
-  if (keys.r) {
+  if (serverX > x) {
     x += speed;
-  } else if (keys.l) {
+    if (serverX < x) {
+      x = serverX
+    }
+  } else if (serverX < x) {
     x -= speed;
-  } else if (keys.t) {
-    y -= speed;
-  } else if (keys.b) {
+    if (serverX > x) {
+      x = serverX
+    }
+  } else if (serverY > y) {
     y += speed;
+    if (serverY < y) {
+      y = serverY
+    }
+  } else if (serverY < y) {
+    y -= speed;
+    if (serverY > y) {
+      y = serverY
+    }
   }
+
+  // if (keys.r) {
+  //   x += speed;
+  // } else if (keys.l) {
+  //   x -= speed;
+  // } else if (keys.t) {
+  //   y -= speed;
+  // } else if (keys.b) {
+  //   y += speed;
+  // }
 }
 
 function deepCloneObject(obj) {
@@ -47,7 +81,7 @@ addEventListener("keydown", (e) => {
   if (!keyMap[e.key]) return; // Only react to arrows
 
   if (moveInterval) return; // Already moving, don't start a new interval
-  
+
   console.log("start move", rr++, e.key);
 
   let newKeys = { r: false, l: false, t: false, b: false };
@@ -93,6 +127,12 @@ export function StartGameLoop(framework) {
 
   x = 30 * INFO.room.playerPosition[0].x;
   y = 30 * INFO.room.playerPosition[0].y;
+
+
+  console.log(x, y);
+
+
+
   function gameLoop() {
     animateMove();
     updatePosition(player1);

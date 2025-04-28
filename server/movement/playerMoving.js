@@ -48,6 +48,7 @@ export function isValidMove(roomUuid, moveInfo) {
           keys.r = false;
         }
       }
+
     } else {
       console.log("r outside");
       if (currentrigth >= X + 0.95) {
@@ -120,5 +121,15 @@ export function isValidMove(roomUuid, moveInfo) {
     }
   }
 
+
+  if (keys.r == true) {
+    moveInfo.position.x++
+  } else if (keys.l == true) {
+    moveInfo.position.x--
+  } else if (keys.t == true) {
+    moveInfo.position.y--
+  } else if (keys.b == true) {
+    moveInfo.position.y++
+  }
   return moveInfo;
 }

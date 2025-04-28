@@ -4,7 +4,7 @@ import { INFO } from "../utils/playerStatus.js";
 export function startWebSocket(app, roomUuid) {
   console.log("start websocket");
 
-  const socket = io("http://localhost:3000", {
+  const socket = io("/", {
     reconnection: true, // default is true
     reconnectionAttempts: 5, // 🔁 max number of tries
     reconnectionDelay: 1000, // 🕐 wait 1 second before retry
