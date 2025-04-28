@@ -1,10 +1,6 @@
 import { Rooms } from "../moduls/room.js";
 const speed = 1;
 
-function getDecimalPart(num) {
-  return num - Math.floor(num);
-}
-
 export function isValidMove(roomUuid, moveInfo) {
   let currentRoom = Rooms[roomUuid];
   if (!currentRoom) return false;
@@ -13,13 +9,14 @@ export function isValidMove(roomUuid, moveInfo) {
   let keys = moveInfo.keys;
   let playerNbr = moveInfo.playerNbr;
 
-  let currentX = currentRoom.playerPosition[playerNbr - 1].x;
-  let currentY = currentRoom.playerPosition[playerNbr - 1].y;
+  let X = currentRoom.playerPosition[playerNbr - 1].x;
+  let Y = currentRoom.playerPosition[playerNbr - 1].y;
 
+  //20 is the player size
   let currentleft = moveInfo.position.x / 30;
   let currentrigth = (moveInfo.position.x + 20) / 30;
-  let currentup = moveInfo.position.x / 30;
-  let currentdow = (moveInfo.position.x + 20) / 30;
+  let currentup = moveInfo.position.y / 30;
+  let currentdow = (moveInfo.position.y + 20) / 30;
 
   /*******/
   console.log(
@@ -32,23 +29,28 @@ export function isValidMove(roomUuid, moveInfo) {
     "  d ",
     currentdow.toFixed(2),
     "  x ",
-    currentX,
+    X,
     "  y ",
-    currentY
+    Y
   );
 
   // Move Right
   if (keys.r) {
-    //-10 is diff oneSquare - playerSize
-    let newTileX = (moveInfo.position.x - 10 + speed) / 30;
-    //    console.log("r", newTileX, moveInfo.position.x);
+    if (currentup >= Y && currentdow <= Y + 1) {
+      console.log("r inside");
 
-    if (newTileX > currentX) {
-      if (board[currentY][currentX + 1] === 1) {
-        board[currentY][currentX] = 1;
-        board[currentY][currentX + 1] = 11;
-        currentRoom.playerPosition[playerNbr - 1].x = currentX + 1;
-      } else {
+      if (currentrigth >= X + 0.95) {
+        if (board[Y][X + 1] === 1) {
+          board[Y][X] = 1;
+          board[Y][X + 1] = 11;
+          currentRoom.playerPosition[playerNbr - 1].x = X + 1;
+        } else {
+          keys.r = false;
+        }
+      }
+    } else {
+      console.log("r outside");
+      if (currentrigth >= X + 0.95) {
         keys.r = false;
       }
     }
@@ -56,15 +58,21 @@ export function isValidMove(roomUuid, moveInfo) {
 
   // Move Left
   if (keys.l) {
-    let newTileX = (moveInfo.position.x - speed) / 30;
-    //console.log("r", newTileX, moveInfo.position.x);
+    if (currentup >= Y && currentdow <= Y + 1) {
+      console.log("l inside");
 
-    if (newTileX < currentX) {
-      if (board[currentY][currentX - 1] === 1) {
-        board[currentY][currentX] = 1;
-        board[currentY][currentX - 1] = 11;
-        currentRoom.playerPosition[playerNbr - 1].x = currentX - 1;
-      } else {
+      if (currentleft <= X + 0.05) {
+        if (board[Y][X - 1] === 1) {
+          board[Y][X] = 1;
+          board[Y][X - 1] = 11;
+          currentRoom.playerPosition[playerNbr - 1].x = X - 1;
+        } else {
+          keys.l = false;
+        }
+      }
+    } else {
+      console.log("l outside");
+      if (currentleft <= X + 0.05) {
         keys.l = false;
       }
     }
@@ -72,19 +80,20 @@ export function isValidMove(roomUuid, moveInfo) {
 
   // Move Up (Top)
   if (keys.t) {
-    let newTileY = Math.floor((moveInfo.position.y - speed) / 30);
-
-    // let xleft = (moveInfo.position.x - speed) / 30;
-    // let xRigth = (moveInfo.position.x - 10 + speed) / 30;
-
-    // console.log("top ", xleft.toFixed(2), xRigth.toFixed(2), newTileY);
-
-    if (newTileY < currentY) {
-      if (board[currentY - 1][currentX] === 1) {
-        board[currentY][currentX] = 1;
-        board[currentY - 1][currentX] = 11;
-        currentRoom.playerPosition[playerNbr - 1].y = currentY - 1;
-      } else {
+    if (currentleft >= X && currentrigth <= X + 1) {
+      console.log("t inside");
+      if (currentup <= Y + 0.05) {
+        if (board[Y - 1][X] === 1) {
+          board[Y][X] = 1;
+          board[Y - 1][X] = 11;
+          currentRoom.playerPosition[playerNbr - 1].y = Y - 1;
+        } else {
+          keys.t = false;
+        }
+      }
+    } else {
+      console.log("t outside");
+      if (currentup <= Y + 0.05) {
         keys.t = false;
       }
     }
@@ -92,19 +101,20 @@ export function isValidMove(roomUuid, moveInfo) {
 
   // Move Down (Bottom)
   if (keys.b) {
-    let newTileY = Math.ceil((moveInfo.position.y - 10 + speed) / 30);
-
-    // let xleft = (moveInfo.position.x - speed) / 30;
-    // let xRigth = (moveInfo.position.x - 10 + speed) / 30;
-
-    // console.log("down top ", xleft.toFixed(2), xRigth.toFixed(2), newTileY);
-
-    if (newTileY > currentY) {
-      if (board[currentY + 1][currentX] === 1) {
-        board[currentY][currentX] = 1;
-        board[currentY + 1][currentX] = 11;
-        currentRoom.playerPosition[playerNbr - 1].y = currentY + 1;
-      } else {
+    if (currentleft >= X && currentrigth <= X + 1) {
+      console.log("d inside");
+      if (currentdow >= Y + 0.95) {
+        if (board[Y + 1][X] === 1) {
+          board[Y][X] = 1;
+          board[Y + 1][X] = 11;
+          currentRoom.playerPosition[playerNbr - 1].y = Y + 1;
+        } else {
+          keys.b = false;
+        }
+      }
+    } else {
+      console.log("d outside");
+      if (currentdow >= Y + 0.95) {
         keys.b = false;
       }
     }
