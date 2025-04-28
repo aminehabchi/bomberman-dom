@@ -75,28 +75,8 @@ addEventListener("keyup", (e) => {
   }
 });
 
-// addEventListener("keyup", (e) => {
-//   if (keyMap[e.key]) {
-//     let newKeys = { r: false, l: false, t: false, b: false };
-//     sendToServer(newKeys, { x: x, y: y }, INFO.roomUuid);
-//   }
-//   IsReturn = false;
-// });
 
-// export function debounceClick(callback, delay = 1000) {
-//   let canClick = true;
 
-//   return function (...args) {
-//     if (!canClick) return;
-
-//     canClick = false;
-//     callback.apply(this, args);
-
-//     setTimeout(() => {
-//       canClick = true;
-//     }, delay);
-//   };
-// }
 
 function sendToServer(newKeys, position, roomUuid) {
   let socket = INFO.socket;

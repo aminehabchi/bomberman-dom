@@ -28,7 +28,7 @@
     background-color: red;
     width: 20px;
     height: 20px;
-
+   
     transform: translate(30px, 30px);
     position: absolute;
 }
