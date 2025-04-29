@@ -1,14 +1,19 @@
+.game {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
 .grid {
     display: grid;
     grid-template-columns: repeat(17, 50px);
-
     grid-template-rows: repeat(15, 50px);
-    /* gap: 2px; */
-
-    /* Optional spacing between squares */
     background-image: url("../assets/grass.png");
     background-size: cover;
-
     position: relative;
 }
 
@@ -28,28 +33,24 @@
 }
 
 .player {
-    background-image: url("../assets/player/right_robot.png");
-    background-size: cover;
-
     width: 40px;
     height: 40px;
-
-    transform: translate(50px, 50px);
     position: absolute;
 }
 
 #player1 {
-    background-color: red;
+    background-image: url("../assets/player/bidawi.png");
+    
 }
 
 #player2 {
-    background-color: blue;
+    background-image: url("../assets/player/lf9ih.png");
 }
 
 #player3 {
-    background-color: yellow;
+    background-image: url("../assets/player/mafia.png");
 }
 
 #player4 {
-    background-color: black;
+    background-image: url("../assets/player/lbnt.png");
 }

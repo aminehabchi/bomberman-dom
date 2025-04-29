@@ -8,6 +8,15 @@ export var playerPosition = [
     { x: 15 * tileSize, y: 13 * tileSize },
 ];
 
+export const playerDirection = {
+    right: {x: 0, y: tileSize * 2}, 
+    left: {x: 0, y: tileSize}, 
+    up: {x: 0, y: tileSize * 3},
+    down: {x: 0, y: 0}
+  };
+
+export let playerFacing = ["down", "down", "down", "down"];
+
 export class InputManager {
     constructor() {
         this.moveInterval = undefined;

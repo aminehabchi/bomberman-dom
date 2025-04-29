@@ -1,26 +1,58 @@
-import { InputManager, playerPosition } from "./inputManager.js";
+import { InputManager, playerPosition ,playerDirection, playerFacing} from "./inputManager.js";
 import { INFO } from "../utils/playerStatus.js";
 let inputManager;
+
+let keys = { r: false, l: false, t: false, b: false };
+let frameCount = 0;
+const framePerStep = 10;
+const maxFrames = 4;
 
 function updatePosition(player1, player2, player3, player4) {
   player1.style.transform = `translate(${playerPosition[0].x}px, ${playerPosition[0].y}px)`;
   player2.style.transform = `translate(${playerPosition[1].x}px, ${playerPosition[1].y}px)`;
   player3.style.transform = `translate(${playerPosition[2].x}px, ${playerPosition[2].y}px)`;
   player4.style.transform = `translate(${playerPosition[3].x}px, ${playerPosition[3].y}px)`;
+  // Only animate when the current player (us) is moving
+  const playerNbr = INFO.playerNbr - 1;
+   if(!inputManager.isSetEmpty()) {
+    if (++frameCount >= framePerStep) {
+      frameCount = 0;
+      // Only update the animation frame for current direction
+      playerDirection[playerFacing[playerNbr]].x = (playerDirection[playerFacing[playerNbr]].x + tileSize) % (tileSize * maxFrames);
+      console.log("frame", playerDirection[playerFacing[playerNbr]].x);
+      
+    }
+   }
+   
+  
+
+  // Set the background position for each player based on their facing direction
+  player1.style.backgroundPosition = `-${playerDirection[playerFacing[0]].x}px -${playerDirection[playerFacing[0]].y}px`;
+  player2.style.backgroundPosition = `-${playerDirection[playerFacing[1]].x}px -${playerDirection[playerFacing[1]].y}px`;
+  player3.style.backgroundPosition = `-${playerDirection[playerFacing[2]].x}px -${playerDirection[playerFacing[2]].y}px`;
+  player4.style.backgroundPosition = `-${playerDirection[playerFacing[3]].x}px -${playerDirection[playerFacing[3]].y}px`;
 }
 
 export function updateInput22(moveInfo) {
+  const playerNbr = moveInfo.playerNbr - 1;
 
-  if (moveInfo.keys.r == true ||
-    moveInfo.keys.l == true ||
-    moveInfo.keys.t == true ||
-    moveInfo.keys.b == true) {
-
-    console.log(moveInfo.position);
-
-    playerPosition[moveInfo.playerNbr - 1].x = moveInfo.position.x
-    playerPosition[moveInfo.playerNbr - 1].y = moveInfo.position.y
-  }
+    // Update the facing direction and position only for the specific player
+  if (moveInfo.playerNbr) {
+      if (moveInfo.keys.r) {
+        playerFacing[playerNbr] = "right";
+      } else if (moveInfo.keys.l) {
+        playerFacing[playerNbr] = "left";
+      } else if (moveInfo.keys.t) {
+        playerFacing[playerNbr] = "up";
+      } else if (moveInfo.keys.b) {
+        playerFacing[playerNbr] = "down";
+      }
+  
+      if (moveInfo.keys.r || moveInfo.keys.l || moveInfo.keys.t ||        moveInfo.keys.b) {
+        playerPosition[playerNbr].x = moveInfo.position.x;
+        playerPosition[playerNbr].y = moveInfo.position.y;
+      }
+    }
 }
 
 let tileSize = 50;
