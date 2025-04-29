@@ -25,6 +25,7 @@
     background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
                       url('data:image/svg+xml;utf8,<svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="24" height="24" fill="%23120826"/><rect x="24" y="24" width="24" height="24" fill="%23120826"/></svg>');
     background-size: 48px 48px;
+    overflow: hidden;
   }
 
   /* #app {

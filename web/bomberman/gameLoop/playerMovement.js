@@ -1,6 +1,11 @@
 import { InputManager, playerPosition ,playerDirection, playerFacing} from "./inputManager.js";
 import { INFO } from "../utils/playerStatus.js";
+import { Bomb } from "../bomb/bomb.js";
 let inputManager;
+let bomb 
+let time = Date.now();
+
+
 
 let keys = { r: false, l: false, t: false, b: false };
 let frameCount = 0;
@@ -58,6 +63,13 @@ export function updateInput22(moveInfo) {
 let tileSize = 50;
 let id;
 
+function makeBomb() {
+  addEventListener("keydown", (event) => {
+    if (event.key === "x") {
+      bomb.createBomb();
+    }
+  })
+}
 
 function setPlayerPosition(Position) {
   playerPosition[0].x = Position[0].x * tileSize
@@ -83,8 +95,8 @@ export function StartGameLoop(framework) {
   const player4 = framework.getRef("player4");
 
 
-
-
+  bomb = new Bomb(2, playerPosition[INFO.playerNbr - 1], time);
+  makeBomb();
   function gameLoop() {
     updatePosition(player1, player2, player3, player4);
     id = requestAnimationFrame(gameLoop);
