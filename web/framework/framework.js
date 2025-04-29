@@ -19,23 +19,16 @@ export class Framework {
 
   //ref
   setRef(name, value) {
-    console.log(name, " set Ref", this.Refs);
-
     this.Refs[name] = value;
   }
 
   getRef(name) {
-    console.log(name, " get Ref", this.Refs);
     return this.Refs[name];
   }
 
   // State management methods
   setState(name, value) {
-    
     this.state[name] = value;
-
-    console.log(name,value, " set state", window.location.pathname);
-
     this.start();
   }
 
