@@ -14,10 +14,10 @@ export function isValidMove(roomUuid, moveInfo) {
   let Y = currentRoom.playerPosition[playerNbr - 1].y;
 
   //20 is the player size
-  let currentleft = moveInfo.position.x / 30;
-  let currentrigth = (moveInfo.position.x + 20) / 30;
-  let currentup = moveInfo.position.y / 30;
-  let currentdow = (moveInfo.position.y + 20) / 30;
+  let currentleft = moveInfo.position.x / 50;
+  let currentrigth = (moveInfo.position.x + 40) / 50;
+  let currentup = moveInfo.position.y / 50;
+  let currentdow = (moveInfo.position.y + 40) / 50;
 
   /*******/
   // console.log(

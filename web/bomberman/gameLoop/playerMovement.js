@@ -1,6 +1,6 @@
 import { INFO } from "../utils/playerStatus.js";
 
-const tileSize = 30;
+const tileSize = 50;
 
 let playerPosition = [
   { x: 1 * tileSize, y: 1 * tileSize }, // player 1
@@ -44,6 +44,8 @@ const keyMap = {
 };
 
 addEventListener("keydown", (e) => {
+  console.log(e.key);
+
   if (!keyMap[e.key]) return; // Only react to arrows
 
   if (moveInterval) return; // Already moving, don't start a new interval
@@ -64,9 +66,6 @@ addEventListener("keyup", (e) => {
     clearInterval(moveInterval);
     moveInterval = null;
     // Also send a stop signal to the server
-
-
-
     sendToServer(
       { r: false, l: false, t: false, b: false },
       { x: playerPosition[INFO.playerNbr - 1].x, y: playerPosition[INFO.playerNbr - 1].y },
@@ -94,6 +93,12 @@ export function StartGameLoop(framework) {
   const player3 = framework.getRef("player3");
   const player4 = framework.getRef("player4");
 
+  playerPosition = [
+    { x: INFO.room.playerPosition[0].x * tileSize, y: INFO.room.playerPosition[0].y * tileSize }, // player 1
+    { x: INFO.room.playerPosition[1].x * tileSize, y: INFO.room.playerPosition[1].y * tileSize }, // player 2
+    { x: INFO.room.playerPosition[2].x * tileSize, y: INFO.room.playerPosition[2].y * tileSize }, // player 3
+    { x: INFO.room.playerPosition[3].x * tileSize, y: INFO.room.playerPosition[3].y * tileSize }, // player 4
+  ];
 
   function gameLoop() {
     updatePosition(player1, player2, player3, player4);

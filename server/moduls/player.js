@@ -11,7 +11,7 @@ export class Player {
     this.Nbr = -1
     this.x = x;
     this.y = y;
-    this.Speed = 1
+    this.Speed = 3
   }
 }
 
