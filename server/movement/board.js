@@ -17,7 +17,7 @@ export let boardTile = [
 ];
 
 function random01() {
-  return Math.random() < 0.9 ? 0 : 1;
+  return Math.random() < 0.4 ? 0 : 1;
 }
 
 function deepClone2DArray(array) {
@@ -27,41 +27,42 @@ function deepClone2DArray(array) {
 export function prepereBaord(NbrPlayer) {
   let newboardTile = deepClone2DArray(boardTile);
 
-  // for (let i = 0; i < boardTile.length; i++) {
-  //   for (let j = 0; j < boardTile[i].length; j++) {
-  //     if (boardTile[i][j] == 1) {
+  // for (let i = 0; i < newboardTile.length; i++) {
+  //   for (let j = 0; j < newboardTile[i].length; j++) {
+  //     if (newboardTile[i][j] == 1) {
   //       if (random01() == 1) {
-  //         boardTile[i][j] = 2;
+  //         newboardTile[i][j] = 2;
   //       }
   //     }
   //   }
   // }
 
-  // // player 1
-  // newboardTile[1][1] = 11; // initial position
-  // newboardTile[1][2] = 1;
-  // newboardTile[2][1] = 1;
+  // player 1
+  newboardTile[1][1] = 11; // initial position
+  newboardTile[1][2] = 1;
+  newboardTile[2][1] = 1;
 
-  // if (NbrPlayer > 1) {
-  //   // player 2
-  //   newboardTile[1][15] = 22;
-  //   newboardTile[1][14] = 1;
-  //   newboardTile[2][15] = 1;
-  // }
+  if (NbrPlayer > 1) {
+    // player 2
+    newboardTile[1][15] = 22;
+    newboardTile[1][14] = 1;
+    newboardTile[2][15] = 1;
+  }
 
-  // if (NbrPlayer > 2) {
-  //   // player 3
-  //   newboardTile[13][1] = 33;
-  //   newboardTile[13][2] = 1;
-  //   newboardTile[12][1] = 1;
-  // }
+  if (NbrPlayer > 2) {
+    // player 3
+    newboardTile[13][1] = 33;
+    newboardTile[13][2] = 1;
+    newboardTile[12][1] = 1;
+  }
 
-  // if (NbrPlayer > 3) {
-  //   // player 4
-  //   newboardTile[13][15] = 44;
-  //   newboardTile[13][14] = 1;
-  //   newboardTile[12][15] = 1;
-  // }
+  if (NbrPlayer > 3) {
+    // player 4
+    newboardTile[13][15] = 44;
+    newboardTile[13][14] = 1;
+    newboardTile[12][15] = 1;
+  }
+  console.log();
 
   return newboardTile;
 }

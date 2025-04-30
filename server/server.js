@@ -4,13 +4,15 @@ import { Server } from "socket.io";
 
 import { Players } from "./moduls/player.js";
 
+import handleBomb from "./bomb/handleBomb.js";
+
 const PORT = 3000;
 
 const server = http.createServer((req, res) => {
   routing(req, res);
 });
 
-const io = new Server(server);
+export const io = new Server(server);
 import { isValidMove } from "./movement/playerMoving.js";
 import { log } from "console";
 io.on("connection", (socket) => {
@@ -44,10 +46,9 @@ io.on("connection", (socket) => {
   });
 
   socket.on("bomb", ({ room, bombInfo }) => {
-    console.log("bomb", bombInfo);
+    handleBomb(room, bombInfo, socket);
     io.to(room).emit("bomb", bombInfo);
   });
-  
 });
 
 server.listen(PORT, () => {

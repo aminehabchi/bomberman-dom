@@ -27,10 +27,12 @@ export function board() {
         tiles.push(createVElement("div", { class: "wall tile" }, []));
       } else if (boardTile[i][j] == 2) {
         tiles.push(createVElement("div", { class: "tile wall2" }, []));
-      } else if (boardTile[i][j] == 11 ||
+      } else if (
+        boardTile[i][j] == 11 ||
         boardTile[i][j] == 22 ||
         boardTile[i][j] == 33 ||
-        boardTile[i][j] == 44) {
+        boardTile[i][j] == 44
+      ) {
         tiles.push(createVElement("div", { class: "tile" }, []));
         tiles.push(Player(boardTile[i][j] / 11));
       } else {
@@ -39,5 +41,6 @@ export function board() {
     }
   }
 
+  tiles.push(createVElement("div", { class: "bomb", ref:"bomb1"}, []));
   return createVElement("div", { class: "grid" }, tiles);
 }

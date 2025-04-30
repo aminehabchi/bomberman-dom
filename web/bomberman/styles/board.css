@@ -17,12 +17,27 @@
     position: relative;
 }
 
+@keyframes bombPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.15);
+    }
+}
+
 .bomb {
-    background-color: blue;
+    background-image: url('../assets/bomb.png');
+    background-size: cover;
     z-index: 2;
     position: absolute;
     width: 50px;
     height: 50px;
+
+    animation: bombPulse 0.8s infinite ease-in-out;
 }
 
 .tile {
@@ -48,7 +63,7 @@
 
 #player1 {
     background-image: url("../assets/player/bidawi.png");
-    
+    background-color: brown;
 }
 
 #player2 {

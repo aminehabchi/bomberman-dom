@@ -5,13 +5,15 @@ export class Player {
   constructor(nickname, uuid, x, y) {
     this.Nickname = nickname;
     this.Uuid = uuid;
-    this.Score = 0;
     this.JoinedAt = new Date();
     this.JoinedRoom = "";
-    this.Nbr = -1
+    this.Nbr = -1;
     this.x = x;
     this.y = y;
-    this.Speed = 5
+    this.Speed = 1;
+    this.Range = 1;
+    this.Lives = 3;
+    this.IsExtendedBomb = false;
   }
 }
 

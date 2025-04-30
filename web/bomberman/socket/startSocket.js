@@ -1,5 +1,6 @@
 import { updateInput22 } from "../gameLoop/playerMovement.js";
 import { INFO } from "../utils/playerStatus.js";
+import { setBomb } from "../gameLoop/bomb.js";
 
 export function startWebSocket(app, roomUuid) {
   console.log("start websocket");
@@ -41,17 +42,6 @@ export function startWebSocket(app, roomUuid) {
   });
 
   socket.on("bomb", (bombInfo) => {
-    const gameContainer = document.querySelector('.grid');
-    const bombElement = document.createElement('div');
-    bombElement.classList.add('bomb');
-    bombElement.style.left = `${bombInfo.x * 50}px`;
-    bombElement.style.top = `${bombInfo.y * 50}px`;
-    bombElement.dataset.position = `${bombInfo.x},${bombInfo.y}`;
-    gameContainer.appendChild(bombElement);
-  
-    setTimeout(() => {
-      bombElement.remove(); // explosion ou disparition
-    }, 2000);
+    setBomb(bombInfo)
   });
-  
 }

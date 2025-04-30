@@ -4,10 +4,6 @@ export function isValidMove(roomUuid, moveInfo) {
   const currentRoom = Rooms[roomUuid];
   if (!currentRoom) return false;
 
-  console.log("----------");
-
-  console.log(moveInfo.position);
-
   const board = currentRoom.map;
 
   const { keys, playerNbr } = moveInfo;
@@ -16,7 +12,7 @@ export function isValidMove(roomUuid, moveInfo) {
 
   // Constants for player and tile size
   const playerSize = 40; // Player size
-  const tileSize = 50;   // Tile size
+  const tileSize = 50; // Tile size
 
   const currentleft = moveInfo.position.x / tileSize;
   const currentright = (moveInfo.position.x + playerSize) / tileSize;
@@ -122,7 +118,8 @@ export function isValidMove(roomUuid, moveInfo) {
     moveInfo.position.y += currentRoom.Players[playerNbr - 1].Speed;
   }
 
-  console.log(moveInfo.position);
+  // console.log(moveInfo.position);
+  console.log(currentRoom.map[1]);
 
   return moveInfo;
 }
