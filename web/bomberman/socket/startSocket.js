@@ -50,4 +50,11 @@ export function startWebSocket(app, roomUuid) {
 
     app.setState("map", map)
   });
+
+  socket.on("lives", (Info) => {
+    console.log("---------live updated-----------");
+    console.log(Info);
+
+    app.setState("live" + Info.playerNbr.toString(), Info.lives)
+  });
 }

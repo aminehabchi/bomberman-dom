@@ -8,6 +8,11 @@ import { checkIfLogin } from "./utils/playerStatus.js";
 export const app = new Framework({
   messages: [],
   players: undefined,
+  live1: "3",
+  live2: "3",
+  live3: "3",
+  live4: "3",
+
 });
 
 app.route("/", SelectNickname);

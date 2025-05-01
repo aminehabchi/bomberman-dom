@@ -2,9 +2,33 @@
     height: 100vh;
     width: 100%;
     display: flex;
+    justify-content: center;
+    align-items: center;
+}
+    
+.sidebar {
+    width: 300px;
+    height: 750px;
+    background-color: aqua;  
+}
+.sidebar .title {
+    /* background-color:  red; */
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+
+.players_list_holder{
+    text-decoration: none;
+    list-style: none;
+    border:  1px solid #1e1e1e;
+}
+
+.player_holder { 
+    font-size: 18px;
+    
 }
 
 

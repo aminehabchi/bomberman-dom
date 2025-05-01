@@ -41,12 +41,12 @@ function updateFacingPosition(player1, player2, player3, player4) {
       if (++frameCount >= framePerStep) {
         frameCount = 0;
         // Only update the animation frame for current direction
-        if(playerNbr) {
+        // if(playerNbr) {
           playerDirection[playerFacing[playerNbr]].x =
             (playerDirection[playerFacing[playerNbr]].x + tileSize) %
             (tileSize * maxFrames);
           console.log("frame", playerDirection[playerFacing[playerNbr]].x);
-        }
+        // }
       }
     }
     // Set the background position for each player based on their facing direction
