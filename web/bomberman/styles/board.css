@@ -17,29 +17,6 @@
     position: relative;
 }
 
-@keyframes bombFlash {
-
-    0%,
-    100% {
-        opacity: 1;
-    }
-
-    50% {
-        opacity: 0.5;
-    }
-}
-
-
-.bomb {
-    background-image: url('../assets/bomb.png');
-    background-size: cover;
-    z-index: 2;
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    display: none;
-    animation: bombFlash 0.6s infinite;
-}
 
 .tile {
     width: 50px;
@@ -80,9 +57,9 @@
 }
 
 
-.Pawer {
-    width: 40px;
-    height: 40px;
+.Power {
+    width: 50px;
+    height: 50px;
     background-size: cover;
 }
 

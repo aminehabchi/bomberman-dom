@@ -38,27 +38,27 @@ export function prepereBaord(NbrPlayer) {
   }
 
   // player 1
-  newboardTile[1][1] = 11; // initial position
+  newboardTile[1][1] = 1; // initial position
   newboardTile[1][2] = 1;
   newboardTile[2][1] = 1;
 
   if (NbrPlayer > 1) {
     // player 2
-    newboardTile[1][15] = 22;
+    newboardTile[1][15] = 1;
     newboardTile[1][14] = 1;
     newboardTile[2][15] = 1;
   }
 
   if (NbrPlayer > 2) {
     // player 3
-    newboardTile[13][1] = 33;
+    newboardTile[13][1] = 1;
     newboardTile[13][2] = 1;
     newboardTile[12][1] = 1;
   }
 
   if (NbrPlayer > 3) {
     // player 4
-    newboardTile[13][15] = 44;
+    newboardTile[13][15] = 1;
     newboardTile[13][14] = 1;
     newboardTile[12][15] = 1;
   }
@@ -66,9 +66,11 @@ export function prepereBaord(NbrPlayer) {
   return newboardTile;
 }
 
+import { Rooms } from "../moduls/room.js";
+export function UpdateMap(io, room) {
+  console.log("--->", room);
 
-import { io } from "../server.js";
+  let currentRoom = Rooms[room]
 
-export function UpdateMap(map) {
-  io.to(room).emit("map", map);
+  io.to(room).emit("map", currentRoom.map);
 }

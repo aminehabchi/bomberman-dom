@@ -1,48 +1,66 @@
 import { Rooms } from "../moduls/room.js";
 import { io } from "../server.js";
 import { updateLife } from "./updateLives.js";
-
+import { UpdateMap } from "../movement/board.js";
 const bombTimer = 2500;
 
 async function handleBomb(roomUuid, bombInfo) {
   let currentRoom = Rooms[roomUuid];
+  let x = currentRoom.playerPosition[bombInfo.playerNbr - 1].x;
+  let y = currentRoom.playerPosition[bombInfo.playerNbr - 1].y;
 
-  let pos = currentRoom.playerPosition[bombInfo.playerNbr - 1];
-  currentRoom.map[pos.y][pos.x] = [5, bombInfo.playerNbr * 11];
-
+  Rooms[roomUuid].map[y][x] = 5
 
   setTimeout(() => {
-    let pos = currentRoom.playerPosition[bombInfo.playerNbr - 1];
-    currentRoom.map[pos.y][pos.x] = 5;
-    Explode(bombInfo, roomUuid);
+
+    currentRoom.map[y][x] = 1;
+    Explode(x, y, bombInfo.playerNbr, currentRoom.Uuid, bombInfo);
+    UpdateMap(io, currentRoom.Uuid)
   }, bombTimer);
 }
 
 export default handleBomb;
 
-async function Explode(bombInfo, roomUuid) {
+async function Explode(x, y, playerNbr, roomUuid, bombInfo) {
   let currentRoom = Rooms[roomUuid];
-  let x = bombInfo.x;
-  let y = bombInfo.y;
-  currentRoom.playerPosition.forEach((pos, index) => {
-    let player = currentRoom.Players[bombInfo.playerNbr - 1];
+  let range = currentRoom.Players[playerNbr - 1].Range
 
-    if (isPlayerInExplosionRange(pos, { x, y }, player.Range)) {
-      updateLife(player);
-    }
-  });
+
+  isPlayerInExplosionRange(currentRoom.map, { x, y }, range)
+
+  // updateLife(player);
+
+
 
   bombInfo.isExplod = true;
   io.to(roomUuid).emit("bomb", bombInfo);
 }
 
-function isPlayerInExplosionRange(pos, bomb, range) {
-  if (pos.x <= bomb.x + range && pos.x >= bomb.x - range && pos.y == bomb.y) {
-    return true;
-  }
-  if (pos.y <= bomb.y + range && pos.y >= bomb.y - range && pos.x == bomb.x) {
-    return true;
-  }
 
-  return false;
+
+function isPlayerInExplosionRange(map, bomb, range) {
+
+
+  const dirs = [[1, 0], [-1, 0], [0, -1], [0, 1]]
+  console.log(bomb);
+
+
+
+  dirs.forEach(([dx, dy]) => {
+    for (let i = 1; i <= range; i++) {
+      let x = dx * i + bomb.x
+      let y = dy * i + bomb.y
+      if (x > 0 && x < 17 && y > 0 && y < 17) {
+        if (map[y][x] != 1) {
+          if (map[y][x] != 0) {
+            map[y][x] = 1
+          }
+          break
+        }
+      } else {
+        break
+      }
+    }
+  })
+
 }

@@ -1,5 +1,4 @@
 import { createVElement } from "../../framework/helpers.js";
-import { INFO } from "../utils/playerStatus.js";
 function Player(nbr) {
   return createVElement(
     "div",
@@ -24,13 +23,18 @@ export function board(framework) {
   for (let i = 0; i < boardTile.length; i++) {
     for (let j = 0; j < boardTile[i].length; j++) {
       const cell = boardTile[i][j];
-      tiles.push(chooseItems(cell))
       if (cell == 11 || cell == 22 || cell == 33 || cell == 44) {
         tiles.push(createVElement("div", { class: "tile" }, []))
+      } else {
+        tiles.push(chooseItems(cell))
       }
     }
   }
 
+  tiles.push(chooseItems(11))
+  tiles.push(chooseItems(22))
+  tiles.push(chooseItems(33))
+  tiles.push(chooseItems(44))
 
   return createVElement("div", { class: "grid" }, tiles);
 }
@@ -52,11 +56,11 @@ function chooseItems(cell) {
     case 44:
       return Player(cell / 11)
     case 5:
-      return createVElement("div", { class: "tile power bomb" }, [])
+      return createVElement("div", { class: "tile Power Bomb" }, [])
     case 6:
-      return createVElement("div", { class: "tile power speed" }, [])
+      return createVElement("div", { class: "tile Power Speed" }, [])
     case 7:
-      return createVElement("div", { class: "tile power flame" }, [])
+      return createVElement("div", { class: "tile Power Flame" }, [])
 
   }
 

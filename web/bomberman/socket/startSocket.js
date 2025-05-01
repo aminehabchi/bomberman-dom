@@ -46,7 +46,7 @@ export function startWebSocket(app, roomUuid) {
   });
 
   socket.on("map", (map) => {
-    console.log("new map seted");
+    console.log("---------new map seted-----------");
 
     app.setState("map", map)
   });

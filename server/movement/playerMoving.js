@@ -26,8 +26,8 @@ export function isValidMove(roomUuid, moveInfo) {
 
       if (currentright >= X + 0.95) {
         if (board[Y][X + 1] === 1) {
-          board[Y][X] = 1;
-          board[Y][X + 1] = playerNbr * 11;
+          // board[Y][X] = 1;
+          // board[Y][X + 1] = playerNbr * 11;
           currentRoom.playerPosition[playerNbr - 1].x = X + 1;
         } else {
           keys.r = false; // Disable right movement if blocked
@@ -48,8 +48,8 @@ export function isValidMove(roomUuid, moveInfo) {
 
       if (currentleft <= X + 0.05) {
         if (board[Y][X - 1] === 1) {
-          board[Y][X] = 1;
-          board[Y][X - 1] = playerNbr * 11;
+          // board[Y][X] = 1;
+          // board[Y][X - 1] = playerNbr * 11;
           currentRoom.playerPosition[playerNbr - 1].x = X - 1;
         } else {
           keys.l = false; // Disable left movement if blocked
@@ -70,8 +70,8 @@ export function isValidMove(roomUuid, moveInfo) {
 
       if (currentup <= Y + 0.05) {
         if (board[Y - 1] && board[Y - 1][X] === 1) {
-          board[Y][X] = 1;
-          board[Y - 1][X] = playerNbr * 11;
+          // board[Y][X] = 1;
+          // board[Y - 1][X] = playerNbr * 11;
           currentRoom.playerPosition[playerNbr - 1].y = Y - 1;
         } else {
           keys.t = false; // Disable top movement if blocked
@@ -92,8 +92,8 @@ export function isValidMove(roomUuid, moveInfo) {
 
       if (currentdown >= Y + 0.95) {
         if (board[Y + 1] && board[Y + 1][X] === 1) {
-          board[Y][X] = 1;
-          board[Y + 1][X] = playerNbr * 11;
+          // board[Y][X] = 1;
+          // board[Y + 1][X] = playerNbr * 11;
           currentRoom.playerPosition[playerNbr - 1].y = Y + 1;
         } else {
           keys.b = false; // Disable bottom movement if blocked
@@ -119,7 +119,7 @@ export function isValidMove(roomUuid, moveInfo) {
   }
 
   // console.log(moveInfo.position);
-  console.log(currentRoom.map[1]);
+  // console.log(currentRoom.map[1]);
 
   return moveInfo;
 }
