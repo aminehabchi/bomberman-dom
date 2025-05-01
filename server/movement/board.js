@@ -68,7 +68,6 @@ export function prepereBaord(NbrPlayer) {
 
 import { Rooms } from "../moduls/room.js";
 export function UpdateMap(io, room) {
-  console.log("--->", room);
 
   let currentRoom = Rooms[room]
 

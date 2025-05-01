@@ -20,15 +20,12 @@ io.on("connection", (socket) => {
 
   // Join a room
   socket.on("join-room", (room) => {
-    console.log(room);
     socket.join(room);
   });
 
   // Listen for message and broadcast to the room
   socket.on("send-message", ({ room, message }) => {
     //send message to All
-    console.log("message", message);
-
     io.to(room).emit("message", message);
   });
 

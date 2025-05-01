@@ -31,12 +31,16 @@ export function CreateRoom() {
   return new Room(uuid, prepereBaord(4));
 }
 
+
+
+
 function PrepereRoom() {
   if (!AvailableRoom || AvailableRoom.NbrPlayes == 4 || AvailableRoom.IsStart) {
     AvailableRoom = CreateRoom();
     Rooms[AvailableRoom.Uuid] = AvailableRoom;
   }
 }
+
 
 export function AddPlayerToRoom(player) {
   PrepereRoom();
