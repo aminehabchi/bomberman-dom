@@ -15,6 +15,8 @@ const server = http.createServer((req, res) => {
 export const io = new Server(server);
 import { isValidMove } from "./movement/playerMoving.js";
 import { UpdateMap } from "./movement/board.js";
+import { Rooms } from "./moduls/room.js";
+import { countReset } from "console";
 io.on("connection", (socket) => {
   console.log(`User connected: ${socket.id}`);
 
@@ -44,7 +46,7 @@ io.on("connection", (socket) => {
 
   socket.on("bomb", ({ room, bombInfo }) => {
     handleBomb(room, bombInfo, socket);
-    UpdateMap(io, room)
+    UpdateMap(io, room);
     io.to(room).emit("bomb", bombInfo);
   });
 });

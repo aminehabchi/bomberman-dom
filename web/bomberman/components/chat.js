@@ -98,18 +98,12 @@ function Header(framework) {
       ["Copy Hash"]
     );
   }
+
   return createVElement("div", { class: "roomHeader" }, [
-    createVElement("span", { class: "timer" }, ["00:19"]),
+    createVElement("span", { class: "timer" }, [
+      String(framework.getState("timer")),
+    ]),
     copyBtn,
-    createVElement(
-      "span",
-      {
-        onclick: () => {
-          framework.navigateTo("/game");
-        },
-      },
-      ["Game"]
-    ),
   ]);
 }
 

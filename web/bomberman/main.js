@@ -12,7 +12,8 @@ export const app = new Framework({
   live2: "3",
   live3: "3",
   live4: "3",
-
+  isWin: undefined,
+  timer: "0",
 });
 
 app.route("/", SelectNickname);

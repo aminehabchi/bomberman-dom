@@ -11,5 +11,5 @@ export function setBomb(bombInfo) {
     //   bomb.style.display = "block"; 
     // }
   
-    console.log(bombInfo);
+    // console.log(bombInfo);
   }

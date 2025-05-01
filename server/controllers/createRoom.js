@@ -15,9 +15,12 @@ function JoinRRoom(res, player) {
 function CreateJoinRoom(res, player) {
   //prepare room
   let room = CreateRoom();
-  room.IsCreated = true
+  room.IsCreated = true;
   room.Players.push(player);
-  player.Nbr = room.Players.length
+  player.Nbr = room.Players.length;
+  if (player.Nbr == 2) {
+    start20Timer(room.Uuid);
+  }
   Rooms[room.Uuid] = room;
   player.JoinedRoom = room.Uuid;
 
@@ -32,7 +35,10 @@ function JoinRoom(res, player, roomUuid) {
 
   if (room.Players.length < 4) {
     room.Players.push(player);
-    player.Nbr = room.Players.length
+    player.Nbr = room.Players.length;
+    if (player.Nbr == 2) {
+      start20Timer(roomUuid);
+    }
     player.JoinedRoom = room.Uuid;
     res.statusCode = 200;
     res.setHeader("Content-Type", "application/json");

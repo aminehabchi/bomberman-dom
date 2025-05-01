@@ -1,6 +1,6 @@
 import { generateUUID } from "../service/uuid.js";
 import { prepereBaord } from "../movement/board.js";
-
+import { start20Timer } from "./counter.js";
 export class Room {
   constructor(uuid, Map) {
     this.Uuid = uuid;
@@ -31,9 +31,6 @@ export function CreateRoom() {
   return new Room(uuid, prepereBaord(4));
 }
 
-
-
-
 function PrepereRoom() {
   if (!AvailableRoom || AvailableRoom.NbrPlayes == 4 || AvailableRoom.IsStart) {
     AvailableRoom = CreateRoom();
@@ -41,12 +38,13 @@ function PrepereRoom() {
   }
 }
 
-
 export function AddPlayerToRoom(player) {
   PrepereRoom();
   player.JoinedRoom = AvailableRoom.Uuid;
   AvailableRoom.Players.push(player);
-  player.Nbr = AvailableRoom.Players.length
-
+  player.Nbr = AvailableRoom.Players.length;
+  if (player.Nbr == 2) {
+    start20Timer(player.JoinedRoom);
+  }
   return AvailableRoom;
 }

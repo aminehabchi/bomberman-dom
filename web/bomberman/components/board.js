@@ -1,4 +1,5 @@
 import { createVElement } from "../../framework/helpers.js";
+import { INFO } from "../utils/playerStatus.js";
 function Player(nbr) {
   return createVElement(
     "div",
@@ -12,7 +13,7 @@ function Player(nbr) {
 }
 
 export function board(framework) {
-  let boardTile = framework.getState("map")
+  let boardTile = framework.getState("map");
 
   console.log(boardTile);
 
@@ -24,45 +25,53 @@ export function board(framework) {
     for (let j = 0; j < boardTile[i].length; j++) {
       const cell = boardTile[i][j];
       if (cell == 11 || cell == 22 || cell == 33 || cell == 44) {
-        tiles.push(createVElement("div", { class: "tile" }, []))
+        tiles.push(createVElement("div", { class: "tile" }, []));
       } else {
-        tiles.push(chooseItems(cell))
+        tiles.push(chooseItems(cell));
       }
     }
   }
+  let playerNbr = framework.getState("Players").length;
+  console.log(playerNbr);
 
-  tiles.push(chooseItems(11))
-  tiles.push(chooseItems(22))
-  tiles.push(chooseItems(33))
-  tiles.push(chooseItems(44))
+  if (playerNbr > 0) {
+    tiles.push(chooseItems(11));
+  }
+  if (playerNbr > 1) {
+    tiles.push(chooseItems(22));
+  }
+  if (playerNbr > 2) {
+    tiles.push(chooseItems(33));
+  }
+  if (playerNbr > 3) {
+    tiles.push(chooseItems(44));
+  }
 
   return createVElement("div", { class: "grid" }, tiles);
 }
 
-
 function chooseItems(cell) {
   switch (cell) {
     case 0:
-      return (createVElement("div", { class: "tile wall" }, []));
+      return createVElement("div", { class: "tile wall" }, []);
 
     case 1:
-      return (createVElement("div", { class: "tile" }, []));
+      return createVElement("div", { class: "tile" }, []);
 
     case 2:
-      return (createVElement("div", { class: "tile wall2" }, []));
+      return createVElement("div", { class: "tile wall2" }, []);
     case 11:
     case 22:
     case 33:
     case 44:
-      return Player(cell / 11)
+      return Player(cell / 11);
     case 5:
-      return createVElement("div", { class: "tile Power Bomb" }, [])
+      return createVElement("div", { class: "tile Power Bomb" }, []);
     case 6:
-      return createVElement("div", { class: "tile Power Speed" }, [])
+      return createVElement("div", { class: "tile Power Speed" }, []);
     case 7:
-      return createVElement("div", { class: "tile Power Flame" }, [])
-
+      return createVElement("div", { class: "tile Power Flame" }, []);
   }
 
-  return createVElement("", {}, [])
+  return createVElement("", {}, []);
 }

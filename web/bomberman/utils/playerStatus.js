@@ -15,8 +15,9 @@ export let INFO = {
 
  2-no room     =>      "/start"
 
- 3-room        =>      "/game" 
+ 3-room        =>      "/chat" 
 
+ 4-room start  =>      "/game"
 
 */
 
@@ -35,16 +36,19 @@ export async function playerStatus(res, app) {
       INFO.room = data.room;
       INFO.roomUuid = data.room.Uuid;
       INFO.Players = data.room.Players;
-      INFO.playerNbr = data.nbr
+      INFO.playerNbr = data.nbr;
       console.log("-->", INFO.playerNbr);
 
-
-      app.setState("map", data.room.map)
+      app.setState("map", data.room.map);
       app.setState("Players", data.room.Players);
     }
 
     if (data.player.JoinedRoom != "") {
-      history.pushState(null, "", "/chat");
+      if (data.room.IsStart == true) {
+        history.pushState(null, "", "/game");
+      } else {
+        history.pushState(null, "", "/chat");
+      }
     } else {
       history.pushState(null, "", "/start");
     }
@@ -63,7 +67,7 @@ export async function checkIfLogin(app) {
   try {
     const res = await fetch(`/checker?uuid=${uuid}`);
     console.log(app);
-    
+
     await playerStatus(res, app);
   } catch (err) {
     console.error("Error checking login:", err);
@@ -104,11 +108,11 @@ export async function StartGetRoom(framework, type, RoomUuid) {
     INFO.room = data.room;
     INFO.roomUuid = data.room.Uuid;
     INFO.Players = data.room.Players;
-    INFO.playerNbr = data.nbr
+    INFO.playerNbr = data.nbr;
     console.log("-->", INFO.playerNbr);
 
     framework.setState("Players", data.room.Players);
-    framework.setState("map", data.room.map)
+    framework.setState("map", data.room.map);
     framework.navigateTo("/chat");
   } else {
     framework.navigateTo("/");

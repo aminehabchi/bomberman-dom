@@ -3,8 +3,6 @@ import { INFO } from "../utils/playerStatus.js";
 import { setBomb } from "../gameLoop/bomb.js";
 
 export function startWebSocket(app, roomUuid) {
-  console.log("start websocket");
-
   const socket = io("/", {
     reconnection: true, // default is true
     reconnectionAttempts: 5, // 🔁 max number of tries
@@ -35,6 +33,8 @@ export function startWebSocket(app, roomUuid) {
     let players = app.getState("Players");
     players.push(msg["newPlayer"]);
     app.setState("Players", players);
+    console.log(players);
+    
   });
 
   socket.on("moving", (moveInfo) => {
@@ -42,19 +42,32 @@ export function startWebSocket(app, roomUuid) {
   });
 
   socket.on("bomb", (bombInfo) => {
-    setBomb(bombInfo)
+    setBomb(bombInfo);
   });
 
   socket.on("map", (map) => {
-    console.log("---------new map seted-----------");
+    app.setState("map", map);
+  });
 
-    app.setState("map", map)
+  socket.on("timer", (timer) => {
+    console.log(timer);
+    app.setState("timer", timer.timer);
+    if (timer.timer == 0) {
+      setTimeout(() => {
+        app.navigateTo("/game");
+      }, 1500);
+    }
   });
 
   socket.on("lives", (Info) => {
-    console.log("---------live updated-----------");
-    console.log(Info);
+    if (Info.lives == 0) {
+      app.setState("isWin", false);
+    }
 
-    app.setState("live" + Info.playerNbr.toString(), Info.lives)
+    app.setState("live" + Info.playerNbr.toString(), Info.lives);
+  });
+
+  socket.on("winStatus", (status) => {
+    app.setState("isWin", true);
   });
 }

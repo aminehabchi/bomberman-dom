@@ -23,8 +23,6 @@ export class Framework {
   }
 
   getRef(name) {
-    console.log(this.Refs);
-
     return this.Refs[name];
   }
 

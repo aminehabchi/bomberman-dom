@@ -6,64 +6,60 @@ import {
 } from "./inputManager.js";
 import { INFO } from "../utils/playerStatus.js";
 
+let debounceX = 0;
+
 addEventListener("keydown", (e) => {
-  if (e.key.toLowerCase() == "x") {
-    INFO.socket.emit("bomb", {
-      room: INFO.roomUuid,
-      bombInfo: {
-        x: playerPosition[INFO.playerNbr - 1].x,
-        y: playerPosition[INFO.playerNbr - 1].y,
-        playerNbr: INFO.playerNbr,
-      },
-    });
+  if (e.key.toLowerCase() === "x") {
+    const now = Date.now();
+    if (now > debounceX) {
+      debounceX = now + 2000; // 500ms debounce window
+      INFO.socket.emit("bomb", {
+        room: INFO.roomUuid,
+        bombInfo: {
+          x: playerPosition[INFO.playerNbr - 1].x,
+          y: playerPosition[INFO.playerNbr - 1].y,
+          playerNbr: INFO.playerNbr,
+        },
+      });
+    }
   }
 });
-
-
 let inputManager;
 let keys = { r: false, l: false, t: false, b: false };
 let frameCount = 0;
 const framePerStep = 10;
 const maxFrames = 4;
 
-function updatePosition(player1, player2, player3, player4) {
-  player1.style.transform = `translate(${playerPosition[0].x}px, ${playerPosition[0].y}px)`;
-  player2.style.transform = `translate(${playerPosition[1].x}px, ${playerPosition[1].y}px)`;
-  player3.style.transform = `translate(${playerPosition[2].x}px, ${playerPosition[2].y}px)`;
-  player4.style.transform = `translate(${playerPosition[3].x}px, ${playerPosition[3].y}px)`;
+function updatePosition(players) {
+  players.forEach((player, index) => {
+    player.style.transform = `translate(${playerPosition[index].x}px, ${playerPosition[index].y}px)`;
+  });
 }
 
-function updateFacingPosition(player1, player2, player3, player4) {
+function updateFacingPosition(players) {
   // console.log("+++++++++++++++++++>",playerNbr);
-    const playerNbr = INFO.playerNbr - 1
-    // Only animate when the current player (us) is moving
-    if (!inputManager.isSetEmpty()) {
-      if (++frameCount >= framePerStep) {
-        frameCount = 0;
-        // Only update the animation frame for current direction
-        // if(playerNbr) {
-          playerDirection[playerFacing[playerNbr]].x =
-            (playerDirection[playerFacing[playerNbr]].x + tileSize) %
-            (tileSize * maxFrames);
-          console.log("frame", playerDirection[playerFacing[playerNbr]].x);
-        // }
-      }
+  const playerNbr = INFO.playerNbr - 1;
+  // Only animate when the current player (us) is moving
+  if (!inputManager.isSetEmpty()) {
+    if (++frameCount >= framePerStep) {
+      frameCount = 0;
+      // Only update the animation frame for current direction
+      // if(playerNbr) {
+      playerDirection[playerFacing[playerNbr]].x =
+        (playerDirection[playerFacing[playerNbr]].x + tileSize) %
+        (tileSize * maxFrames);
+      console.log("frame", playerDirection[playerFacing[playerNbr]].x);
+      // }
     }
-    // Set the background position for each player based on their facing direction
-    player1.style.backgroundPosition = `-${
-      playerDirection[playerFacing[0]].x
-    }px -${playerDirection[playerFacing[0]].y}px`;
-    player2.style.backgroundPosition = `-${
-      playerDirection[playerFacing[1]].x
-    }px -${playerDirection[playerFacing[1]].y}px`;
-    player3.style.backgroundPosition = `-${
-      playerDirection[playerFacing[2]].x
-    }px -${playerDirection[playerFacing[2]].y}px`;
-    player4.style.backgroundPosition = `-${
-      playerDirection[playerFacing[3]].x
-    }px -${playerDirection[playerFacing[3]].y}px`;
-}
+  }
 
+  // Set the background position for each player based on their facing direction
+  players.forEach((player, index) => {
+    player.style.backgroundPosition = `-${
+      playerDirection[playerFacing[index]].x
+    }px -${playerDirection[playerFacing[index]].y}px`;
+  });
+}
 
 export function updateInput22(moveInfo) {
   const playerNbr = moveInfo.playerNbr - 1;
@@ -112,14 +108,26 @@ export function StartGameLoop(framework) {
 
   setPlayerPosition(INFO.room.playerPosition);
 
-  const player1 = framework.getRef("player1");
-  const player2 = framework.getRef("player2");
-  const player3 = framework.getRef("player3");
-  const player4 = framework.getRef("player4");
+  let PLayers = [];
+  let playerNbr = INFO.Players.length;
+  console.log(PLayers);
+
+  if (playerNbr > 0) {
+    PLayers.push(framework.getRef("player1"));
+  }
+  if (playerNbr > 1) {
+    PLayers.push(framework.getRef("player2"));
+  }
+  if (playerNbr > 2) {
+    PLayers.push(framework.getRef("player3"));
+  }
+  if (playerNbr > 3) {
+    PLayers.push(framework.getRef("player4"));
+  }
 
   function gameLoop() {
-    updatePosition(player1, player2, player3, player4);
-    updateFacingPosition(player1, player2, player3, player4)
+    updatePosition(PLayers);
+    updateFacingPosition(PLayers);
     id = requestAnimationFrame(gameLoop);
   }
 
