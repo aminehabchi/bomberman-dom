@@ -34,3 +34,4 @@ export function getNickname(uuid) {
   }
   return undefined;
 }
+

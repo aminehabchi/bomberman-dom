@@ -1,5 +1,5 @@
 import { createVElement } from "../../framework/helpers.js";
-import { INFO } from "../utils/playerStatus.js";
+
 function Player(nbr) {
   return createVElement(
     "div",
@@ -31,7 +31,7 @@ export function board(framework) {
       }
     }
   }
-  let playerNbr = framework.getState("Players").length;
+  let playerNbr = framework.getState("Players")?.length || 0;
   console.log(playerNbr);
 
   if (playerNbr > 0) {
@@ -54,10 +54,8 @@ function chooseItems(cell) {
   switch (cell) {
     case 0:
       return createVElement("div", { class: "tile wall" }, []);
-
     case 1:
       return createVElement("div", { class: "tile" }, []);
-
     case 2:
       return createVElement("div", { class: "tile wall2" }, []);
     case 11:

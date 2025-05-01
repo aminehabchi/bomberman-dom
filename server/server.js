@@ -1,9 +1,7 @@
 import http from "http";
 import routing from "./routes/Routes.js";
 import { Server } from "socket.io";
-
 import { Players } from "./moduls/player.js";
-
 import handleBomb from "./bomb/handleBomb.js";
 
 const PORT = 3000;
@@ -15,14 +13,18 @@ const server = http.createServer((req, res) => {
 export const io = new Server(server);
 import { isValidMove } from "./movement/playerMoving.js";
 import { UpdateMap } from "./movement/board.js";
-import { Rooms } from "./moduls/room.js";
-import { countReset } from "console";
+
 io.on("connection", (socket) => {
   console.log(`User connected: ${socket.id}`);
 
   // Join a room
   socket.on("join-room", (room) => {
     socket.join(room);
+  });
+
+  socket.on("leaveRoom", (room) => {
+    socket.leave(room);
+    console.log(`${socket.id} left room ${room}`);
   });
 
   // Listen for message and broadcast to the room

@@ -34,7 +34,6 @@ export function startWebSocket(app, roomUuid) {
     players.push(msg["newPlayer"]);
     app.setState("Players", players);
     console.log(players);
-    
   });
 
   socket.on("moving", (moveInfo) => {
@@ -60,7 +59,8 @@ export function startWebSocket(app, roomUuid) {
   });
 
   socket.on("lives", (Info) => {
-    if (Info.lives == 0) {
+
+    if (Info.lives == 0 && INFO.playerNbr == Info.playerNbr) {
       app.setState("isWin", false);
     }
 
@@ -68,6 +68,10 @@ export function startWebSocket(app, roomUuid) {
   });
 
   socket.on("winStatus", (status) => {
-    app.setState("isWin", true);
+    app.setState("isWin", status.status);
   });
+}
+
+export function leaveRoom(socket, roomUuid) {
+  socket.emit("leaveRoom", roomUuid);
 }

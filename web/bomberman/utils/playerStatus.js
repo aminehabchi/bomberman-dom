@@ -28,7 +28,7 @@ export async function playerStatus(res, app) {
     history.pushState(null, "", "/");
   } else {
     const data = await res.json();
-    console.log(data.room);
+    console.log(data);
 
     INFO.nickname = data.player.Nickname;
 
