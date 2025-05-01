@@ -27,15 +27,15 @@ function deepClone2DArray(array) {
 export function prepereBaord(NbrPlayer) {
   let newboardTile = deepClone2DArray(boardTile);
 
-  // for (let i = 0; i < newboardTile.length; i++) {
-  //   for (let j = 0; j < newboardTile[i].length; j++) {
-  //     if (newboardTile[i][j] == 1) {
-  //       if (random01() == 1) {
-  //         newboardTile[i][j] = 2;
-  //       }
-  //     }
-  //   }
-  // }
+  for (let i = 0; i < newboardTile.length; i++) {
+    for (let j = 0; j < newboardTile[i].length; j++) {
+      if (newboardTile[i][j] == 1) {
+        if (random01() == 1) {
+          newboardTile[i][j] = 2;
+        }
+      }
+    }
+  }
 
   // player 1
   newboardTile[1][1] = 11; // initial position
@@ -62,7 +62,13 @@ export function prepereBaord(NbrPlayer) {
     newboardTile[13][14] = 1;
     newboardTile[12][15] = 1;
   }
-  console.log();
 
   return newboardTile;
+}
+
+
+import { io } from "../server.js";
+
+export function UpdateMap(map) {
+  io.to(room).emit("map", map);
 }

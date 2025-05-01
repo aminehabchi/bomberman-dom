@@ -78,3 +78,22 @@
 #player4 {
     background-image: url("../assets/player/lbnt.png");
 }
+
+
+.Pawer {
+    width: 40px;
+    height: 40px;
+    background-size: cover;
+}
+
+.Bomb {
+    background-image: url("../assets/powers/bomb.png");
+}
+
+.Speed {
+    background-image: url("../assets/powers/speed.png");
+}
+
+.Flame {
+    background-image: url("../assets/powers/flame.png");
+}

@@ -5,7 +5,6 @@ import {
   playerFacing,
 } from "./inputManager.js";
 import { INFO } from "../utils/playerStatus.js";
-let inputManager;
 
 addEventListener("keydown", (e) => {
   if (e.key.toLowerCase() == "x") {
@@ -20,6 +19,8 @@ addEventListener("keydown", (e) => {
   }
 });
 
+
+let inputManager;
 let keys = { r: false, l: false, t: false, b: false };
 let frameCount = 0;
 const framePerStep = 10;

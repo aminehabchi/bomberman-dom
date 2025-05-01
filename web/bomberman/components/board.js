@@ -12,8 +12,8 @@ function Player(nbr) {
   );
 }
 
-export function board() {
-  let boardTile = INFO.room.map;
+export function board(framework) {
+  let boardTile = framework.getState("map")
 
   console.log(boardTile);
 
@@ -23,24 +23,42 @@ export function board() {
 
   for (let i = 0; i < boardTile.length; i++) {
     for (let j = 0; j < boardTile[i].length; j++) {
-      if (boardTile[i][j] == 0) {
-        tiles.push(createVElement("div", { class: "wall tile" }, []));
-      } else if (boardTile[i][j] == 2) {
-        tiles.push(createVElement("div", { class: "tile wall2" }, []));
-      } else if (
-        boardTile[i][j] == 11 ||
-        boardTile[i][j] == 22 ||
-        boardTile[i][j] == 33 ||
-        boardTile[i][j] == 44
-      ) {
-        tiles.push(createVElement("div", { class: "tile" }, []));
-        tiles.push(Player(boardTile[i][j] / 11));
-      } else {
-        tiles.push(createVElement("div", { class: "tile" }, []));
+      const cell = boardTile[i][j];
+      tiles.push(chooseItems(cell))
+      if (cell == 11 || cell == 22 || cell == 33 || cell == 44) {
+        tiles.push(createVElement("div", { class: "tile" }, []))
       }
     }
   }
 
-  tiles.push(createVElement("div", { class: "bomb", ref:"bomb1"}, []));
+
   return createVElement("div", { class: "grid" }, tiles);
+}
+
+
+function chooseItems(cell) {
+  switch (cell) {
+    case 0:
+      return (createVElement("div", { class: "tile wall" }, []));
+
+    case 1:
+      return (createVElement("div", { class: "tile" }, []));
+
+    case 2:
+      return (createVElement("div", { class: "tile wall2" }, []));
+    case 11:
+    case 22:
+    case 33:
+    case 44:
+      return Player(cell / 11)
+    case 5:
+      return createVElement("div", { class: "tile power bomb" }, [])
+    case 6:
+      return createVElement("div", { class: "tile power speed" }, [])
+    case 7:
+      return createVElement("div", { class: "tile power flame" }, [])
+
+  }
+
+  return createVElement("", {}, [])
 }

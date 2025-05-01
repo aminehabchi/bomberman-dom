@@ -39,6 +39,7 @@ export async function playerStatus(res, app) {
       console.log("-->", INFO.playerNbr);
 
 
+      app.setState("map", data.room.map)
       app.setState("Players", data.room.Players);
     }
 
@@ -61,7 +62,8 @@ export async function checkIfLogin(app) {
 
   try {
     const res = await fetch(`/checker?uuid=${uuid}`);
-
+    console.log(app);
+    
     await playerStatus(res, app);
   } catch (err) {
     console.error("Error checking login:", err);
@@ -106,7 +108,7 @@ export async function StartGetRoom(framework, type, RoomUuid) {
     console.log("-->", INFO.playerNbr);
 
     framework.setState("Players", data.room.Players);
-
+    framework.setState("map", data.room.map)
     framework.navigateTo("/chat");
   } else {
     framework.navigateTo("/");

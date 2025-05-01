@@ -11,6 +11,6 @@ export class Game extends Component {
     StopGameLoop();
   }
   getVDom() {
-    return createVElement("div", { class: "game" }, [board()]);
+    return createVElement("div", { class: "game" }, [board(this.framework)]);
   }
 }

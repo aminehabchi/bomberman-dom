@@ -8,7 +8,8 @@ async function handleBomb(roomUuid, bombInfo) {
   let currentRoom = Rooms[roomUuid];
 
   let pos = currentRoom.playerPosition[bombInfo.playerNbr - 1];
-  currentRoom.map[pos.y][pos.x] = 5;
+  currentRoom.map[pos.y][pos.x] = [5, bombInfo.playerNbr * 11];
+
 
   setTimeout(() => {
     let pos = currentRoom.playerPosition[bombInfo.playerNbr - 1];
