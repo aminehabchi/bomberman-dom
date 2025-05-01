@@ -31,33 +31,39 @@ function updatePosition(player1, player2, player3, player4) {
   player2.style.transform = `translate(${playerPosition[1].x}px, ${playerPosition[1].y}px)`;
   player3.style.transform = `translate(${playerPosition[2].x}px, ${playerPosition[2].y}px)`;
   player4.style.transform = `translate(${playerPosition[3].x}px, ${playerPosition[3].y}px)`;
-  // Only animate when the current player (us) is moving
-  const playerNbr = INFO.playerNbr - 1;
-  if (!inputManager.isSetEmpty()) {
-    if (++frameCount >= framePerStep) {
-      frameCount = 0;
-      // Only update the animation frame for current direction
-      playerDirection[playerFacing[playerNbr]].x =
-        (playerDirection[playerFacing[playerNbr]].x + tileSize) %
-        (tileSize * maxFrames);
-      console.log("frame", playerDirection[playerFacing[playerNbr]].x);
-    }
-  }
-
-  // Set the background position for each player based on their facing direction
-  player1.style.backgroundPosition = `-${
-    playerDirection[playerFacing[0]].x
-  }px -${playerDirection[playerFacing[0]].y}px`;
-  player2.style.backgroundPosition = `-${
-    playerDirection[playerFacing[1]].x
-  }px -${playerDirection[playerFacing[1]].y}px`;
-  player3.style.backgroundPosition = `-${
-    playerDirection[playerFacing[2]].x
-  }px -${playerDirection[playerFacing[2]].y}px`;
-  player4.style.backgroundPosition = `-${
-    playerDirection[playerFacing[3]].x
-  }px -${playerDirection[playerFacing[3]].y}px`;
 }
+
+function updateFacingPosition(player1, player2, player3, player4) {
+  // console.log("+++++++++++++++++++>",playerNbr);
+    const playerNbr = INFO.playerNbr - 1
+    // Only animate when the current player (us) is moving
+    if (!inputManager.isSetEmpty()) {
+      if (++frameCount >= framePerStep) {
+        frameCount = 0;
+        // Only update the animation frame for current direction
+        if(playerNbr) {
+          playerDirection[playerFacing[playerNbr]].x =
+            (playerDirection[playerFacing[playerNbr]].x + tileSize) %
+            (tileSize * maxFrames);
+          console.log("frame", playerDirection[playerFacing[playerNbr]].x);
+        }
+      }
+    }
+    // Set the background position for each player based on their facing direction
+    player1.style.backgroundPosition = `-${
+      playerDirection[playerFacing[0]].x
+    }px -${playerDirection[playerFacing[0]].y}px`;
+    player2.style.backgroundPosition = `-${
+      playerDirection[playerFacing[1]].x
+    }px -${playerDirection[playerFacing[1]].y}px`;
+    player3.style.backgroundPosition = `-${
+      playerDirection[playerFacing[2]].x
+    }px -${playerDirection[playerFacing[2]].y}px`;
+    player4.style.backgroundPosition = `-${
+      playerDirection[playerFacing[3]].x
+    }px -${playerDirection[playerFacing[3]].y}px`;
+}
+
 
 export function updateInput22(moveInfo) {
   const playerNbr = moveInfo.playerNbr - 1;
@@ -113,6 +119,7 @@ export function StartGameLoop(framework) {
 
   function gameLoop() {
     updatePosition(player1, player2, player3, player4);
+    updateFacingPosition(player1, player2, player3, player4)
     id = requestAnimationFrame(gameLoop);
   }
 

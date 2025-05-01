@@ -40,20 +40,20 @@
 }
 
 #player1 {
-    background-image: url("../assets/player/bidawi.png");
-    background-color: brown;
+    background-image: url("../assets/player/lbidawi.png");
+    /* background-color: brown; */
 }
 
 #player2 {
-    background-image: url("../assets/player/lf9ih.png");
+    background-image: url("../assets/player/karima.png");
 }
 
 #player3 {
-    background-image: url("../assets/player/mafia.png");
+    background-image: url("../assets/player/lmafia.png");
 }
 
 #player4 {
-    background-image: url("../assets/player/lbnt.png");
+    background-image: url("../assets/player/lamyea.png");
 }
 
 
