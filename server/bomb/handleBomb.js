@@ -23,10 +23,8 @@ async function handleBomb(roomUuid, bombInfo) {
 export default handleBomb;
 
 async function Explode(x, y, playerNbr, roomUuid) {
-
   let currentRoom = Rooms[roomUuid];
-  let NumberOfPlayers = currentRoom.Players.length
-  console.log(NumberOfPlayers)
+  let NumberOfPlayers = currentRoom.Players.length;
   let range = currentRoom.Players[playerNbr - 1].Range;
 
   isPlayerWallInExplosionRange(
@@ -34,7 +32,7 @@ async function Explode(x, y, playerNbr, roomUuid) {
     currentRoom.map,
     { x, y },
     range,
-    roomUuid , 
+    roomUuid,
     NumberOfPlayers
   );
 }
@@ -51,31 +49,42 @@ function getBiasedRandom() {
   }
 }
 
-function isPlayerWallInExplosionRange(Players, map, bomb, range, roomUuid , NumberOfPlayers) {
+function isPlayerWallInExplosionRange(
+  Players,
+  map,
+  bomb,
+  range,
+  roomUuid,
+  NumberOfPlayers
+) {
+  let explosioncords = [];
   const dirs = [
     [1, 0],
     [-1, 0],
     [0, -1],
     [0, 1],
   ];
+  explosioncords.push({ x: bomb.x, y: bomb.y });
 
   // check bomb position
-  checkPlayer(Players, bomb.x, bomb.y, roomUuid ,NumberOfPlayers);
+  checkPlayer(Players, bomb.x, bomb.y, roomUuid, NumberOfPlayers);
 
   // check curren pos of bomb
   dirs.forEach(([dx, dy]) => {
     for (let i = 1; i <= range; i++) {
       let x = dx * i + bomb.x;
       let y = dy * i + bomb.y;
-      checkPlayer(Players, x, y, roomUuid , NumberOfPlayers);
-        if (map[y][x] != 0) {
-          if (map[y][x] == 2) {
-            map[y][x] = getBiasedRandom();
-          }
-        }else {
-          break;
+      checkPlayer(Players, x, y, roomUuid, NumberOfPlayers);
+      if (map[y][x] != 0) {
+        explosioncords.push({ x, y });
 
+        // in case if there is a block
+        if (map[y][x] == 2) {
+          map[y][x] = getBiasedRandom();
         }
+      } else {
+        break;
+      }
     }
   });
 }
