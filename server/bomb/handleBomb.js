@@ -40,7 +40,7 @@ function getBiasedRandom() {
   if (rand < 0.9) {
     return 1;
   } else {
-    const options = [5, 6, 7];
+    const options = [6, 7, 8];
     return options[Math.floor(Math.random() * options.length)];
   }
 }

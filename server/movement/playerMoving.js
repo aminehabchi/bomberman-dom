@@ -47,10 +47,10 @@ export function isValidMove(roomUuid, moveInfo) {
       // console.log("r inside");
 
       if (currentright >= X + 0.95) {
-        if (board[Y][X + 1] === 1 || board[Y][X + 1] === 5
+        if (board[Y][X + 1] === 1 || board[Y][X + 1] === 8
           || board[Y][X + 1] === 6 || board[Y][X + 1] === 7
         ) {
-          if (board[Y][X + 1] != 1) {
+          if (board[Y][X + 1] != 1 && board[Y][X + 1] != 5) {
             setPower(currentRoom.Players[playerNbr - 1], board[Y][X + 1], roomUuid)
             board[Y][X + 1] = 1;
             UpdateMap(io, roomUuid)
@@ -74,10 +74,10 @@ export function isValidMove(roomUuid, moveInfo) {
       // console.log("l inside");
 
       if (currentleft <= X + 0.05) {
-        if (board[Y][X - 1] === 1 || board[Y][X - 1] === 5
+        if (board[Y][X - 1] === 1 || board[Y][X - 1] === 8
           || board[Y][X - 1] === 6 || board[Y][X - 1] === 7
         ) {
-          if (board[Y][X - 1] != 1) {
+          if (board[Y][X - 1] != 1 && board[Y][X - 1] != 5) {
             setPower(currentRoom.Players[playerNbr - 1], board[Y][X - 1], roomUuid)
             board[Y][X - 1] = 1;
             UpdateMap(io, roomUuid)
@@ -101,10 +101,10 @@ export function isValidMove(roomUuid, moveInfo) {
       // console.log("t inside");
 
       if (currentup <= Y + 0.05) {
-        if (board[Y - 1][X] === 1 || board[Y - 1][X] === 5
+        if (board[Y - 1][X] === 1  || board[Y - 1][X] === 8
           || board[Y - 1][X] === 6 || board[Y - 1][X] === 7
         ) {
-          if (board[Y - 1][X] != 1) {
+          if (board[Y - 1][X] != 1 && board[Y - 1][X] != 5) {
             setPower(currentRoom.Players[playerNbr - 1], board[Y - 1][X], roomUuid)
             board[Y - 1][X] = 1;
             UpdateMap(io, roomUuid)
@@ -128,10 +128,10 @@ export function isValidMove(roomUuid, moveInfo) {
       // console.log("d inside");
 
       if (currentdown >= Y + 0.95) {
-        if (board[Y + 1][X] === 1 || board[Y + 1][X] === 5
+        if (board[Y + 1][X] === 1 || board[Y + 1][X] === 8
           || board[Y + 1][X] === 6 || board[Y + 1][X] === 7
         ) {
-          if (board[Y + 1][X] != 1) {
+          if (board[Y + 1][X] != 1 && board[Y + 1][X] != 5) {
             setPower(currentRoom.Players[playerNbr - 1], board[Y + 1][X], roomUuid)
             board[Y + 1][X] = 1;
             UpdateMap(io, roomUuid)

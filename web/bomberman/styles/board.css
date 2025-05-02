@@ -5,12 +5,13 @@
     justify-content: center;
     align-items: center;
 }
-    
+
 .sidebar {
     width: 300px;
     height: 750px;
-    background-color: aqua;  
+    background-color: aqua;
 }
+
 .sidebar .title {
     /* background-color:  red; */
     display: flex;
@@ -20,15 +21,15 @@
 }
 
 
-.players_list_holder{
+.players_list_holder {
     text-decoration: none;
     list-style: none;
-    border:  1px solid #1e1e1e;
+    border: 1px solid #1e1e1e;
 }
 
-.player_holder { 
+.player_holder {
     font-size: 18px;
-    
+
 }
 
 
@@ -80,6 +81,10 @@
     background-image: url("../assets/player/lamyea.png");
 }
 
+.bomb {
+    background-image: url("../assets/bomb.png");
+    background-size: cover;
+}
 
 .Power {
     width: 50px;
@@ -88,7 +93,7 @@
 }
 
 .Bomb {
-    background-image: url("../assets/powers/bomb.png");
+    background-image: url("../assets/powers/bomb.jpg");
 }
 
 .Speed {

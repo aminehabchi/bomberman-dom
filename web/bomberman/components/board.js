@@ -64,10 +64,12 @@ function chooseItems(cell) {
     case 44:
       return Player(cell / 11);
     case 5:
-      return createVElement("div", { class: "tile Power Bomb" }, []);
+      return createVElement("div", { class: "tile bomb" }, []);
     case 6:
       return createVElement("div", { class: "tile Power Speed" }, []);
     case 7:
+      return createVElement("div", { class: "tile Power Flame" }, []);
+    case 8:
       return createVElement("div", { class: "tile Power Flame" }, []);
   }
 
