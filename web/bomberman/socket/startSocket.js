@@ -3,6 +3,8 @@ import { INFO } from "../utils/playerStatus.js";
 import { setBomb } from "../gameLoop/bomb.js";
 
 export function startWebSocket(app, roomUuid) {
+  console.log("START WEBSOCKET");
+
   const socket = io("/", {
     reconnection: true, // default is true
     reconnectionAttempts: 5, // 🔁 max number of tries

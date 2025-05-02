@@ -13,8 +13,14 @@ export class Player {
     this.Speed = 1;
     this.Range = 1;
     this.Lives = 3;
-    this.IsExtendedBomb = false;
   }
+}
+
+export function lose(uuid) {
+  let player = Players[uuid]
+  player.Speed = 1;
+  player.Range = 1;
+  player.JoinedRoom = "";
 }
 
 export function createPlayer(nickname) {
@@ -34,4 +40,5 @@ export function getNickname(uuid) {
   }
   return undefined;
 }
+
 

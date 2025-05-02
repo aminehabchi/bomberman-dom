@@ -17,6 +17,8 @@ import { UpdateMap } from "./movement/board.js";
 io.on("connection", (socket) => {
   console.log(`User connected: ${socket.id}`);
 
+ 
+
   // Join a room
   socket.on("join-room", (room) => {
     socket.join(room);

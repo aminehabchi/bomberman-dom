@@ -111,6 +111,7 @@ export class Chat extends Component {
   Mounting() {
     startWebSocket(this.framework, INFO.roomUuid);
   }
+
   getVDom() {
     return createVElement("div", { class: "chatContainer" }, [
       Header(this.framework),

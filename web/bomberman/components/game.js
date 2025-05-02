@@ -11,6 +11,8 @@ export class Game extends Component {
   }
   UnMounting() {
     StopGameLoop();
+    INFO.socket.disconnect();
+    INFO.socket = undefined
   }
   getVDom() {
     return createVElement("div", { class: "game" }, [

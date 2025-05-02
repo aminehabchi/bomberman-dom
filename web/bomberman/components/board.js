@@ -64,6 +64,8 @@ function chooseItems(cell) {
     case 44:
       return Player(cell / 11);
     case 5:
+      console.log("bomb");
+
       return createVElement("div", { class: "tile bomb" }, []);
     case 6:
       return createVElement("div", { class: "tile Power Speed" }, []);

@@ -50,6 +50,9 @@ function isPlayerWallInExplosionRange(Players, map, bomb, range, roomUuid) {
 
   const dirs = [[1, 0], [-1, 0], [0, -1], [0, 1]]
 
+  // check bomb position
+  checkPlayer(Players, bomb.x, bomb.y, roomUuid)
+
 
   // check curren pos of bomb
   dirs.forEach(([dx, dy]) => {
