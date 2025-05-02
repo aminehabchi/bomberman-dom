@@ -156,7 +156,6 @@
   .wall2 {
     background-image: url("../assets/wall2.png");
     background-size: cover;
-    box-shadow: 0 0 10px rgba(0, 180, 216, 0.5);
   }
   
   /* Player Styles */
@@ -196,11 +195,10 @@
     background-size: cover;
     filter: brightness(1.3);
     animation: float 3s ease-in-out infinite;
-    box-shadow: 0 0 15px rgba(111, 255, 135, 0.5);
   }
   
   .Bomb {
-    background-image: url("../assets/powers/bomb.jpg");
+    background-image: url("../assets/powers/bomb.png");
   }
   
   .Speed {

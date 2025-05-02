@@ -42,12 +42,6 @@ export function isValidMove(roomUuid, moveInfo) {
   const currentup = moveInfo.position.y / tileSize;
   const currentdown = (moveInfo.position.y + playerSize) / tileSize;
 
-  console.log(X, Y, "r ", currentright,
-    "l ", currentleft,
-    "t ", currentup,
-    "d ", currentdown);
-
-
   // Move Right
   if (keys.r) {
     if (currentup >= Y && currentdown <= Y + 1) {

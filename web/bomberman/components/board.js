@@ -15,7 +15,6 @@ function Player(nbr) {
 export function board(framework) {
   let boardTile = framework.getState("map");
 
-  console.log(boardTile);
 
   if (!boardTile) return createVElement("", {}, []);
 
@@ -32,7 +31,6 @@ export function board(framework) {
     }
   }
   let playerNbr = framework.getState("Players")?.length || 0;
-  console.log(playerNbr);
 
   if (playerNbr > 0) {
     tiles.push(chooseItems(11));
@@ -64,7 +62,6 @@ function chooseItems(cell) {
     case 44:
       return Player(cell / 11);
     case 5:
-      console.log("bomb");
 
       return createVElement("div", { class: "tile bomb" }, []);
     case 6:

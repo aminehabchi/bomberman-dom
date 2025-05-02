@@ -134,7 +134,6 @@ export function StartGameLoop(framework) {
 
   let PLayers = [];
   let playerNbr = INFO.Players.length;
-  console.log(PLayers);
 
   if (playerNbr > 0) {
     PLayers.push(framework.getRef("player1"));

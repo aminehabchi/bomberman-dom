@@ -51,7 +51,6 @@ export function startWebSocket(app, roomUuid) {
   });
 
   socket.on("timer", (timer) => {
-    console.log(timer);
     app.setState("timer", timer.timer);
     if (timer.timer == 0) {
       setTimeout(() => {
