@@ -9,7 +9,7 @@ export class Framework {
     this.App = document.getElementById("app");
     this.state = state || {}; // Global state object
     this.Refs = {};
-
+    this.Event = []
     this.Lastpath = undefined;
   }
 
@@ -58,6 +58,17 @@ export class Framework {
         lastComponent.UnMounting();
       }
     }
+
+    // remove listners if path change
+    if (this.Lastpath !== path) {
+      this.Event.forEach((fn) => {
+        fn()
+      })
+      this.Event = []
+    }
+    console.log("------", this.Event);
+
+
 
     if (this.oldVTree) {
       updateDOM(this.App.firstChild, this.oldVTree, newVTree);

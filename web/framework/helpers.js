@@ -15,7 +15,7 @@ export function diff(oldVTree, newVTree) {
     if (oldVTree !== newVTree) {
       return (parent) => (parent.textContent = newVTree);
     }
-    return () => {}; // No change
+    return () => { }; // No change
   }
 
   return (parent) => {
@@ -77,6 +77,11 @@ export function VDomToReelDom(vnode) {
     ) {
       // ✅ Attach event listeners correctly
       element[prop.toLowerCase()] = vnode.props[prop];
+
+      app.Event.push(() => {
+        element[prop.toLowerCase()] = null
+      })
+
     } else {
       // ✅ Set normal attributes
       element.setAttribute(prop, vnode.props[prop]);
