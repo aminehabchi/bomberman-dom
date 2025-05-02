@@ -58,9 +58,11 @@ export function startWebSocket(app, roomUuid) {
       }, 1500);
     }
   });
+  socket.on("explode", (data) => {
+    console.log("qqqqqqqqqqqqqqqq",data);
+  });
 
   socket.on("lives", (Info) => {
-
     if (Info.lives == 0 && INFO.playerNbr == Info.playerNbr) {
       app.setState("isWin", false);
     }

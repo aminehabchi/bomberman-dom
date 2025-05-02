@@ -4,9 +4,7 @@ import { Server } from "socket.io";
 import { Players } from "./moduls/player.js";
 import handleBomb from "./bomb/handleBomb.js";
 
-
 import { Rooms } from "./moduls/room.js";
-
 
 const PORT = 3000;
 
@@ -20,8 +18,6 @@ import { UpdateMap } from "./movement/board.js";
 
 io.on("connection", (socket) => {
   console.log(`User connected: ${socket.id}`);
-
- 
 
   // Join a room
   socket.on("join-room", (room) => {
@@ -53,17 +49,15 @@ io.on("connection", (socket) => {
   });
 
   socket.on("bomb", ({ room, bombInfo }) => {
-      let currentRoom = Rooms[room];
-      let player = currentRoom.Players[bombInfo.playerNbr - 1]
-      if (player.numberbomb > 0 ) {
-        player.numberbomb--
+    let currentRoom = Rooms[room];
+    let player = currentRoom.Players[bombInfo.playerNbr - 1];
+    if (player.numberbomb > 0) {
+      player.numberbomb--;
 
-
-        handleBomb(room, bombInfo, socket);
-        UpdateMap(io, room);
-        io.to(room).emit("bomb", bombInfo);
-      }
-    
+      handleBomb(room, bombInfo, socket);
+      UpdateMap(io, room);
+      io.to(room).emit("bomb", bombInfo);
+    }
   });
 });
 

@@ -87,6 +87,8 @@ function isPlayerWallInExplosionRange(
       }
     }
   });
+
+  io.to(roomUuid).emit("explode"  , explosioncords)
 }
 
 function checkPlayer(players, x, y, roomUuid, NumberOfPlayers) {
