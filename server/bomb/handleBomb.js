@@ -8,6 +8,8 @@ async function handleBomb(roomUuid, bombInfo) {
   let currentRoom = Rooms[roomUuid];
   let x = currentRoom.playerPosition[bombInfo.playerNbr - 1].x;
   let y = currentRoom.playerPosition[bombInfo.playerNbr - 1].y;
+  let player = currentRoom.Players[bombInfo.playerNbr - 1]
+
 
   Rooms[roomUuid].map[y][x] = 5
 
@@ -16,6 +18,8 @@ async function handleBomb(roomUuid, bombInfo) {
     currentRoom.map[y][x] = 1;
     Explode(x, y, bombInfo.playerNbr, currentRoom.Uuid, bombInfo);
     UpdateMap(io, currentRoom.Uuid)
+    player.numberbomb++
+    
   }, bombTimer);
 }
 
@@ -29,19 +33,19 @@ async function Explode(x, y, playerNbr, roomUuid, bombInfo) {
   isPlayerWallInExplosionRange(currentRoom.playerPosition, currentRoom.map, { x, y }, range, roomUuid)
 
 
-  bombInfo.isExplod = true;
-  io.to(roomUuid).emit("bomb", bombInfo);
 }
 
 
 function getBiasedRandom() {
   const rand = Math.random(); // generates a number between 0 and 1
 
-  if (rand < 0.9) {
+  if (rand < 0.2) {
     return 1;
   } else {
     const options = [6, 7, 8];
-    return options[Math.floor(Math.random() * options.length)];
+    let b =Math.floor(Math.random() * options.length)
+    console.log("the random ", b)
+    return options[b];
   }
 }
 
@@ -79,6 +83,7 @@ function isPlayerWallInExplosionRange(Players, map, bomb, range, roomUuid) {
 function checkPlayer(players, x, y, roomUuid) {
   players.forEach((player, index) => {
     if (player.x == x && player.y == y) {
+      console.log(index)
       updateLife(index + 1, roomUuid)
     }
   })

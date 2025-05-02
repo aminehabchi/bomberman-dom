@@ -4,6 +4,10 @@ import { Server } from "socket.io";
 import { Players } from "./moduls/player.js";
 import handleBomb from "./bomb/handleBomb.js";
 
+
+import { Rooms } from "./moduls/room.js";
+
+
 const PORT = 3000;
 
 const server = http.createServer((req, res) => {
@@ -49,9 +53,17 @@ io.on("connection", (socket) => {
   });
 
   socket.on("bomb", ({ room, bombInfo }) => {
-    handleBomb(room, bombInfo, socket);
-    UpdateMap(io, room);
-    io.to(room).emit("bomb", bombInfo);
+      let currentRoom = Rooms[room];
+      let player = currentRoom.Players[bombInfo.playerNbr - 1]
+      if (player.numberbomb > 0 ) {
+        player.numberbomb--
+
+
+        handleBomb(room, bombInfo, socket);
+        UpdateMap(io, room);
+        io.to(room).emit("bomb", bombInfo);
+      }
+    
   });
 });
 

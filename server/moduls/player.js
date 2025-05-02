@@ -13,6 +13,7 @@ export class Player {
     this.Speed = 1;
     this.Range = 1;
     this.Lives = 3;
+    this.numberbomb = 1 
   }
 }
 

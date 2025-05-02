@@ -5,18 +5,19 @@ function setPower(player, power) {
   console.log(power, player);
 
   switch (power) {
-    case 5:
+    case 8:
+      //bombsallowed
+      player.numberbomb++ 
 
-    //bomb power
     case 6:
       //speed 
-      if (player.Speed < 2) {
+      if (player.Speed < 3) {
         player.Speed++
 
       }
     case 7:
       // flame
-      if (player.Range < 2) {
+      if (player.Range < 4) {
         player.Range++
       }
   }

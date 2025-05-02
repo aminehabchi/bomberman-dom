@@ -5,13 +5,9 @@ import {
 import { INFO } from "../utils/playerStatus.js";
 
 let tileSize = 50;
-let debounceX = 0;
 
 addEventListener("keydown", (e) => {
   if (e.key.toLowerCase() === "x") {
-    const now = Date.now();
-    if (now > debounceX) {
-      debounceX = now + 2000; // 500ms debounce window
       INFO.socket.emit("bomb", {
         room: INFO.roomUuid,
         bombInfo: {
@@ -20,7 +16,6 @@ addEventListener("keydown", (e) => {
           playerNbr: INFO.playerNbr,
         },
       });
-    }
   }
 });
 

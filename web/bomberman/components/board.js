@@ -72,7 +72,7 @@ function chooseItems(cell) {
     case 7:
       return createVElement("div", { class: "tile Power Flame" }, []);
     case 8:
-      return createVElement("div", { class: "tile Power Flame" }, []);
+      return createVElement("div", { class: "tile Power Bomb" }, []);
   }
 
   return createVElement("", {}, []);
