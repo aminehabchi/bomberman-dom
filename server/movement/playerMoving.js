@@ -7,7 +7,7 @@ function setPower(player, power) {
   switch (power) {
     case 8:
       //bombsallowed
-      player.numberbomb++ 
+      player.numberbomb++
 
     case 6:
       //speed 
@@ -42,6 +42,12 @@ export function isValidMove(roomUuid, moveInfo) {
   const currentup = moveInfo.position.y / tileSize;
   const currentdown = (moveInfo.position.y + playerSize) / tileSize;
 
+  console.log(X, Y, "r ", currentright,
+    "l ", currentleft,
+    "t ", currentup,
+    "d ", currentdown);
+
+
   // Move Right
   if (keys.r) {
     if (currentup >= Y && currentdown <= Y + 1) {
@@ -64,7 +70,15 @@ export function isValidMove(roomUuid, moveInfo) {
     } else {
       // console.log("r outside");
       if (currentright >= X + 0.95) {
-        keys.r = false; // Disable right movement if blocked
+        if (Math.floor(currentup) == Y) {
+          keys.r = false;
+          keys.t = true
+        } else if (Math.floor(currentdown) == Y) {
+          keys.r = false;
+          keys.b = true
+        } else {
+          keys.r = false; // Disable right movement if blocked
+        }
       }
     }
   }
@@ -91,7 +105,15 @@ export function isValidMove(roomUuid, moveInfo) {
     } else {
       // console.log("l outside");
       if (currentleft <= X + 0.05) {
-        keys.l = false; // Disable left movement if blocked
+        if (Math.floor(currentup) == Y) {
+          keys.l = false;
+          keys.t = true
+        } else if (Math.floor(currentdown) == Y) {
+          keys.l = false;
+          keys.b = true
+        } else {
+          keys.l = false; // Disable right movement if blocked
+        }
       }
     }
   }
@@ -102,7 +124,7 @@ export function isValidMove(roomUuid, moveInfo) {
       // console.log("t inside");
 
       if (currentup <= Y + 0.05) {
-        if (board[Y - 1][X] === 1  || board[Y - 1][X] === 8
+        if (board[Y - 1][X] === 1 || board[Y - 1][X] === 8
           || board[Y - 1][X] === 6 || board[Y - 1][X] === 7
         ) {
           if (board[Y - 1][X] != 1 && board[Y - 1][X] != 5) {
@@ -118,7 +140,17 @@ export function isValidMove(roomUuid, moveInfo) {
     } else {
       // console.log("t outside");
       if (currentup <= Y + 0.05) {
-        keys.t = false; // Disable top movement if blocked
+        if (Math.floor(currentleft) == X) {
+          keys.t = false;
+          keys.l = true
+          return isValidMove(roomUuid, moveInfo)
+        } else if (Math.floor(currentright) == X) {
+          keys.t = false;
+          keys.r = true;
+          return isValidMove(roomUuid, moveInfo)
+        } else {
+          keys.t = false; // Disable right movement if blocked
+        }
       }
     }
   }
@@ -145,7 +177,17 @@ export function isValidMove(roomUuid, moveInfo) {
     } else {
       // console.log("d outside");
       if (currentdown >= Y + 0.95) {
-        keys.b = false; // Disable bottom movement if blocked
+        if (Math.floor(currentleft) == X) {
+          keys.b = false;
+          keys.l = true
+          return isValidMove(roomUuid, moveInfo)
+        } else if (Math.floor(currentright) == X) {
+          keys.b = false;
+          keys.r = true;
+          return isValidMove(roomUuid, moveInfo)
+        } else {
+          keys.b = false; // Disable right movement if blocked
+        }
       }
     }
   }
