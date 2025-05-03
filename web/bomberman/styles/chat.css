@@ -1,12 +1,12 @@
 
 
 /* Pixelated border effect */
-.pixel-border {
+/* .pixel-border {
   border-style: solid;
   border-width: var(--pixel-size);
   border-image: url('data:image/svg+xml;utf8,<svg width="4" height="4" viewBox="0 0 4 4" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h4v4H0V0z" fill="%237b2cbf"/></svg>') 1 stretch;
   image-rendering: pixelated;
-}
+} */
 
 /* Main Chat Container */
 .chatContainer {
@@ -15,8 +15,14 @@
   height: 100vh;
   max-width: 1200px;
   margin: 0 auto;
-  background-color: var(--dark-color);
-  box-shadow: 0 0 20px rgba(123, 44, 191, 0.3);
+  /* background-color: var(--dark-color); */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+  url(../assets/background.jpeg);
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+box-shadow: inset 0 0 100px rgba(123, 44, 191, 0.4);
+  /* box-shadow: 0 0 20px rgba(123, 44, 191, 0.3); */
   position: relative;
   overflow: hidden;
   border: 1px solid var(--secondary-color);
@@ -30,7 +36,7 @@
   padding: 15px;
   background-color: rgba(11, 12, 22, 0.9);
   border-bottom: 4px solid var(--secondary-color);
-  backdrop-filter: blur(10px);
+  /* backdrop-filter: blur(10px); */
 }
 
 .timer {
@@ -114,13 +120,16 @@
   padding: 15px;
   overflow-y: auto;
   height: 100%;
-  background-color: rgba(13, 27, 42, 0.7);
+  /* background-color: rgba(13, 27, 42, 0.7); */
   display: flex;
   flex-direction: column;
   gap: 10px;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+  /* background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
                     url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="%230d1b2a"/><rect x="1" y="1" width="38" height="38" fill="%23091521" rx="2" ry="2"/></svg>');
-  background-size: 40px 40px;
+  background-size: 40px 40px; */
+  /* backdrop-filter: blur(10); */
+  background-color: rgba(11, 12, 22, 0.9);
+
 }
 
 .message {
@@ -156,7 +165,7 @@
 .inputBar {
   display: flex;
   padding: 10px;
-  background-color: rgba(11, 12, 22, 0.95);
+  background-color: rgba(11, 12, 22, 0.8);
   border-top: 3px solid var(--secondary-color);
 }
 
@@ -164,8 +173,8 @@
   flex: 1;
   padding: 10px;
   border: 2px solid var(--secondary-color);
-  background-color: rgba(0, 0, 0, 0.5);
   color: var(--light-color);
+  background-color: rgba(11, 12, 22, 0.8);
   font-family: var(--font-family);
   font-size: 0.9rem;
   border-radius: 2px;
@@ -213,6 +222,7 @@
   .roomHeader {
     grid-column: 1 / -1;
     grid-row: 1;
+    
   }
   
   .topBar {

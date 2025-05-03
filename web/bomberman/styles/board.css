@@ -50,8 +50,6 @@
     justify-content: center;
     align-items: center;
     padding: 20px 0;
-    border-bottom: 4px solid var(--secondary-color);
-    background-color: rgba(0, 0, 0, 0.5);
     text-transform: uppercase;
     letter-spacing: 2px;
     text-shadow: 0 0 10px var(--secondary-color);
@@ -77,15 +75,12 @@
     align-items: center;
     text-decoration: none;
     list-style: none;
-    padding: 15px;
+    /* padding: 15px; */
     margin: 15px;
-    background-color: rgba(0, 0, 0, 0.5);
-    border-left: 3px solid var(--primary-color);
-    box-shadow: 0 0 10px rgba(123, 44, 191, 0.3);
+    /* border-left: 3px solid var(--primary-color);
+    box-shadow: 0 0 10px rgba(123, 44, 191, 0.3); */
     /* max-height: 500px; */
-    overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: var(--primary-color) var(--dark-color);
+    width: 100%;
   }
   
   
@@ -100,6 +95,10 @@
     position: relative;
     border-left: 2px solid var(--secondary-color);
     display: flex;
+    align-items: center;
+    width: 100%;
+    margin-right: 50px;
+    justify-content: space-between;
     align-items: center;
   }
   
@@ -207,6 +206,10 @@
   
   .Flame {
     background-image: url("../assets/powers/flame.png");
+  }
+
+  .lives {
+    color: var(--secondary-color);
   }
   
   /* Custom Scrollbar */

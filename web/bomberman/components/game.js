@@ -65,7 +65,7 @@ function GameSideBar(framework) {
     PlayersVDom.push(
       createVElement("li", { class: "player_holder" }, [
         p.Nickname,
-        live.toString(),
+      createVElement("span", {class: "lives"}, [live.toString()])
       ])
     );
   });
