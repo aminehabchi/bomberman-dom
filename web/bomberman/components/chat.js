@@ -109,13 +109,14 @@ function Header(framework) {
 
 export class Chat extends Component {
   Mounting() {
-    if (!INFO.socket){
+    if (!INFO.socket) {
       startWebSocket(this.framework, INFO.roomUuid);
     }
   }
-
+  UnMounting() {
+    this.framework.setWState("messages", []);
+  }
   getVDom() {
-    
     return createVElement("div", { class: "chatContainer" }, [
       Header(this.framework),
       HeaderChat(this.framework.getState("Players")),

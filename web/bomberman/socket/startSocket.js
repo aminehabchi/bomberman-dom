@@ -30,6 +30,7 @@ export function startWebSocket(app, roomUuid) {
   });
 
   socket.on("notify", (data) => {
+    INFO.Players = data.Players;
     app.setState("Players", data.Players);
   });
 
@@ -66,11 +67,11 @@ export function startWebSocket(app, roomUuid) {
         console.log("wiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiin");
         app.setState("isWin", true);
       }
-      //StopGameLoop();
+      StopGameLoop();
       return;
     }
     if (Info.lives <= 0 && INFO.playerNbr == Info.playerNbr) {
-      //StopGameLoop();
+      StopGameLoop();
       console.log("looooooooooooooooooooooooooooooooooooooose");
 
       app.setState("isWin", false);

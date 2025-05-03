@@ -7,12 +7,13 @@ import { leaveRoom } from "../socket/startSocket.js";
 
 export class Game extends Component {
   Mounting() {
-     StartGameLoop(this.framework);
+    StartGameLoop(this.framework);
   }
   UnMounting() {
     StopGameLoop();
     INFO.socket.disconnect();
     INFO.socket = undefined;
+    this.framework.setWState("isWin", undefined);
   }
   getVDom() {
     return createVElement("div", { class: "game" }, [
@@ -28,7 +29,6 @@ function GameStatus(framework) {
   if (isWin == undefined) {
     return createVElement("", {}, []);
   }
-
 
   let message = "YOU LOSE !!!";
   if (isWin == true) {
