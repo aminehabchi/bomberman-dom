@@ -28,7 +28,6 @@ export var AvailableRoom;
 
 export function CreateRoom() {
   const uuid = generateUUID();
-
   return new Room(uuid, prepereBaord(4));
 }
 

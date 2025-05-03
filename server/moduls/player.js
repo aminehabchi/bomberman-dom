@@ -1,3 +1,4 @@
+import { io } from "../server.js";
 import { generateUUID } from "../service/uuid.js";
 import { deepCopy } from "../service/deepClone.js";
 
@@ -34,6 +35,16 @@ export function createPlayer(nickname) {
   return uuid;
 }
 
+export function InsertPlayerToRoom(player, room) {
+  player.JoinedRoom = room.Uuid;
+  player.Nbr = room.Players.length;
+  if (room.NbrPlayes == 2) {
+    start20Timer(room.Uuid);
+  }
+
+  //notify
+  io.to(room.Uuid).emit("notify", { Players: room.Players });
+}
 export function getPlayer(uuid) {
   return Players[uuid] || undefined;
 }

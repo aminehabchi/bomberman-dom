@@ -6,11 +6,8 @@ export function startWebSocket(app, roomUuid) {
   console.log("START WEBSOCKET");
 
   const socket = io("/", {
-    reconnection: true, // default is true
-    reconnectionAttempts: 5, // 🔁 max number of tries
-    reconnectionDelay: 1000, // 🕐 wait 1 second before retry
-    reconnectionDelayMax: 5000, // ⏳ max delay between tries
-  }); // Adjust port if needed
+    reconnection: false,
+  });
 
   INFO.socket = socket;
   // Join a room
@@ -31,10 +28,8 @@ export function startWebSocket(app, roomUuid) {
     });
   });
 
-  socket.on("notify", (msg) => {
-    let players = app.getState("Players");
-    players.push(msg["newPlayer"]);
-    app.setState("Players", players);
+  socket.on("notify", (data) => {
+    app.setState("Players", data.Players);
   });
 
   socket.on("moving", (moveInfo) => {
@@ -62,18 +57,17 @@ export function startWebSocket(app, roomUuid) {
   });
 
   socket.on("lives", (Info) => {
-    if (Info.win == true ) {
-      const uuid = localStorage.getItem("uuid")
-      let winner = Info.winner[0]
+    if (Info.win == true) {
+      const uuid = localStorage.getItem("uuid");
+      let winner = Info.winner[0];
 
-      if (uuid == winner.Uuid ) {
+      if (uuid == winner.Uuid) {
         app.setState("isWin", true);
       }
     }
     if (Info.lives == 0 && INFO.playerNbr == Info.playerNbr) {
       app.setState("isWin", false);
     }
-
 
     app.setState("live" + Info.playerNbr.toString(), Info.lives);
   });
@@ -86,5 +80,3 @@ export function startWebSocket(app, roomUuid) {
 export function leaveRoom(socket, roomUuid) {
   socket.emit("leaveRoom", roomUuid);
 }
-
-

@@ -35,12 +35,6 @@ io.on("connection", (socket) => {
     io.to(room).emit("message", message);
   });
 
-  // listen for new players
-  socket.on("notify", ({ room, message }) => {
-    //notify all except self
-    socket.to(room).emit("notify", { newPlayer: Players[message["uuid"]] });
-  });
-
   // listen for palyers moving
   socket.on("moving", ({ room, moveInfo }) => {
     moveInfo = isValidMove(room, moveInfo);
