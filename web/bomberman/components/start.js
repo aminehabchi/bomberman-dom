@@ -114,6 +114,52 @@ function JoinRoomPopUp(framework) {
   ]);
 }
 
+function instructions() {
+  return createVElement("div", {class: "instructions-container"}, [
+    createVElement("h2", {class: "instructions-title"}, ["HOW TO PLAY"]),
+    createVElement("div", {class: "instructions-content"}, [
+      createVElement("div", {class: "instruction-group"}, [
+        createVElement("div", {class: "instruction-label"}, ["MOVEMENT:"]),
+        createVElement("div", {class: "key-container"}, [
+          createVElement("div", {class: "arrow-keys"}, [
+            createVElement("div", {class: "arrow-key up"}, ["↑"]),
+            createVElement("div", {class: "arrow-row"}, [
+              createVElement("div", {class: "arrow-key left"}, ["←"]),
+              createVElement("div", {class: "arrow-key down"}, ["↓"]),
+              createVElement("div", {class: "arrow-key right"}, ["→"])
+            ])
+          ])
+        ])
+      ]),
+      createVElement("div", {class: "instruction-group"}, [
+        createVElement("div", {class: "instruction-label"}, ["PLACE BOMB:"]),
+        createVElement("div", {class: "key-container"}, [
+          createVElement("div", {class: "action-key"}, [
+            createVElement("span", {class: "key-letter"}, ["X"]),
+            createVElement("span", {class: "bomb-icon"}, ["💣"])
+          ])
+        ])
+      ]),
+      createVElement("div", {class: "instruction-group abilities-group"}, [
+        createVElement("div", {class: "instruction-label"}, ["POWER-UPS:"]),
+        createVElement("div", {class: "abilities-container"}, [
+          createVElement("div", {class: "ability-item"}, [
+            createVElement("div", {class: "ability-icon bomb-ability"}, ["💣"]),
+            createVElement("div", {class: "ability-desc"}, ["Bombs: +1 bomb capacity"])
+          ]),
+          createVElement("div", {class: "ability-item"}, [
+            createVElement("div", {class: "ability-icon flame-ability"}, ["🔥"]),
+            createVElement("div", {class: "ability-desc"}, ["Flames: +1 explosion range"])
+          ]),
+          createVElement("div", {class: "ability-item"}, [
+            createVElement("div", {class: "ability-icon speed-ability"}, ["⚡"]),
+            createVElement("div", {class: "ability-desc"}, ["Speed: Faster movement"])
+          ])
+        ])
+      ])
+    ])
+  ]);
+}
 export class Start extends Component {
   getVDom() {
     return createVElement("div", { class: "startbox" }, [
@@ -122,6 +168,7 @@ export class Start extends Component {
       CreateRoom(this.framework),
       JoinRoom(this.framework),
       JoinRoomPopUp(this.framework),
+      instructions(),
     ]);
   }
 }

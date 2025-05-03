@@ -197,6 +197,127 @@
   left: 100%;
 }
 
+
+.instructions-container {
+  width: 80%;
+  margin: 20px auto;
+  padding: 15px;
+  background-color: rgba(13, 27, 42, 0.8);
+  border: 2px solid var(--secondary-color);
+  color: var(--light-color);
+  animation: glow 3s infinite alternate;
+}
+
+.instructions-title {
+  font-size: 1.2rem;
+  color: var(--accent-color);
+  text-align: center;
+  margin-bottom: 15px;
+  text-shadow: 0 0 5px rgba(111, 255, 135, 0.7);
+  letter-spacing: 2px;
+}
+
+.instructions-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.instruction-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.instruction-label {
+  color: var(--secondary-color);
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  text-shadow: 0 0 5px rgba(0, 180, 216, 0.5);
+}
+
+.key-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+}
+
+.arrow-keys {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.arrow-row {
+  display: flex;
+  gap: 5px;
+}
+
+.arrow-key, .action-key {
+  width: 40px;
+  height: 40px;
+  background-color: rgba(0, 180, 216, 0.2);
+  border: 2px solid var(--secondary-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  box-shadow: 0 0 10px rgba(0, 180, 216, 0.3);
+  transition: all 0.2s ease;
+}
+
+.arrow-key:hover, .action-key:hover {
+  background-color: rgba(0, 180, 216, 0.4);
+  box-shadow: 0 0 15px rgba(0, 180, 216, 0.5);
+  transform: translateY(-2px);
+}
+
+.action-key {
+  position: relative;
+  width: 60px;
+}
+
+.key-letter {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--accent-color);
+  text-shadow: 0 0 5px rgba(111, 255, 135, 0.7);
+}
+
+.bomb-icon {
+  position: absolute;
+  font-size: 0.8rem;
+  bottom: 2px;
+  right: 2px;
+}
+
+@media (max-width: 768px) {
+  .instructions-container {
+    width: 90%;
+    padding: 10px;
+  }
+  
+  .instructions-title {
+    font-size: 1rem;
+  }
+  
+  .arrow-key, .action-key {
+    width: 30px;
+    height: 30px;
+    font-size: 1rem;
+  }
+  
+  .action-key {
+    width: 45px;
+  }
+  
+  .key-letter {
+    font-size: 1.2rem;
+  }
+}
+
 /* Media Queries */
 @media (max-width: 768px) {
   .startbox {
@@ -218,3 +339,4 @@
     font-size: 1rem;
   }
 }
+
