@@ -28,6 +28,7 @@ function GameStatus(framework) {
   if (isWin == undefined) {
     return createVElement("", {}, []);
   }
+  framework.setState(socket,null)
 
   let message = "YOU LOSE !!!";
   if (isWin == true) {

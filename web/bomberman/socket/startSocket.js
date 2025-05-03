@@ -62,9 +62,18 @@ export function startWebSocket(app, roomUuid) {
   });
 
   socket.on("lives", (Info) => {
+    if (Info.win == true ) {
+      const uuid = localStorage.getItem("uuid")
+      let winner = Info.winner[0]
+
+      if (uuid == winner.Uuid ) {
+        app.setState("isWin", true);
+      }
+    }
     if (Info.lives == 0 && INFO.playerNbr == Info.playerNbr) {
       app.setState("isWin", false);
     }
+
 
     app.setState("live" + Info.playerNbr.toString(), Info.lives);
   });
@@ -77,3 +86,5 @@ export function startWebSocket(app, roomUuid) {
 export function leaveRoom(socket, roomUuid) {
   socket.emit("leaveRoom", roomUuid);
 }
+
+
