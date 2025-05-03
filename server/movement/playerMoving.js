@@ -2,23 +2,23 @@ import { Rooms } from "../moduls/room.js";
 import { UpdateMap } from "./board.js";
 import { io } from "../server.js";
 function setPower(player, power) {
-
   switch (power) {
     case 8:
       //bombsallowed
-      player.numberbomb++
-
+      player.numberbomb++;
+      break;
     case 6:
-      //speed 
+      //speed
       if (player.Speed < 3) {
-        player.Speed++
-
+        player.Speed++;
       }
+      break;
     case 7:
       // flame
       if (player.Range < 4) {
-        player.Range++
+        player.Range++;
       }
+      break;
   }
 }
 
@@ -47,13 +47,20 @@ export function isValidMove(roomUuid, moveInfo) {
       // console.log("r inside");
 
       if (currentright >= X + 0.95) {
-        if (board[Y][X + 1] === 1 || board[Y][X + 1] === 8
-          || board[Y][X + 1] === 6 || board[Y][X + 1] === 7
+        if (
+          board[Y][X + 1] === 1 ||
+          board[Y][X + 1] === 8 ||
+          board[Y][X + 1] === 6 ||
+          board[Y][X + 1] === 7
         ) {
           if (board[Y][X + 1] != 1 && board[Y][X + 1] != 5) {
-            setPower(currentRoom.Players[playerNbr - 1], board[Y][X + 1], roomUuid)
+            setPower(
+              currentRoom.Players[playerNbr - 1],
+              board[Y][X + 1],
+              roomUuid
+            );
             board[Y][X + 1] = 1;
-            UpdateMap(io, roomUuid)
+            UpdateMap(io, roomUuid);
           }
           currentRoom.playerPosition[playerNbr - 1].x = X + 1;
         } else {
@@ -65,10 +72,10 @@ export function isValidMove(roomUuid, moveInfo) {
       if (currentright >= X + 0.95) {
         if (Math.floor(currentup) == Y) {
           keys.r = false;
-          keys.t = true
+          keys.t = true;
         } else if (Math.floor(currentdown) == Y) {
           keys.r = false;
-          keys.b = true
+          keys.b = true;
         } else {
           keys.r = false; // Disable right movement if blocked
         }
@@ -82,13 +89,20 @@ export function isValidMove(roomUuid, moveInfo) {
       // console.log("l inside");
 
       if (currentleft <= X + 0.05) {
-        if (board[Y][X - 1] === 1 || board[Y][X - 1] === 8
-          || board[Y][X - 1] === 6 || board[Y][X - 1] === 7
+        if (
+          board[Y][X - 1] === 1 ||
+          board[Y][X - 1] === 8 ||
+          board[Y][X - 1] === 6 ||
+          board[Y][X - 1] === 7
         ) {
           if (board[Y][X - 1] != 1 && board[Y][X - 1] != 5) {
-            setPower(currentRoom.Players[playerNbr - 1], board[Y][X - 1], roomUuid)
+            setPower(
+              currentRoom.Players[playerNbr - 1],
+              board[Y][X - 1],
+              roomUuid
+            );
             board[Y][X - 1] = 1;
-            UpdateMap(io, roomUuid)
+            UpdateMap(io, roomUuid);
           }
           currentRoom.playerPosition[playerNbr - 1].x = X - 1;
         } else {
@@ -100,10 +114,10 @@ export function isValidMove(roomUuid, moveInfo) {
       if (currentleft <= X + 0.05) {
         if (Math.floor(currentup) == Y) {
           keys.l = false;
-          keys.t = true
+          keys.t = true;
         } else if (Math.floor(currentdown) == Y) {
           keys.l = false;
-          keys.b = true
+          keys.b = true;
         } else {
           keys.l = false; // Disable right movement if blocked
         }
@@ -117,13 +131,20 @@ export function isValidMove(roomUuid, moveInfo) {
       // console.log("t inside");
 
       if (currentup <= Y + 0.05) {
-        if (board[Y - 1][X] === 1 || board[Y - 1][X] === 8
-          || board[Y - 1][X] === 6 || board[Y - 1][X] === 7
+        if (
+          board[Y - 1][X] === 1 ||
+          board[Y - 1][X] === 8 ||
+          board[Y - 1][X] === 6 ||
+          board[Y - 1][X] === 7
         ) {
           if (board[Y - 1][X] != 1 && board[Y - 1][X] != 5) {
-            setPower(currentRoom.Players[playerNbr - 1], board[Y - 1][X], roomUuid)
+            setPower(
+              currentRoom.Players[playerNbr - 1],
+              board[Y - 1][X],
+              roomUuid
+            );
             board[Y - 1][X] = 1;
-            UpdateMap(io, roomUuid)
+            UpdateMap(io, roomUuid);
           }
           currentRoom.playerPosition[playerNbr - 1].y = Y - 1;
         } else {
@@ -135,12 +156,12 @@ export function isValidMove(roomUuid, moveInfo) {
       if (currentup <= Y + 0.05) {
         if (Math.floor(currentleft) == X) {
           keys.t = false;
-          keys.l = true
-          return isValidMove(roomUuid, moveInfo)
+          keys.l = true;
+          return isValidMove(roomUuid, moveInfo);
         } else if (Math.floor(currentright) == X) {
           keys.t = false;
           keys.r = true;
-          return isValidMove(roomUuid, moveInfo)
+          return isValidMove(roomUuid, moveInfo);
         } else {
           keys.t = false; // Disable right movement if blocked
         }
@@ -154,13 +175,20 @@ export function isValidMove(roomUuid, moveInfo) {
       // console.log("d inside");
 
       if (currentdown >= Y + 0.95) {
-        if (board[Y + 1][X] === 1 || board[Y + 1][X] === 8
-          || board[Y + 1][X] === 6 || board[Y + 1][X] === 7
+        if (
+          board[Y + 1][X] === 1 ||
+          board[Y + 1][X] === 8 ||
+          board[Y + 1][X] === 6 ||
+          board[Y + 1][X] === 7
         ) {
           if (board[Y + 1][X] != 1 && board[Y + 1][X] != 5) {
-            setPower(currentRoom.Players[playerNbr - 1], board[Y + 1][X], roomUuid)
+            setPower(
+              currentRoom.Players[playerNbr - 1],
+              board[Y + 1][X],
+              roomUuid
+            );
             board[Y + 1][X] = 1;
-            UpdateMap(io, roomUuid)
+            UpdateMap(io, roomUuid);
           }
           currentRoom.playerPosition[playerNbr - 1].y = Y + 1;
         } else {
@@ -172,12 +200,12 @@ export function isValidMove(roomUuid, moveInfo) {
       if (currentdown >= Y + 0.95) {
         if (Math.floor(currentleft) == X) {
           keys.b = false;
-          keys.l = true
-          return isValidMove(roomUuid, moveInfo)
+          keys.l = true;
+          return isValidMove(roomUuid, moveInfo);
         } else if (Math.floor(currentright) == X) {
           keys.b = false;
           keys.r = true;
-          return isValidMove(roomUuid, moveInfo)
+          return isValidMove(roomUuid, moveInfo);
         } else {
           keys.b = false; // Disable right movement if blocked
         }

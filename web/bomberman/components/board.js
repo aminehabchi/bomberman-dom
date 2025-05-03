@@ -12,9 +12,22 @@ function Player(nbr) {
   );
 }
 
+function checkIfInexplosionRange(framework, y, x) {
+  let explosionCords = framework.getState("explosionCords");
+  if (explosionCords) {
+    for (let i = 0; i < explosionCords?.length; i++) {
+      let pos = explosionCords[i];
+      if (pos.x == x && pos.y == y) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+
 export function board(framework) {
   let boardTile = framework.getState("map");
-
 
   if (!boardTile) return createVElement("", {}, []);
 
@@ -22,55 +35,66 @@ export function board(framework) {
 
   for (let i = 0; i < boardTile.length; i++) {
     for (let j = 0; j < boardTile[i].length; j++) {
-      const cell = boardTile[i][j];
-      if (cell == 11 || cell == 22 || cell == 33 || cell == 44) {
-        tiles.push(createVElement("div", { class: "tile" }, []));
-      } else {
-        tiles.push(chooseItems(cell));
-      }
+      tiles.push(chooseItems(framework, boardTile[i][j], i, j));
     }
   }
   let playerNbr = framework.getState("Players")?.length || 0;
 
   if (playerNbr > 0) {
-    tiles.push(chooseItems(11));
+    tiles.push(chooseItems(framework, 11));
   }
   if (playerNbr > 1) {
-    tiles.push(chooseItems(22));
+    tiles.push(chooseItems(framework, 22));
   }
   if (playerNbr > 2) {
-    tiles.push(chooseItems(33));
+    tiles.push(chooseItems(framework, 33));
   }
   if (playerNbr > 3) {
-    tiles.push(chooseItems(44));
+    tiles.push(chooseItems(framework, 44));
   }
+
+  setTimeout(() => {
+    framework.setState("explosionCords", []);
+  }, 2000);
 
   return createVElement("div", { class: "grid" }, tiles);
 }
 
-function chooseItems(cell) {
+function chooseItems(framework, cell, y, x) {
+  let tile = createVElement("", {}, []);
   switch (cell) {
     case 0:
-      return createVElement("div", { class: "tile wall" }, []);
+      tile = createVElement("div", { class: "tile wall" }, []);
+      break;
     case 1:
-      return createVElement("div", { class: "tile" }, []);
+      tile = createVElement("div", { class: "tile" }, []);
+      break;
     case 2:
-      return createVElement("div", { class: "tile wall2" }, []);
+      tile = createVElement("div", { class: "tile wall2" }, []);
+      break;
     case 11:
     case 22:
     case 33:
     case 44:
       return Player(cell / 11);
     case 5:
-
-      return createVElement("div", { class: "tile bomb" }, []);
+      tile = createVElement("div", { class: "tile bomb" }, []);
+      break;
     case 6:
-      return createVElement("div", { class: "tile Power Speed" }, []);
+      tile = createVElement("div", { class: "tile Power Speed" }, []);
+      break;
     case 7:
-      return createVElement("div", { class: "tile Power Flame" }, []);
+      tile = createVElement("div", { class: "tile Power Flame" }, []);
+      break;
     case 8:
-      return createVElement("div", { class: "tile Power Bomb" }, []);
+      tile = createVElement("div", { class: "tile Power Bomb" }, []);
+      break;
+  }
+  if (checkIfInexplosionRange(framework, y, x) == true) {
+    if (tile) {
+      tile.props["class"] = tile.props["class"] + " fire";
+    }
   }
 
-  return createVElement("", {}, []);
+  return tile;
 }

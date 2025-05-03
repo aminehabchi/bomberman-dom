@@ -57,14 +57,14 @@ function isPlayerWallInExplosionRange(
   roomUuid,
   NumberOfPlayers
 ) {
-  let explosioncords = [];
+  let explosionCords = [];
   const dirs = [
     [1, 0],
     [-1, 0],
     [0, -1],
     [0, 1],
   ];
-  explosioncords.push({ x: bomb.x, y: bomb.y });
+  explosionCords.push({ x: bomb.x, y: bomb.y });
 
   // check bomb position
   checkPlayer(Players, bomb.x, bomb.y, roomUuid, NumberOfPlayers);
@@ -76,7 +76,7 @@ function isPlayerWallInExplosionRange(
       let y = dy * i + bomb.y;
       checkPlayer(Players, x, y, roomUuid, NumberOfPlayers);
       if (map[y][x] != 0) {
-        explosioncords.push({ x, y });
+        explosionCords.push({ x, y });
 
         // in case if there is a block
         if (map[y][x] == 2) {
@@ -88,7 +88,7 @@ function isPlayerWallInExplosionRange(
     }
   });
 
-  io.to(roomUuid).emit("explode"  , explosioncords)
+  io.to(roomUuid).emit("explode", explosionCords);
 }
 
 function checkPlayer(players, x, y, roomUuid, NumberOfPlayers) {

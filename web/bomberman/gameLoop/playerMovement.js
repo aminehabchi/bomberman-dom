@@ -122,7 +122,6 @@ export function StartGameLoop(framework) {
   inputManager = new InputManager();
 
   setPlayerPosition(INFO.room.playerPosition);
-  console.log(INFO.room.Players);
 
   let PLayers = [];
   let playerNbr = INFO.Players.length;

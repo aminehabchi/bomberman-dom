@@ -1,134 +1,133 @@
+/* Main Game Container */
+.game {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--dark-color);
+  position: relative;
+  overflow: hidden;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url(../assets/background.jpeg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-shadow: inset 0 0 100px rgba(123, 44, 191, 0.4);
+}
 
-  /* Main Game Container */
-  .game {
-    height: 100vh;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--dark-color);
-    position: relative;
-    overflow: hidden;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-                      url(../assets/background.jpeg);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    box-shadow: inset 0 0 100px rgba(123, 44, 191, 0.4);
-  }
-  
-  .game::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="rgba(13, 27, 42, 0.1)"/><rect x="1" y="1" width="38" height="38" fill="rgba(9, 21, 33, 0.05)" rx="2" ry="2"/></svg>');
-    background-size: 40px 40px;
-    pointer-events: none;
-    opacity: 0.3;
-  }
-  
-  /* Sidebar Styles */
-  .sidebar {
-    width: 300px;
-    height: 750px;
-    background-color: rgba(11, 12, 22, 0.9);
-    backdrop-filter: blur(10px);
-    border: 3px solid var(--secondary-color);
-    box-shadow: 0 0 20px rgba(0, 180, 216, 0.4);
-    display: flex;
-    flex-direction: column;
-    margin-right: 20px;
-    animation: glow 3s infinite alternate;
-  }
-  
-  .sidebar .title {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px 0;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    text-shadow: 0 0 10px var(--secondary-color);
-    color: var(--light-color);
-  }
-  
-  .sidebar .title h1 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-  }
-  
-  .sidebar .title h2 {
-    font-size: 1rem;
-    color: var(--accent-color);
-  }
-  
-  /* Players List */
-  .players_list_holder {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap:  20px;
-    align-items: center;
-    text-decoration: none;
-    list-style: none;
-    /* padding: 15px; */
-    margin: 15px;
-    /* border-left: 3px solid var(--primary-color);
+.game::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="rgba(13, 27, 42, 0.1)"/><rect x="1" y="1" width="38" height="38" fill="rgba(9, 21, 33, 0.05)" rx="2" ry="2"/></svg>');
+  background-size: 40px 40px;
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+/* Sidebar Styles */
+.sidebar {
+  width: 300px;
+  height: 750px;
+  background-color: rgba(11, 12, 22, 0.9);
+  backdrop-filter: blur(10px);
+  border: 3px solid var(--secondary-color);
+  box-shadow: 0 0 20px rgba(0, 180, 216, 0.4);
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+  animation: glow 3s infinite alternate;
+}
+
+.sidebar .title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px var(--secondary-color);
+  color: var(--light-color);
+}
+
+.sidebar .title h1 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.sidebar .title h2 {
+  font-size: 1rem;
+  color: var(--accent-color);
+}
+
+/* Players List */
+.players_list_holder {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  align-items: center;
+  text-decoration: none;
+  list-style: none;
+  /* padding: 15px; */
+  margin: 15px;
+  /* border-left: 3px solid var(--primary-color);
     box-shadow: 0 0 10px rgba(123, 44, 191, 0.3); */
-    /* max-height: 500px; */
-    width: 100%;
-  }
-  
-  
-  .player_holder {
-    font-size: 16px;
-    padding: 8px 10px;
-    margin-bottom: 5px;
-    background-color: rgba(0, 180, 216, 0.2);
-    color: var(--light-color);
-    border-radius: 2px;
-    box-shadow: 0 0 5px rgba(0, 180, 216, 0.5);
-    position: relative;
-    border-left: 2px solid var(--secondary-color);
-    display: flex;
-    align-items: center;
-    width: 100%;
-    margin-right: 50px;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .player_holder::before {
-    content: "";
-    position: absolute;
-    width: 6px;
-    height: 6px;
-    background-color: var(--accent-color);
-    border-radius: 50%;
-    left: -3px;
-    top: 50%;
-    transform: translateY(-50%);
-    box-shadow: 0 0 8px var(--accent-color);
-  }
-  
-  /* Game Grid */
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(17, 50px);
-    grid-template-rows: repeat(15, 50px);
-    background-image: url("../assets/grass.png");
-    background-size: cover;
-    position: relative;
-    border: 4px solid var(--secondary-color);
-    box-shadow: 0 0 30px rgba(0, 180, 216, 0.5);
-    position: relative;
-  }
-  
-  /* .grid::after {
+  /* max-height: 500px; */
+  width: 100%;
+}
+
+
+.player_holder {
+  font-size: 16px;
+  padding: 8px 10px;
+  margin-bottom: 5px;
+  background-color: rgba(0, 180, 216, 0.2);
+  color: var(--light-color);
+  border-radius: 2px;
+  box-shadow: 0 0 5px rgba(0, 180, 216, 0.5);
+  position: relative;
+  border-left: 2px solid var(--secondary-color);
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-right: 50px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.player_holder::before {
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background-color: var(--accent-color);
+  border-radius: 50%;
+  left: -3px;
+  top: 50%;
+  transform: translateY(-50%);
+  box-shadow: 0 0 8px var(--accent-color);
+}
+
+/* Game Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(17, 50px);
+  grid-template-rows: repeat(15, 50px);
+  background-image: url("../assets/grass.png");
+  background-size: cover;
+  position: relative;
+  border: 4px solid var(--secondary-color);
+  box-shadow: 0 0 30px rgba(0, 180, 216, 0.5);
+  position: relative;
+}
+
+/* .grid::after {
     content: "";
     position: absolute;
     top: 0;
@@ -139,147 +138,195 @@
     pointer-events: none;
   }
    */
-  /* Tile and Wall Styles */
-  .tile {
-    width: 50px;
-    height: 50px;
-    position: relative;
-  }
-  
-  .wall {
-    background-image: url("../assets/hard-wall.png");
-    background-size: cover;
-    box-shadow: 0 0 10px rgba(123, 44, 191, 0.5);
-  }
-  
-  .wall2 {
-    background-image: url("../assets/wall2.png");
-    background-size: cover;
-  }
-  
-  /* Player Styles */
-  .player {
-    width: 40px;
-    height: 40px;
-    position: absolute;
-  }
-  
-  #player1 {
-    background-image: url("../assets/player/lbidawi.png");
-  }
-  
-  #player2 {
-    background-image: url("../assets/player/karima.png");
-  }
-  
-  #player3 {
-    background-image: url("../assets/player/lmafia.png");
-  }
-  
-  #player4 {
-    background-image: url("../assets/player/lamyea.png");
-  }
-  
-  /* Bomb and Power Styles */
-  .bomb {
-    background-image: url("../assets/bomb.png");
-    background-size: cover;
-    filter: brightness(1.2) contrast(1.2);
-    animation: pulse 2s infinite;
-  }
-  
-  .Power {
-    width: 50px;
-    height: 50px;
-    background-size: cover;
-    filter: brightness(1.3);
-    animation: float 3s ease-in-out infinite;
-  }
-  
-  .Bomb {
-    background-image: url("../assets/powers/bomb.png");
-  }
-  
-  .Speed {
-    background-image: url("../assets/powers/speed.png");
-  }
-  
-  .Flame {
-    background-image: url("../assets/powers/flame.png");
+/* Tile and Wall Styles */
+.tile {
+  width: 50px;
+  height: 50px;
+  position: relative;
+}
+
+.wall {
+  background-image: url("../assets/hard-wall.png");
+  background-size: cover;
+  box-shadow: 0 0 10px rgba(123, 44, 191, 0.5);
+}
+
+.wall2 {
+  background-image: url("../assets/wall2.png");
+  background-size: cover;
+}
+
+/* Player Styles */
+.player {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+}
+
+#player1 {
+  background-image: url("../assets/player/lbidawi.png");
+}
+
+#player2 {
+  background-image: url("../assets/player/karima.png");
+}
+
+#player3 {
+  background-image: url("../assets/player/lmafia.png");
+}
+
+#player4 {
+  background-image: url("../assets/player/lamyea.png");
+}
+
+/* Bomb and Power Styles */
+.bomb {
+  background-image: url("../assets/bomb.png");
+  background-size: cover;
+  filter: brightness(1.2) contrast(1.2);
+  animation: pulse 2s infinite;
+}
+
+.Power {
+  width: 50px;
+  height: 50px;
+  background-size: cover;
+  filter: brightness(1.3);
+  animation: float 3s ease-in-out infinite;
+}
+
+.Bomb {
+  background-image: url("../assets/powers/bomb.png");
+}
+
+.Speed {
+  background-image: url("../assets/powers/speed.png");
+}
+
+.Flame {
+  background-image: url("../assets/powers/flame.png");
+}
+
+.lives {
+  color: var(--secondary-color);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(13, 27, 42, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary-color);
+}
+
+/* Animations */
+@keyframes pulse {
+  0% {
+    opacity: 1;
+    filter: brightness(1.2);
   }
 
-  .lives {
-    color: var(--secondary-color);
+  50% {
+    opacity: 0.9;
+    filter: brightness(1.5);
   }
-  
-  /* Custom Scrollbar */
-  ::-webkit-scrollbar {
-    width: 8px;
+
+  100% {
+    opacity: 1;
+    filter: brightness(1.2);
   }
-  
-  ::-webkit-scrollbar-track {
-    background: rgba(13, 27, 42, 0.5);
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 10px rgba(0, 180, 216, 0.4);
   }
-  
-  ::-webkit-scrollbar-thumb {
-    background: var(--primary-color);
-    border-radius: 0;
+
+  to {
+    box-shadow: 0 0 20px rgba(0, 180, 216, 0.7);
   }
-  
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--secondary-color);
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0);
   }
-  
-  /* Animations */
-  @keyframes pulse {
-    0% { opacity: 1; filter: brightness(1.2); }
-    50% { opacity: 0.9; filter: brightness(1.5); }
-    100% { opacity: 1; filter: brightness(1.2); }
+
+  50% {
+    transform: translateY(-5px);
   }
-  
-  @keyframes glow {
-    from { box-shadow: 0 0 10px rgba(0, 180, 216, 0.4); }
-    to { box-shadow: 0 0 20px rgba(0, 180, 216, 0.7); }
+
+  100% {
+    transform: translateY(0);
   }
-  
-  @keyframes float {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
-    100% { transform: translateY(0); }
+}
+
+/* Add the custom font */
+@font-face {
+  font-family: 'Press Start 2P';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/pressstart2p/v14/e3t4euO8T-267oIAQAu6jDQyK3nVivNm4I81.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1200px) {
+  .game {
+    flex-direction: column;
+    padding: 20px;
   }
-  
-  /* Add the custom font */
-  @font-face {
-    font-family: 'Press Start 2P';
-    font-style: normal;
-    font-weight: 400;
-    src: url(https://fonts.gstatic.com/s/pressstart2p/v14/e3t4euO8T-267oIAQAu6jDQyK3nVivNm4I81.woff2) format('woff2');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+
+  .sidebar {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    margin-right: 0;
+    margin-bottom: 20px;
   }
-  
-  /* Responsive Adjustments */
-  @media (max-width: 1200px) {
-    .game {
-      flex-direction: column;
-      padding: 20px;
-    }
-    
-    .sidebar {
-      width: 100%;
-      max-width: 600px;
-      height: auto;
-      margin-right: 0;
-      margin-bottom: 20px;
-    }
-    
-    .grid {
-      transform: scale(0.6);
-      transform-origin: top center;
-    }
+
+  .grid {
+    transform: scale(0.6);
+    transform-origin: top center;
   }
-  
-  @media (max-width: 768px) {
-    .grid {
-      transform: scale(0.6);
-    }
+}
+
+@media (max-width: 768px) {
+  .grid {
+    transform: scale(0.6);
   }
+}
+
+.fire {
+  animation: fireEffect 1s ease-out;
+  background-color: orange;
+  /* optional: make it visible immediately */
+  z-index: 5;
+}
+
+@keyframes fireEffect {
+  0% {
+    background-color: orange;
+    opacity: 1;
+  }
+
+  50% {
+    background-color: red;
+    opacity: 0.8;
+  }
+
+  100% {
+    background-color: transparent;
+    opacity: 0;
+  }
+}

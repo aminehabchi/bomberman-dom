@@ -35,7 +35,6 @@ export function startWebSocket(app, roomUuid) {
     let players = app.getState("Players");
     players.push(msg["newPlayer"]);
     app.setState("Players", players);
-    console.log(players);
   });
 
   socket.on("moving", (moveInfo) => {
@@ -59,7 +58,7 @@ export function startWebSocket(app, roomUuid) {
     }
   });
   socket.on("explode", (data) => {
-    console.log("qqqqqqqqqqqqqqqq",data);
+    app.setState("explosionCords", data);
   });
 
   socket.on("lives", (Info) => {

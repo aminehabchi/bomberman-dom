@@ -69,7 +69,6 @@ export class Framework {
       });
       this.Event = [];
     }
-    console.log("------", this.Event);
 
     if (this.oldVTree) {
       updateDOM(this.App.firstChild, this.oldVTree, newVTree);
