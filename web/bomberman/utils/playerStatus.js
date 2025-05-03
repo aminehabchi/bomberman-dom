@@ -39,6 +39,9 @@ export async function playerStatus(res, app) {
       INFO.playerNbr = data.nbr;
       console.log("-->", INFO.playerNbr);
 
+      INFO.Players.forEach((player, index) => {
+        app.setWState("live" + (index + 1).toString(), player.Lives);
+      });
       app.setWState("map", data.room.map);
       app.setWState("Players", data.room.Players);
     }
