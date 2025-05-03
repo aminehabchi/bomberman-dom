@@ -24,10 +24,11 @@ function JoinRandomRoom(app) {
 
 function CreateRoom(app) {
   return createVElement(
-    "div",
+    "span",
     {
       class: "createBtn",
       onclick: () => {
+        // return;
         StartGetRoom(app, "CR");
       },
     },

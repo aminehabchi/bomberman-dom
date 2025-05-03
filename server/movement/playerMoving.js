@@ -2,7 +2,6 @@ import { Rooms } from "../moduls/room.js";
 import { UpdateMap } from "./board.js";
 import { io } from "../server.js";
 function setPower(player, power) {
-  console.log(power, player);
 
   switch (power) {
     case 8:

@@ -1,27 +1,22 @@
-import {
-  InputManager,
-  playerPosition,
-} from "./inputManager.js";
+import { InputManager, playerPosition } from "./inputManager.js";
 import { INFO } from "../utils/playerStatus.js";
 
 let tileSize = 50;
 
 addEventListener("keydown", (e) => {
   if (e.key.toLowerCase() === "x") {
-      INFO.socket.emit("bomb", {
-        room: INFO.roomUuid,
-        bombInfo: {
-          x: playerPosition[INFO.playerNbr - 1].x,
-          y: playerPosition[INFO.playerNbr - 1].y,
-          playerNbr: INFO.playerNbr,
-        },
-      });
+    INFO.socket.emit("bomb", {
+      room: INFO.roomUuid,
+      bombInfo: {
+        x: playerPosition[INFO.playerNbr - 1].x,
+        y: playerPosition[INFO.playerNbr - 1].y,
+        playerNbr: INFO.playerNbr,
+      },
+    });
   }
 });
 
 let inputManager;
-
-
 
 function updatePosition(players) {
   players.forEach((player, index) => {
@@ -34,7 +29,7 @@ let PlayersMovement = [
   { r: false, l: false, t: false, b: false },
   { r: false, l: false, t: false, b: false },
   { r: false, l: false, t: false, b: false },
-]
+];
 export const playerDirection = {
   right: { x: 0, y: tileSize * 2 },
   left: { x: 0, y: tileSize },
@@ -80,11 +75,8 @@ function updateFacingPosition(players) {
   });
 }
 
-
-
 export function updateInput22(moveInfo) {
-
-  PlayersMovement[moveInfo.playerNbr - 1] = moveInfo.keys
+  PlayersMovement[moveInfo.playerNbr - 1] = moveInfo.keys;
 
   const playerNbr = moveInfo.playerNbr - 1;
 
@@ -112,7 +104,6 @@ export function updateInput22(moveInfo) {
   }
 }
 
-
 let id;
 
 function setPlayerPosition(Position) {
@@ -131,6 +122,7 @@ export function StartGameLoop(framework) {
   inputManager = new InputManager();
 
   setPlayerPosition(INFO.room.playerPosition);
+  console.log(INFO.room.Players);
 
   let PLayers = [];
   let playerNbr = INFO.Players.length;

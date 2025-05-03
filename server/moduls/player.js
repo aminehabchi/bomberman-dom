@@ -1,4 +1,6 @@
 import { generateUUID } from "../service/uuid.js";
+import { deepCopy } from "../service/deepClone.js";
+
 export let Players = {};
 
 export class Player {
@@ -13,15 +15,16 @@ export class Player {
     this.Speed = 1;
     this.Range = 1;
     this.Lives = 3;
-    this.numberbomb = 1 
+    this.numberbomb = 1;
   }
 }
 
 export function lose(uuid) {
-  let player = Players[uuid]
+  let player = deepCopy(Players[uuid]);
   player.Speed = 1;
   player.Range = 1;
   player.JoinedRoom = "";
+  Players[uuid] = player;
 }
 
 export function createPlayer(nickname) {
@@ -41,5 +44,3 @@ export function getNickname(uuid) {
   }
   return undefined;
 }
-
-

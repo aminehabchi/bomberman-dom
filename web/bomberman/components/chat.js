@@ -109,7 +109,9 @@ function Header(framework) {
 
 export class Chat extends Component {
   Mounting() {
-    startWebSocket(this.framework, INFO.roomUuid);
+    if (!INFO.socket){
+      startWebSocket(this.framework, INFO.roomUuid);
+    }
   }
 
   getVDom() {

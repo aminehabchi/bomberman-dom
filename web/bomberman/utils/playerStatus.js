@@ -6,7 +6,7 @@ export let INFO = {
   playerNbr: -1,
   socket: undefined,
 };
-
+import { startWebSocket } from "../socket/startSocket.js";
 /*
 ---player status when page load
   
@@ -39,12 +39,13 @@ export async function playerStatus(res, app) {
       INFO.playerNbr = data.nbr;
       console.log("-->", INFO.playerNbr);
 
-      app.setState("map", data.room.map);
-      app.setState("Players", data.room.Players);
+      app.setWState("map", data.room.map);
+      app.setWState("Players", data.room.Players);
     }
 
     if (data.player.JoinedRoom != "") {
       if (data.room.IsStart == true) {
+        startWebSocket(app, INFO.roomUuid);
         history.pushState(null, "", "/game");
       } else {
         history.pushState(null, "", "/chat");
@@ -111,8 +112,8 @@ export async function StartGetRoom(framework, type, RoomUuid) {
     INFO.playerNbr = data.nbr;
     console.log("-->", INFO.playerNbr);
 
-    framework.setState("Players", data.room.Players);
-    framework.setState("map", data.room.map);
+    framework.setWState("Players", data.room.Players);
+    framework.setWState("map", data.room.map);
     framework.navigateTo("/chat");
   } else {
     framework.navigateTo("/");
