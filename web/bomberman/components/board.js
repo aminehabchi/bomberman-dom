@@ -25,7 +25,6 @@ function checkIfInexplosionRange(framework, y, x) {
   return false;
 }
 
-
 export function board(framework) {
   let boardTile = framework.getState("map");
 
@@ -52,10 +51,14 @@ export function board(framework) {
   if (playerNbr > 3) {
     tiles.push(chooseItems(framework, 44));
   }
-
-  setTimeout(() => {
-    framework.setState("explosionCords", []);
-  }, 2000);
+  if (
+    framework.getState("explosionCords") &&
+    framework.getState("explosionCords").length > 0
+  ) {
+    setTimeout(() => {
+      framework.setState("explosionCords", []);
+    }, 1200);
+  }
 
   return createVElement("div", { class: "grid" }, tiles);
 }

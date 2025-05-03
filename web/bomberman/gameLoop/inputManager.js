@@ -8,10 +8,6 @@ export var playerPosition = [
   { x: 15 * tileSize, y: 13 * tileSize },
 ];
 
-
-
-
-
 export class InputManager {
   constructor() {
     this.Keys = new Set();
@@ -30,6 +26,11 @@ export class InputManager {
     document.addEventListener("keyup", this.#handleKeyUp);
   }
 
+  removeEvents() {
+    document.removeEventListener("keydown", this.boundKeyDown);
+    document.removeEventListener("keyup", this.boundKeyUp);
+    this.#stopMoving(); // Optional: also stop any ongoing movement
+  }
   isSetEmpty() {
     return this.Keys.size === 0;
   }

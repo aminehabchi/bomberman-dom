@@ -1,6 +1,7 @@
 import { updateInput22 } from "../gameLoop/playerMovement.js";
 import { INFO } from "../utils/playerStatus.js";
 import { setBomb } from "../gameLoop/bomb.js";
+import { StopGameLoop } from "../gameLoop/playerMovement.js";
 
 export function startWebSocket(app, roomUuid) {
   console.log("START WEBSOCKET");
@@ -62,14 +63,21 @@ export function startWebSocket(app, roomUuid) {
       let winner = Info.winner[0];
 
       if (uuid == winner.Uuid) {
+        console.log("wiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiin");
         app.setState("isWin", true);
       }
+      //StopGameLoop();
+      return;
     }
-    if (Info.lives == 0 && INFO.playerNbr == Info.playerNbr) {
+    if (Info.lives <= 0 && INFO.playerNbr == Info.playerNbr) {
+      //StopGameLoop();
+      console.log("looooooooooooooooooooooooooooooooooooooose");
+
       app.setState("isWin", false);
+      return;
     }
 
-    app.setState("live" + Info.playerNbr.toString(), Info.lives);
+    app.setState("live" + Info?.playerNbr.toString(), Info.lives);
   });
 
   socket.on("winStatus", (status) => {

@@ -116,7 +116,7 @@ function setPlayerPosition(Position) {
   playerPosition[3].x = Position[3].x * tileSize;
   playerPosition[3].y = Position[3].y * tileSize;
 }
-export function StartGameLoop(framework) {
+export async function StartGameLoop(framework) {
   StopGameLoop();
 
   inputManager = new InputManager();
@@ -146,6 +146,7 @@ export function StartGameLoop(framework) {
   }
 
   id = requestAnimationFrame(gameLoop);
+  inputManager.removeEvents();
 }
 
 export function StopGameLoop() {

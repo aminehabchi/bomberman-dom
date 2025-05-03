@@ -115,6 +115,7 @@ export class Chat extends Component {
   }
 
   getVDom() {
+    
     return createVElement("div", { class: "chatContainer" }, [
       Header(this.framework),
       HeaderChat(this.framework.getState("Players")),
