@@ -200,12 +200,14 @@
 
 .instructions-container {
   width: 80%;
+  height: 250px;
   margin: 20px auto;
   padding: 15px;
   background-color: rgba(13, 27, 42, 0.8);
   border: 2px solid var(--secondary-color);
   color: var(--light-color);
   animation: glow 3s infinite alternate;
+  overflow-y: scroll;
 }
 
 .instructions-title {
