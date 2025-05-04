@@ -1,6 +1,5 @@
 import { io } from "../server.js";
 import { Rooms } from "../moduls/room.js";
-import { lose } from "../moduls/player.js";
 export function updateLife(playerNbr, roomUuid) {
   let player = Rooms[roomUuid].Players[playerNbr - 1];
   player.Lives--;
@@ -24,7 +23,7 @@ export function updateLife(playerNbr, roomUuid) {
       }
     }
 
-    lose(player.Uuid);
+   
   }
   if (player) {
     io.to(roomUuid).emit("lives", {
