@@ -18,7 +18,7 @@ A multiplayer Bomberman game built using vanilla JavaScript and WebSockets, with
 ### Game Controls
 
 - **Movement**: Arrow keys (↑, ↓, ←, →)
-- **Place Bomb**: Spacebar
+- **Place Bomb**: x
 
 ### Game Rules
 
