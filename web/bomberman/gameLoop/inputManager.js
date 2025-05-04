@@ -106,6 +106,7 @@ export class InputManager {
 }
 
 function sendToServer(newKeys, position) {
+  if (!INFO.socket) return
   INFO.socket.emit("moving", {
     room: INFO.roomUuid,
     moveInfo: {

@@ -69,13 +69,24 @@ export function startWebSocket(app, roomUuid) {
       return;
     }
     if (Info.lives <= 0 && INFO.playerNbr == Info.playerNbr) {
-
+      socket.removeAllListeners();
+      socket.disconnect();
+      INFO.socket = undefined;
+      
       StopGameLoop();
+
       console.log("looooooooooooooooooooooooooooooooooooooose");
 
       app.setState("isWin", false);
       return;
     }
+    if (Info?.lives == 0) {
+      let loser = app.getRef("player" + Info.playerNbr.toString())
+      console.log(loser);
+
+      loser.classList.add("loser")
+    }
+
 
     app.setState("live" + Info?.playerNbr.toString(), Info.lives);
   });

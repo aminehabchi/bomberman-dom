@@ -11,8 +11,10 @@ export class Game extends Component {
   }
   UnMounting() {
     StopGameLoop();
-    INFO.socket.disconnect();
-    INFO.socket = undefined;
+    if (INFO.socket) {
+      INFO.socket.disconnect();
+      INFO.socket = undefined;
+    }
     this.framework.setWState("isWin", undefined);
     this.framework.setWState("live1", 3);
     this.framework.setWState("live2", 3);
@@ -46,7 +48,6 @@ function GameStatus(framework) {
         {
           class: "backToHome",
           onclick: () => {
-            leaveRoom(INFO.socket, INFO.roomUuid);
             INFO.Players = [];
             INFO.room = "";
             INFO.roomUuid = "";
