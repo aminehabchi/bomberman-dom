@@ -44,6 +44,7 @@ export function AddPlayerToRoom(player) {
   player.JoinedRoom = AvailableRoom.Uuid;
   AvailableRoom.Players.push(player);
   player.Nbr = AvailableRoom.Players.length;
+  AvailableRoom.NbrPlayes++
   if (player.Nbr == 2) {
     start20Timer(player.JoinedRoom);
   }

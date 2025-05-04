@@ -14,7 +14,7 @@ export async function start20Timer(roomUuid) {
 
     timer++;
     io.to(roomUuid).emit("timer", { timer });
-    if (currentRoom.Players.length == 4 || timer == 5) {
+    if (currentRoom.Players.length == 4 || timer == 20) {
       clearTimeout(id);
       start10Timer(roomUuid);
       return;
@@ -26,7 +26,7 @@ export async function start20Timer(roomUuid) {
 }
 
 async function start10Timer(roomUuid) {
-  let timer = 1 + 1;
+  let timer = 10 + 1;
   let id;
 
   function counter() {
