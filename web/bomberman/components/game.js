@@ -14,6 +14,10 @@ export class Game extends Component {
     INFO.socket.disconnect();
     INFO.socket = undefined;
     this.framework.setWState("isWin", undefined);
+    this.framework.setWState("live1", 3);
+    this.framework.setWState("live2", 3);
+    this.framework.setWState("live3", 3);
+    this.framework.setWState("live4", 3);
   }
   getVDom() {
     return createVElement("div", { class: "game" }, [
