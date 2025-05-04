@@ -1,9 +1,13 @@
 import { io } from "../server.js";
 import { Rooms } from "../moduls/room.js";
+import { Players } from "../moduls/player.js";
 export function updateLife(playerNbr, roomUuid) {
   let player = Rooms[roomUuid].Players[playerNbr - 1];
   player.Lives--;
-  if (player.Lives == 0) {
+  if (player.Lives <= 0) {
+    Players[player.Uuid].JoinedRoom = ''
+    console.log(player);
+
     Rooms[roomUuid].DeadPlayers.push(player);
     let deadplayernbr = Rooms[roomUuid].DeadPlayers.length;
     let nbPlayer = Rooms[roomUuid].Players.length;
@@ -19,11 +23,12 @@ export function updateLife(playerNbr, roomUuid) {
       // Valeurs différentes dans les deux (non partagées)
       const winner = [...diffA, ...diffB]; // [1, 3, 5]
       if (winner) {
+        Rooms[roomUuid].Players.forEach(p => {
+          Players[p.Uuid].JoinedRoom = ''
+        });
         io.to(roomUuid).emit("lives", { winner: winner, win: true });
       }
     }
-
-   
   }
   if (player) {
     io.to(roomUuid).emit("lives", {

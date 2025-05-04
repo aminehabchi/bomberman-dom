@@ -1,6 +1,7 @@
 import { generateUUID } from "../service/uuid.js";
 import { prepereBaord } from "../movement/board.js";
 import { start20Timer } from "./counter.js";
+
 export class Room {
   constructor(uuid, Map) {
     this.Uuid = uuid;

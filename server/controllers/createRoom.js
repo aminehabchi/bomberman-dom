@@ -1,12 +1,13 @@
-import { getPlayer, InsertPlayerToRoom } from "../moduls/player.js";
+import { getPlayer, InsertPlayerToRoom, Players } from "../moduls/player.js";
 import { AddPlayerToRoom } from "../moduls/room.js";
 import { CreateRoom, Rooms } from "../moduls/room.js";
 import { deepCopy } from "../service/deepClone.js";
 
 function JoinRRoom(res, player) {
-  let room = AddPlayerToRoom(deepCopy(player));
-  player = deepCopy(player)
+
+  let room = AddPlayerToRoom(player);
   InsertPlayerToRoom(player, room);
+  Players[player.Uuid] = deepCopy(player)
 
   res.statusCode = 200;
   res.setHeader("Content-Type", "application/json");
@@ -17,12 +18,12 @@ function CreateJoinRoom(res, player) {
   //prepare room
   let room = CreateRoom();
   room.IsCreated = true;
-  player = deepCopy(player)
   room.Players.push(player);
   Rooms[room.Uuid] = room;
 
   InsertPlayerToRoom(player, room);
 
+  Players[player.Uuid] = deepCopy(player)
   /* */
   res.statusCode = 200;
   res.setHeader("Content-Type", "application/json");
@@ -33,10 +34,9 @@ function JoinRoom(res, player, roomUuid) {
   let room = Rooms[roomUuid];
 
   if (room && room.Players.length < 4) {
-    player = deepCopy(player)
     room.Players.push(player);
     InsertPlayerToRoom(player, room);
-
+    Players[player.Uuid] = deepCopy(player)
     res.statusCode = 200;
     res.setHeader("Content-Type", "application/json");
     res.end(JSON.stringify({ room: room, nbr: player.Nbr }));
