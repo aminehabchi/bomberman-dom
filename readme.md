@@ -1,6 +1,6 @@
 # Bomberman DOM
 
-![Bomberman Game](./web/bomberman/assets/bomberman-banner.png)
+![Bomberman Game](./game.png)
 
 A multiplayer Bomberman game built using vanilla JavaScript and WebSockets, without canvas or WebGL. This project implements a classic Bomberman-style game where 2-4 players can battle until one remains standing.
 
