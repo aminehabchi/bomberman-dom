@@ -5,6 +5,7 @@ import { deepCopy } from "../service/deepClone.js";
 
 function JoinRRoom(res, player) {
   let room = AddPlayerToRoom(deepCopy(player));
+  player = deepCopy(player)
   InsertPlayerToRoom(player, room);
 
   res.statusCode = 200;
@@ -16,7 +17,8 @@ function CreateJoinRoom(res, player) {
   //prepare room
   let room = CreateRoom();
   room.IsCreated = true;
-  room.Players.push(deepCopy(player));
+  player = deepCopy(player)
+  room.Players.push(player);
   Rooms[room.Uuid] = room;
 
   InsertPlayerToRoom(player, room);
@@ -30,8 +32,9 @@ function CreateJoinRoom(res, player) {
 function JoinRoom(res, player, roomUuid) {
   let room = Rooms[roomUuid];
 
-  if (room.Players.length < 4) {
-    room.Players.push(deepCopy(player));
+  if (room && room.Players.length < 4) {
+    player = deepCopy(player)
+    room.Players.push(player);
     InsertPlayerToRoom(player, room);
 
     res.statusCode = 200;
@@ -40,7 +43,7 @@ function JoinRoom(res, player, roomUuid) {
   } else {
     res.statusCode = 200;
     res.setHeader("Content-Type", "application/json");
-    res.end(JSON.stringify({ error: "Room is Full !!" }));
+    res.end(JSON.stringify({ error: "Room is Full or Not Found !!" }));
   }
 }
 
