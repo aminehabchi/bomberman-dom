@@ -61,9 +61,7 @@ export function startWebSocket(app, roomUuid) {
   socket.on("lives", (Info) => {
     if (Info.win == true) {
       const uuid = localStorage.getItem("uuid");
-      let winner = Info.winner[0];
-
-      if (uuid == winner.Uuid) {
+      if (uuid == Info.Uuid) {
         console.log("wiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiin");
         app.setState("isWin", true);
       }
@@ -71,6 +69,7 @@ export function startWebSocket(app, roomUuid) {
       return;
     }
     if (Info.lives <= 0 && INFO.playerNbr == Info.playerNbr) {
+
       StopGameLoop();
       console.log("looooooooooooooooooooooooooooooooooooooose");
 

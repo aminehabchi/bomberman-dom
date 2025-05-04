@@ -54,7 +54,7 @@ function GameStatus(framework) {
             framework.navigateTo("/start");
           },
         },
-        ["Playe Again"]
+        ["Play Again"]
       ),
     ]),
   ]);

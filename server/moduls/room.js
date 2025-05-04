@@ -12,7 +12,7 @@ export class Room {
     this.CreatedAt = new Date();
     this.IsStart = false;
     this.IsCreated = false;
-    this.DeadPlayers = []
+    this.AlivePlayers = 4
     this.map = Map;
     this.playerPosition = [
       { x: 1, y: 1 }, // player 1

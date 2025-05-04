@@ -4,7 +4,7 @@ import { updateLife } from "./updateLives.js";
 import { UpdateMap } from "../movement/board.js";
 const bombTimer = 2500;
 
-async function handleBomb(roomUuid, bombInfo) {
+function handleBomb(roomUuid, bombInfo) {
   let currentRoom = Rooms[roomUuid];
   let x = currentRoom.playerPosition[bombInfo.playerNbr - 1].x;
   let y = currentRoom.playerPosition[bombInfo.playerNbr - 1].y;
@@ -22,7 +22,7 @@ async function handleBomb(roomUuid, bombInfo) {
 
 export default handleBomb;
 
-async function Explode(x, y, playerNbr, roomUuid) {
+function Explode(x, y, playerNbr, roomUuid) {
   let currentRoom = Rooms[roomUuid];
   let NumberOfPlayers = currentRoom.Players.length;
   let range = currentRoom.Players[playerNbr - 1].Range;
