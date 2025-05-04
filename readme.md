@@ -8,7 +8,7 @@ A multiplayer Bomberman game built using vanilla JavaScript and WebSockets, with
 
 - **Multiplayer**: 2-4 players can join and play together in real-time
 - **WebSocket Communication**: Real-time game state updates and chat functionality
-- **Custom Mini Framework**: Built on top of my [Mini-Framework](https://github.com/yourusername/mini-framework) project
+- **Custom Mini Framework**: Built on top of my [Mini-Framework](https://github.com/aminehabchi/mini-framework) project
 - **Room System**: Create private rooms or join random ones
 - **Power-ups**: Collect items to increase bombs, explosion range, and speed
 - **Responsive Design**: Fully responsive game interface that works across devices
@@ -123,4 +123,4 @@ This project is built on top of my custom mini-framework which provides:
 
 - Original Bomberman game by Hudson Soft
 - All contributors and testers
-- [Mini-Framework](https://github.com/yourusername/mini-framework) project
+- [Mini-Framework](https://github.com/aminehabchi/mini-framework) project
