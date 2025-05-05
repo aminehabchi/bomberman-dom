@@ -4,9 +4,7 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "build": "webpack --config webpack.config.js"
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
