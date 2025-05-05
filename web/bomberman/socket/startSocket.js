@@ -62,22 +62,29 @@ export function startWebSocket(app, roomUuid) {
     if (Info.win == true) {
       const uuid = localStorage.getItem("uuid");
       if (uuid == Info.Uuid) {
+
         console.log("wiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiin");
         app.setState("isWin", true);
       }
       StopGameLoop();
+      setTimeout(() => {
+        location.reload();
+      }, 2000)
       return;
     }
     if (Info.lives <= 0 && INFO.playerNbr == Info.playerNbr) {
       socket.removeAllListeners();
       socket.disconnect();
       INFO.socket = undefined;
-      
+
       StopGameLoop();
 
       console.log("looooooooooooooooooooooooooooooooooooooose");
 
       app.setState("isWin", false);
+      setTimeout(() => {
+        location.reload();
+      }, 2000)
       return;
     }
     if (Info?.lives == 0) {

@@ -1,7 +1,6 @@
 import http from "http";
 import routing from "./routes/Routes.js";
 import { Server } from "socket.io";
-import { Players } from "./moduls/player.js";
 import handleBomb from "./bomb/handleBomb.js";
 
 import { Rooms } from "./moduls/room.js";
@@ -11,6 +10,20 @@ const PORT = 3000;
 const server = http.createServer((req, res) => {
   routing(req, res);
 });
+
+async function deleteRoom(io, roomName) {
+  try {
+    const sockets = await io.in(roomName).fetchSockets();
+
+    for (const socket of sockets) {
+      socket.leave(roomName);
+    }
+
+    console.log(`Room "${roomName}" has been deleted.`);
+  } catch (err) {
+    console.error(`Failed to delete room "${roomName}":`, err);
+  }
+}
 
 export const io = new Server(server);
 import { isValidMove } from "./movement/playerMoving.js";
@@ -51,6 +64,11 @@ io.on("connection", (socket) => {
       handleBomb(room, bombInfo, socket);
       UpdateMap(io, room);
       io.to(room).emit("bomb", bombInfo);
+    }
+
+    if (Rooms[room].AlivePlayers <= 1) {
+      delete Rooms[room]
+      deleteRoom(io, room)
     }
   });
 });
